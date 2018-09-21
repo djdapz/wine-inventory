@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/wine-test
+    password: winepwd
+    username: wineuser
+  flyway:
+    locations: classpath:db/migrations
+
+server:
+  port: 8080
+

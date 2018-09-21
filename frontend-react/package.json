@@ -1,0 +1,25 @@
+{
+  "name": "frontend-react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@petejkim/react-scripts-ts-sass": "2.15.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "PORT=3210 npm run start && cypress run && kill-port 3210 ",
+    "eject": "react-scripts-ts eject"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.3.6",
+    "@types/node": "^10.10.1",
+    "@types/react": "^16.4.14",
+    "@types/react-dom": "^16.0.7",
+    "cypress": "^3.1.0",
+    "kill-port": "^1.3.2",
+    "typescript": "^3.0.3"
+  }
+}

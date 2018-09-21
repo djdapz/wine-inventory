@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  luke-db:
+    image: postgres
+    environment:
+      POSTGRES_DB: wine-test
+      POSTGRES_PASSWORD: winepwd
+      POSTGRES_USER: wineuser
+    ports:
+      - "5432:5432"
