@@ -4,7 +4,10 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController("/wines")
-class WineController(val wineReader: WineReader, val wineWriter: WineWriter) {
+class WineController(
+        private val wineReader: WineReader,
+        private val wineWriter: WineWriter
+) {
 
     data class WineRequest(
             val type: String,
