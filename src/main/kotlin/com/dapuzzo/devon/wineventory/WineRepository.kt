@@ -20,24 +20,26 @@ class WineRepository(jdbcTemplate: JdbcTemplate) : WineWriter, WineReader {
                         producer = rs.getString("producer"),
                         year = rs.getInt("year"),
                         quantity = rs.getInt("quantity"),
-                        id = rs.getInt("id")
+                        id = rs.getInt("id"),
+                        country = rs.getString("country")
                 )
             }
 
-    override fun save(type: String, producer: String, year: Int, quantity: Int): Int =
+    override fun save(type: String, producer: String, year: Int, quantity: Int, country: String): Int =
             GeneratedKeyHolder().run {
                 db.update(
                         //language=sql
                         """
-                INSERT INTO wines(type, producer, year, quantity)
-                VALUES (:type, :producer, :year, :quantity)
+                INSERT INTO wines(type, producer, year, quantity, country)
+                VALUES (:type, :producer, :year, :quantity, :country)
             """.trimIndent(),
                         MapSqlParameterSource(
                                 mapOf(
                                         "type" to type,
                                         "producer" to producer,
                                         "year" to year,
-                                        "quantity" to quantity
+                                        "quantity" to quantity,
+                                        "country" to country
                                 )
                         ), this)
                 this.keys!!["id"] as Int

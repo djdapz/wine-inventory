@@ -23,14 +23,16 @@ open class WineRepositoryTest {
         val producer = "Monteverde"
         val year = 2001
         val quantity = 12
+        val country = "Italy"
 
-        val expected = subject.save(type, producer, year, quantity).run {
+        val expected = subject.save(type, producer, year, quantity, country).run {
             Wine(
                     type = type,
                     producer = producer,
                     year = year,
                     quantity = quantity,
-                    id = this
+                    id = this,
+                    country=country
             )
         }
 

@@ -31,7 +31,7 @@ dependencies {
     testCompile("org.jetbrains.kotlin:kotlin-test")
     testCompile("org.jetbrains.kotlin:kotlin-test-junit")
     testCompile("com.github.javafaker:javafaker:0.14")
-
+    testCompile("org.skyscreamer:jsonassert:1.5.0")
     testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion") {
         exclude(module = "commons-logging")
     }

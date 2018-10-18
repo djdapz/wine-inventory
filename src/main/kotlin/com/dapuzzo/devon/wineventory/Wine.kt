@@ -5,5 +5,6 @@ data class Wine(
         val producer: String,
         val year: Int,
         val quantity: Int,
+        val country: String,
         val id: Int
 )

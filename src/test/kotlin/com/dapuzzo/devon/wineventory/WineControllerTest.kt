@@ -28,7 +28,8 @@ class WineControllerTest {
                       "type": "Barolo",
                       "producer": "Lionello Marchesi",
                       "year": 2009,
-                      "quantity": 10
+                      "quantity": 10,
+                      "country": "Italy"
                     }
                 """.trimIndent()))
                 .exchange()
@@ -38,7 +39,8 @@ class WineControllerTest {
                 type = "Barolo",
                 producer = "Lionello Marchesi",
                 year = 2009,
-                quantity = 10
+                quantity = 10,
+                country = "Italy"
         )
     }
 
@@ -49,6 +51,7 @@ class WineControllerTest {
                 quantity = 10,
                 producer = "Lionello Marchesi",
                 year = 2009,
+                country="Italy",
                 id = 24
         )
         whenever(wineReader.getAll()).thenReturn(listOf(expectedWine))
