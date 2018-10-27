@@ -3,8 +3,9 @@ import * as React from "react";
 import {connect} from 'react-redux'
 import {Dispatch} from "redux";
 import {getAllWine} from "./Wine.actions";
-import './WineList.scss'
 import Card from "@material-ui/core/Card/Card";
+
+import styled from "styled-components";
 
 export class Wine {
     type: string;
@@ -14,13 +15,38 @@ export class Wine {
     country: string;
 }
 
-interface WineListProps {
-    wines: Wine[],
+interface WineListDispatchProps {
     getWines: () => void
 }
 
-class WineList extends React.Component<WineListProps> {
+interface WineListPassedProps {
+    wines: Wine[],
+}
 
+type WineListProps = WineListDispatchProps & WineListPassedProps
+
+
+const WineCard = styled(Card)`
+  margin-bottom: 1rem;
+  background-color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const PipeWrapper = styled.span`
+   margin: 0 .5rem;
+`;
+
+const Pipe = () => <PipeWrapper>|</PipeWrapper>;
+
+const StyledWineList = styled.div`
+  flex-grow:  1;
+  padding: 1rem;
+`;
+
+class WineList extends React.Component<WineListProps> {
 
     constructor(props: WineListProps) {
         super(props);
@@ -28,27 +54,28 @@ class WineList extends React.Component<WineListProps> {
     }
 
     render() {
-        return <div id={'wine-list'}>
+        return <StyledWineList id={'wine-list'}>
             {this.renderWines()}
-        </div>
+        </StyledWineList>
     }
 
     private renderWines() {
-        return this.props.wines.map((wine: Wine) => <Card className={'wine-card'}>
+        return this.props.wines.map((wine: Wine) => <WineCard key={wine.year + wine.producer + wine.type}
+                                                              className={'wine-card'}>
             <div>
                 <div>
                     <span className={'producer'}>{wine.producer}</span>
-                    <span className={'pipe'}>|</span>
+                    <Pipe/>
                     <span className={'country'}>{wine.country}</span>
                 </div>
                 <div>
                     <span className={'type'}>{wine.type}</span>
-                    <span className={'pipe'}>|</span>
+                    <Pipe/>
                     <span className={'year'}>{wine.year}</span>
                 </div>
             </div>
             <div className={'quantity'}><b>{wine.quantity}</b> left</div>
-        </Card>)
+        </WineCard>)
     }
 }
 
@@ -60,4 +87,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     getWines: () => getAllWine(dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(WineList)
+export default connect<WineListPassedProps, WineListDispatchProps, {}>(mapStateToProps, mapDispatchToProps)(WineList)

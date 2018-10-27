@@ -1,0 +1,6 @@
+body, html, #root, .App{
+  font-family: 'Raleway', sans-serif;
+  background-image: linear-gradient(to bottom right,#8e2dfa, rgba(141, 49, 255, 0.12));
+  height: 100%;
+  margin: 0;
+}

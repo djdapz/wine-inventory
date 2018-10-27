@@ -29,6 +29,10 @@ export const addYearToWineRequest = (year: number) => ({
     payload: year
 });
 
+export const openCreateWineForm = () => ({
+    type: CreateWineRequestActions.openCreateWineForm,
+});
+
 export const submitCreateWine = (dispatch: Dispatch, createWineRequest: CreateWineRequest) => {
     axios.post(`${backendUri}/wines`, createWineRequest)
         .then(() => dispatch(createWineSucceded()), () => dispatch(createWineFailed()))
@@ -39,6 +43,7 @@ export const createWineFailed = () => ({type: CreateWineRequestActions.createWin
 export const createWineSucceded = () => ({type: CreateWineRequestActions.createWineSucceded});
 
 export const enum CreateWineRequestActions {
+    openCreateWineForm = "openCreateWineForm",
     createWineSucceded = "createWineSucceded",
     createWineFailed = "createWineFailed",
     addQuantityToWineRequest = "addQuantityToWineRequest",

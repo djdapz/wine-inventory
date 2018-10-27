@@ -63,6 +63,7 @@ context('Actions', () => {
 
     describe("Creating wine", () => {
         it("should allow user to fill out form", () => {
+            cy.get("button#open-create-wine-form").click();
             cy.get("#create-wine-form .country-input input").type("Spain");
             cy.get("#create-wine-form .producer-input input").type("Orin Swift");
             cy.get("#create-wine-form .type-input input").type("Tempranillo");
@@ -93,7 +94,7 @@ context('Actions', () => {
             cy.get("#create-wine-form .submit-button").should("not.be.disabled");
         });
 
-        it('should clear form on success', function () {
+        it('should hide form on success', function () {
             cy.get("#create-wine-form .country-input input").type("Spain");
             cy.get("#create-wine-form .producer-input input").type("Orin Swift");
             cy.get("#create-wine-form .type-input input").type("Tempranillo");
@@ -102,7 +103,7 @@ context('Actions', () => {
 
             cy.get("#create-wine-form .submit-button").click();
             cy.wait("@postWines");
-            cy.get("#create-wine-form .submit-button").should("be.disabled");
+            cy.get('#create-wine-form').should('not.exist');
         });
 
         it('should reload wines on success', function () {
@@ -115,7 +116,6 @@ context('Actions', () => {
             cy.get("#create-wine-form .submit-button").click();
             cy.wait("@postWines");
             cy.wait("@postWines");
-
         });
     })
 });

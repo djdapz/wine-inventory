@@ -1,6 +1,7 @@
 import * as React from "react";
 import TextField from "@material-ui/core/TextField/TextField";
 import {CreateWineRequest} from "./CreateWine.types";
+import AddIcon from '@material-ui/icons/Add';
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {
@@ -9,22 +10,37 @@ import {
     addQuantityToWineRequest,
     addTypeToWineRequest,
     addYearToWineRequest,
+    openCreateWineForm,
     submitCreateWine
 } from "./CreateWine.actions";
 import Button from "@material-ui/core/Button/Button";
+import styled from "styled-components";
 
 interface CreateWineFormProps {
-    createWineFormRequest: CreateWineRequest
+    createWineFormRequest: CreateWineRequest | null
     changeType: (type: string) => void
     changeYear: (year: number) => void
     changeQuantity: (quantity: number) => void
     changeProducer: (producer: string) => void
     changeCountry: (country: string) => void
-    submit: (createWineRequest: CreateWineRequest) => void
+    submit: (createWineRequest: CreateWineRequest) => void,
+    openForm: () => void
 }
 
-const CreateWineForm = (props: CreateWineFormProps) => (
-    <div id="create-wine-form">
+let handleNum = (fun: (n: number) => void) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const val = parseInt(event.target.value);
+    if (!isNaN(val)) {
+        fun(val)
+    }
+};
+
+const StyledForm = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormRequest ?
+    <StyledForm id="create-wine-form">
         <TextField
             className={'country-input'}
             label="Country"
@@ -41,7 +57,6 @@ const CreateWineForm = (props: CreateWineFormProps) => (
             margin="normal"
             variant="outlined"
         />
-
         <TextField
             className={'type-input'}
             label="Type"
@@ -50,31 +65,32 @@ const CreateWineForm = (props: CreateWineFormProps) => (
             margin="normal"
             variant="outlined"
         />
-
         <TextField
             className={'year-input'}
             label="Year"
             value={props.createWineFormRequest.year}
-            onChange={(event) => props.changeYear(parseInt(event.target.value))}
+            onChange={handleNum(props.changeYear)}
             margin="normal"
             variant="outlined"
         />
-
         <TextField
             className={'quantity-input'}
             label="Quantity"
             value={props.createWineFormRequest.quantity}
-            onChange={(event) => props.changeQuantity(parseInt(event.target.value))}
+            onChange={handleNum(props.changeQuantity)}
             margin="normal"
-            variant="outlined"
-        />
-
-        <Button disabled={!props.createWineFormRequest.isComplete()} className={"submit-button"} variant="contained"
-                color="primary" onClick={() => props.submit(props.createWineFormRequest)}>
+            variant="outlined"/>
+        <Button disabled={!props.createWineFormRequest.isComplete()}
+                className={"submit-button"}
+                variant={'contained'}
+                color={"primary"}
+                onClick={() => props.submit(props.createWineFormRequest!)}>
             Create
         </Button>
-    </div>
-);
+    </StyledForm>
+    : <Button variant={'fab'}
+              color={"primary"}
+              onClick={() => props.openForm()}><AddIcon/></Button>;
 
 const mapStateToProps = (state: any) => ({
     createWineFormRequest: state.createWineForm
@@ -86,7 +102,8 @@ const mapActionsToProps = (dispatch: Dispatch) => ({
     changeQuantity: (quantity: number) => dispatch(addQuantityToWineRequest(quantity)),
     changeProducer: (producer: string) => dispatch(addProducerToWineRequest(producer)),
     changeCountry: (country: string) => dispatch(addCountryToWineRequest(country)),
-    submit: (createWineRequest: CreateWineRequest) => submitCreateWine(dispatch, createWineRequest)
+    submit: (createWineRequest: CreateWineRequest) => submitCreateWine(dispatch, createWineRequest),
+    openForm: () => dispatch(openCreateWineForm())
 });
 
 export default connect(mapStateToProps, mapActionsToProps)(CreateWineForm)
