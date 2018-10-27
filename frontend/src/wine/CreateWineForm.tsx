@@ -1,7 +1,6 @@
 import * as React from "react";
 import TextField from "@material-ui/core/TextField/TextField";
 import {CreateWineRequest} from "./CreateWine.types";
-import AddIcon from '@material-ui/icons/Add';
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {
@@ -15,6 +14,8 @@ import {
 } from "./CreateWine.actions";
 import Button from "@material-ui/core/Button/Button";
 import styled from "styled-components";
+import Cancel from "@material-ui/icons/Cancel";
+import {BottomButton} from "./NewWineButton";
 
 interface CreateWineFormProps {
     createWineFormRequest: CreateWineRequest | null
@@ -37,17 +38,37 @@ let handleNum = (fun: (n: number) => void) => (event: React.ChangeEvent<HTMLInpu
 const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
+  background-image: linear-gradient(to bottom right,#8e2dfa,rgb(160, 44, 157));
+  padding: 1rem;
+  position: fixed;
+  right: 0;
+  height: 100%;
+  input{
+    background-color: white;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
 `;
+
 
 const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormRequest ?
     <StyledForm id="create-wine-form">
+        <BottomButton>
+            <Button
+                id={"cancel-new-wine"}
+                variant={'fab'}
+                color={"secondary"}
+                onClick={() => props.submit(props.createWineFormRequest!)}>
+                <Cancel/>
+            </Button>
+        </BottomButton>
         <TextField
             className={'country-input'}
             label="Country"
             value={props.createWineFormRequest.country}
             onChange={(event) => props.changeCountry(event.target.value)}
             margin="normal"
-            variant="outlined"
+            variant="filled"
         />
         <TextField
             className={'producer-input'}
@@ -55,7 +76,7 @@ const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormReque
             value={props.createWineFormRequest.producer}
             onChange={(event) => props.changeProducer(event.target.value)}
             margin="normal"
-            variant="outlined"
+            variant="filled"
         />
         <TextField
             className={'type-input'}
@@ -63,7 +84,7 @@ const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormReque
             value={props.createWineFormRequest.type}
             onChange={(event) => props.changeType(event.target.value)}
             margin="normal"
-            variant="outlined"
+            variant="filled"
         />
         <TextField
             className={'year-input'}
@@ -71,7 +92,7 @@ const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormReque
             value={props.createWineFormRequest.year}
             onChange={handleNum(props.changeYear)}
             margin="normal"
-            variant="outlined"
+            variant="filled"
         />
         <TextField
             className={'quantity-input'}
@@ -79,18 +100,16 @@ const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormReque
             value={props.createWineFormRequest.quantity}
             onChange={handleNum(props.changeQuantity)}
             margin="normal"
-            variant="outlined"/>
+            variant="filled"/>
         <Button disabled={!props.createWineFormRequest.isComplete()}
                 className={"submit-button"}
+                color={"secondary"}
                 variant={'contained'}
-                color={"primary"}
                 onClick={() => props.submit(props.createWineFormRequest!)}>
             Create
         </Button>
     </StyledForm>
-    : <Button variant={'fab'}
-              color={"primary"}
-              onClick={() => props.openForm()}><AddIcon/></Button>;
+    : <div/>;
 
 const mapStateToProps = (state: any) => ({
     createWineFormRequest: state.createWineForm

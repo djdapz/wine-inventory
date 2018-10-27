@@ -62,24 +62,45 @@ context('Actions', () => {
     });
 
     describe("Creating wine", () => {
-        it("should allow user to fill out form", () => {
-            cy.get("button#open-create-wine-form").click();
-            cy.get("#create-wine-form .country-input input").type("Spain");
-            cy.get("#create-wine-form .producer-input input").type("Orin Swift");
-            cy.get("#create-wine-form .type-input input").type("Tempranillo");
-            cy.get("#create-wine-form .quantity-input input").type("12");
-            cy.get("#create-wine-form .year-input input").type("2014");
-
-            cy.get("#create-wine-form .submit-button").click();
-
-            cy.wait("@postWines").its('requestBody').should('deep.equal', {
-                country: "Spain",
-                producer: "Orin Swift",
-                type: "Tempranillo",
-                quantity: 12,
-                year: 2014
-            })
+        beforeEach(() => {
+            cy.get("button#new-wine-button").click();
         });
+
+        describe("When i fill out the form completely", () => {
+            beforeEach(function () {
+                cy.get("#create-wine-form .country-input input").type("Spain");
+                cy.get("#create-wine-form .producer-input input").type("Orin Swift");
+                cy.get("#create-wine-form .type-input input").type("Tempranillo");
+                cy.get("#create-wine-form .quantity-input input").type("12");
+                cy.get("#create-wine-form .year-input input").type("2014");
+            });
+
+            it("should allow user to fill out form", () => {
+                cy.get("#create-wine-form .submit-button").click();
+
+                cy.wait("@postWines").its('requestBody').should('deep.equal', {
+                    country: "Spain",
+                    producer: "Orin Swift",
+                    type: "Tempranillo",
+                    quantity: 12,
+                    year: 2014
+                })
+            });
+
+
+            it('should hide form on success', function () {
+                cy.get("#create-wine-form .submit-button").click();
+                cy.wait("@postWines");
+                cy.get('#create-wine-form').should('not.exist');
+            });
+
+            it('should reload wines on success', function () {
+                cy.get("#create-wine-form .submit-button").click();
+                cy.wait("@postWines");
+                cy.wait("@getWines");
+            });
+        });
+
 
         it('should not allow the user to submit the button until the form is complete', function () {
             cy.get("#create-wine-form .country-input input").type("Spain");
@@ -94,28 +115,12 @@ context('Actions', () => {
             cy.get("#create-wine-form .submit-button").should("not.be.disabled");
         });
 
-        it('should hide form on success', function () {
-            cy.get("#create-wine-form .country-input input").type("Spain");
-            cy.get("#create-wine-form .producer-input input").type("Orin Swift");
-            cy.get("#create-wine-form .type-input input").type("Tempranillo");
-            cy.get("#create-wine-form .quantity-input input").type("12");
-            cy.get("#create-wine-form .year-input input").type("2014");
 
-            cy.get("#create-wine-form .submit-button").click();
-            cy.wait("@postWines");
+        it('should remove the form if i click cancel', function () {
+            cy.get("#create-wine-form .country-input input").type("Spain");
+            cy.get("#create-wine-form button#cancel-new-wine").click();
+
             cy.get('#create-wine-form').should('not.exist');
-        });
-
-        it('should reload wines on success', function () {
-            cy.get("#create-wine-form .country-input input").type("Spain");
-            cy.get("#create-wine-form .producer-input input").type("Orin Swift");
-            cy.get("#create-wine-form .type-input input").type("Tempranillo");
-            cy.get("#create-wine-form .quantity-input input").type("12");
-            cy.get("#create-wine-form .year-input input").type("2014");
-
-            cy.get("#create-wine-form .submit-button").click();
-            cy.wait("@postWines");
-            cy.wait("@postWines");
         });
     })
 });
