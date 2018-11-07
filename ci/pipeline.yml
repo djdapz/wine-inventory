@@ -50,6 +50,10 @@ jobs:
     privileged: true
     config:
       platform: linux
+      inputs:
+        - name: repo
+        - name: postgres
+        - name: openjdk
       image_resource:
           type: docker-image
           source:
@@ -62,6 +66,11 @@ jobs:
           source /docker-lib.sh
 
           start_docker
+
+          docker load -i postgres/image
+          docker load -i openjdk/image
+
+          docker images
 
           docker-compose -f repo/ci/docker-compose.tests.yml run unit-integration-tests
 
