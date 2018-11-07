@@ -63,6 +63,7 @@ jobs:
         args:
         - -exc
         - |
+          set -e
           source /docker-lib.sh
 
           start_docker
@@ -93,8 +94,14 @@ jobs:
   - task: build-and-upload
     privileged: true
     image: openjdk-node-cf
+
     config:
       platform: linux
+      inputs:
+        - name: repo
+        - name: version
+      caches:
+        - path: repo/frontend/node_modules
       run:
         path: sh
         args:
@@ -106,17 +113,16 @@ jobs:
 
           export BUILD_VERSION=`cat version/number`
 
-          pushd frontend
-            npm install
-            npm run build
-          popd
+          cd repo/frontend
+          npm install
+          npm run build
 
           echo " >>>> Zipping Frontend"
-          zip -r frontend.zip frontend
+          zip -r frontend.zip build
           echo " <<<< Frontend Zipped"
 
           echo " >>>> Uploading frontend-server.zip to aws"
-          /root/bin/aws s3 cp "./frontend.zip" "s3://wine-inventory/app/frontend-{BUILD_VERSION}.zip"
+          /root/bin/aws s3 cp "./frontend.zip" "s3://wine-inventory/app/frontend-${BUILD_VERSION}.zip"
           echo " <<<< Uploaded frontend-server.zip to aws"
 
       params:
@@ -140,6 +146,9 @@ jobs:
     image: openjdk-node-cf
     config:
       platform: linux
+      inputs:
+      - name: repo
+      - name: version
       run:
         path: sh
         args:
@@ -151,12 +160,11 @@ jobs:
 
           export BUILD_VERSION=`cat version/number`
 
-          pushd repo
-            ./gradlew clean assemble -Pversion=$BUILD_VERSION
-            echo " >>>> Uploading jar to aws"
-            /root/bin/aws s3 cp "build/libs/wine-inventory-${BUILD_VERSION}.jar" "s3://wine-inventory/app/wine-inventory-${BUILD_VERSION}.jar"
-            echo " <<<< Uploaded jar to aws"
-          popd
+          cd repo
+          ./gradlew clean assemble -Pversion=$BUILD_VERSION
+          echo " >>>> Uploading jar to aws"
+          /root/bin/aws s3 cp "build/libs/wine-inventory-${BUILD_VERSION}.jar" "s3://wine-inventory/app/wine-inventory-${BUILD_VERSION}.jar"
+          echo " <<<< Uploaded jar to aws"
       params:
         AWS_ACCESS_KEY_ID: ((AWS_ACCESS_KEY_ID))
         AWS_SECRET_ACCESS_KEY: ((AWS_SECRET_ACCESS_KEY))
