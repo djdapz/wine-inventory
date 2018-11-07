@@ -10,7 +10,7 @@ services:
       PGDATA: /database
 
   unit-integration-tests:
-    image: openjdk
+    image: openjdk-saved
     privileged: true
     links: [db]
     depends_on: [db]
