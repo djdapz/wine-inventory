@@ -18,11 +18,13 @@ import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.test.context.ActiveProfiles
 import java.math.BigInteger
 
 
 @SpringBootTest(classes = [WinenventoryApplication::class], webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner::class)
+@ActiveProfiles("test")
 open class ApplicationTest {
 
     @Autowired

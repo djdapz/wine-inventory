@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/wine-test}
+    password: ${DB_PASSWORD:winepwd}
+    username: ${DB_USERNAME:wineuser}
