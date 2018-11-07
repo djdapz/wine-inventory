@@ -1,6 +1,10 @@
+import com.dapuzzo.devon.wineventory.Country
 import com.dapuzzo.devon.wineventory.WinenventoryApplication
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import io.netty.handler.codec.http.HttpHeaderValues.APPLICATION_JSON
 import io.restassured.RestAssured.given
+import org.assertj.core.api.Assertions.assertThat
 import org.hamcrest.Matchers.equalTo
 import org.junit.Before
 import org.junit.Test
@@ -8,6 +12,7 @@ import org.junit.runner.RunWith
 import org.skyscreamer.jsonassert.JSONAssert
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.core.ParameterizedTypeReference
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
@@ -65,5 +70,17 @@ open class ApplicationTest {
                     }
 
                 """.trimIndent(), false)
+    }
+
+    @Test
+    fun shouldServeListOfAllCountriesForDropdown() {
+        val countries = given()
+                .get("/countries")
+                .andReturn()
+                .body.print()
+
+        val list: List<Country> = jacksonObjectMapper().readValue(countries)
+
+        assertThat(list.size).isEqualTo(246)
     }
 }

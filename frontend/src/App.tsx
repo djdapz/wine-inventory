@@ -11,6 +11,7 @@ const StyledApp = styled.div`
   display: flex;
   font-family: 'Raleway', sans-serif;
   background-color: #fafafa;
+  justify-content: center;
 `;
 
 const theme = createMuiTheme({

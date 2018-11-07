@@ -12,8 +12,11 @@ class WineRepository(jdbcTemplate: JdbcTemplate) : WineWriter, WineReader {
     private val db = NamedParameterJdbcTemplate(jdbcTemplate)
 
     override fun getAll(): Collection<Wine> =
-            db.query("""
+            db.query(
+                    //language=sql
+                    """
                 SELECT * FROM wines
+                INNER JOIN country on wines.country_code = country.country_code
             """.trimIndent()) { rs: ResultSet, _: Int ->
                 Wine(
                         type = rs.getString("type"),
@@ -21,7 +24,7 @@ class WineRepository(jdbcTemplate: JdbcTemplate) : WineWriter, WineReader {
                         year = rs.getInt("year"),
                         quantity = rs.getInt("quantity"),
                         id = rs.getInt("id"),
-                        country = rs.getString("country")
+                        country = rs.getString("country_name")
                 )
             }
 
@@ -30,8 +33,8 @@ class WineRepository(jdbcTemplate: JdbcTemplate) : WineWriter, WineReader {
                 db.update(
                         //language=sql
                         """
-                INSERT INTO wines(type, producer, year, quantity, country)
-                VALUES (:type, :producer, :year, :quantity, :country)
+                INSERT INTO wines(type, producer, year, quantity, country_code)
+                VALUES (:type, :producer, :year, :quantity, (SELECT country_code  from country WHERE country_name LIKE :country))
             """.trimIndent(),
                         MapSqlParameterSource(
                                 mapOf(

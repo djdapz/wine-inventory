@@ -35,14 +35,20 @@ let handleNum = (fun: (n: number) => void) => (event: React.ChangeEvent<HTMLInpu
     }
 };
 
-const StyledForm = styled.div`
+interface Collapsable {
+    isCollapsed: boolean
+}
+
+const StyledForm = styled.div<Collapsable>`
   display: flex;
   flex-direction: column;
   background-image: linear-gradient(to bottom right,#8e2dfa,rgb(160, 44, 157));
-  padding: 1rem;
+  padding: ${p => p.isCollapsed ? 0 : "1rem"};
   position: fixed;
   right: 0;
   height: 100%;
+  max-width: ${p => p.isCollapsed ? 0 : "10rem"};
+  transition: max-width .3s, padding-left .3s, padding-right .3s, width .3s;
   input{
     background-color: white;
     border-top-left-radius: 4px;
@@ -52,7 +58,8 @@ const StyledForm = styled.div`
 
 
 const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormRequest ?
-    <StyledForm id="create-wine-form">
+    <StyledForm id="create-wine-form"
+                isCollapsed={false}>
         <BottomButton>
             <Button
                 id={"cancel-new-wine"}
@@ -108,8 +115,8 @@ const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormReque
                 onClick={() => props.submit(props.createWineFormRequest!)}>
             Create
         </Button>
-    </StyledForm>
-    : <div/>;
+    </StyledForm> : <StyledForm id="create-wine-form"
+                                isCollapsed={true}/>
 
 const mapStateToProps = (state: any) => ({
     createWineFormRequest: state.createWineForm

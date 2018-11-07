@@ -44,6 +44,8 @@ const Pipe = () => <PipeWrapper>|</PipeWrapper>;
 const StyledWineList = styled.div`
   flex-grow:  1;
   padding: 1rem;
+  max-width: 60rem;
+  overflow-y: scroll;
 `;
 
 class WineList extends React.Component<WineListProps> {
