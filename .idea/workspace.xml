@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a68c11f7-4bd3-4410-9b56-37d989b7f563" name="Default" comment="Expliclity">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/wine-inventory_main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/wine-inventory_main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/wine-inventory_test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/wine-inventory_test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ci/pipeline.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ci/pipeline.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ci/tasks/run-backend-tests-exe.sh" beforeDir="false" afterPath="$PROJECT_DIR$/ci/tasks/run-backend-tests-exe.sh" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -161,7 +158,7 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="65" />
-          <entry key="gradle" value="392" />
+          <entry key="gradle" value="407" />
           <entry key="html" value="14" />
           <entry key="js" value="931" />
           <entry key="json" value="43" />
@@ -181,7 +178,7 @@
         <counts>
           <entry key="Bash" value="65" />
           <entry key="CSS" value="65" />
-          <entry key="Groovy" value="392" />
+          <entry key="Groovy" value="407" />
           <entry key="HTML" value="14" />
           <entry key="JSON" value="112" />
           <entry key="JavaScript" value="931" />
@@ -268,7 +265,7 @@
         <entry file="file://$PROJECT_DIR$/ci/pipeline.yml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="548">
-              <caret line="171" lean-forward="true" selection-start-line="171" selection-end-line="171" />
+              <caret line="171" selection-start-line="171" selection-end-line="171" />
             </state>
           </provider>
         </entry>
@@ -305,8 +302,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+            <state relative-caret-position="181">
+              <caret line="42" column="28" lean-forward="true" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -589,9 +586,9 @@
       <map>
         <entry key="$USER_HOME$/git/SportsBot" value="1492041918000" />
         <entry key="$USER_HOME$/git/SportsBotApp" value="2985301212000" />
-        <entry key="$PROJECT_DIR$" value="6166258192000" />
+        <entry key="$PROJECT_DIR$" value="6166258280000" />
         <entry key="$PROJECT_DIR$/.gradle" value="0" />
-        <entry key="$PROJECT_DIR$/build.gradle" value="3607290561" />
+        <entry key="$PROJECT_DIR$/build.gradle" value="2256260378" />
         <entry key="$PROJECT_DIR$/build.gradle.kts" value="1607098138" />
         <entry key="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" value="1291004918" />
         <entry key="$PROJECT_DIR$/settings.gradle" value="3818710026" />
@@ -904,8 +901,7 @@
       <path value="$PROJECT_DIR$/frontend/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="840" />
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="840" />
     <option name="height" value="1027" />
@@ -1026,7 +1022,7 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/devondapuzzo/workspace/wine-inventory/src/test/kotlin/com/dapuzzo/devon/wineventory/ApplicationTest.kt" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541569000284" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541570608620" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL&#10;DDL Data Source" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="TEXT" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
@@ -1236,7 +1232,7 @@
       <workItem from="1540920290012" duration="3190000" />
       <workItem from="1541451842760" duration="1737000" />
       <workItem from="1541549546464" duration="864000" />
-      <workItem from="1541550875247" duration="6652000" />
+      <workItem from="1541550875247" duration="6767000" />
     </task>
     <task id="LOCAL-00001" summary="Open and hide wine form.">
       <created>1540599656645</created>
@@ -1309,7 +1305,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80222000" />
+    <option name="totallyTimeSpent" value="80337000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1321,10 +1317,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="1027" extended-state="6" />
+    <frame x="0" y="23" width="840" height="1027" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.78172046" visible="true" weight="0.17216118" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.78172046" visible="true" weight="0.35338345" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1360,7 +1356,7 @@
       <window_info anchor="right" id="Database" order="7" weight="0.41729322" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Theme Preview" order="9" />
-      <window_info anchor="right" id="Bean Validation" order="10" visible="true" weight="0.026251527" />
+      <window_info anchor="right" id="Bean Validation" order="10" visible="true" weight="0.05388471" />
     </layout>
     <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26190478" />
@@ -1473,7 +1469,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/build.gradle</url>
-          <line>47</line>
+          <line>48</line>
           <properties />
           <option name="timeStamp" value="8" />
         </line-breakpoint>
@@ -1688,13 +1684,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/settings.gradle">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1711,14 +1700,21 @@
     <entry file="file://$PROJECT_DIR$/ci/pipeline.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="548">
-          <caret line="171" lean-forward="true" selection-start-line="171" selection-end-line="171" />
+          <caret line="171" selection-start-line="171" selection-end-line="171" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="181">
+          <caret line="42" column="28" lean-forward="true" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
         </state>
       </provider>
     </entry>

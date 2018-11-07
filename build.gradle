@@ -39,7 +39,7 @@ static def determineVersion() {
     return "$System.env.BUILD_VERSION"
 }
 
-archivesBaseName = "luke-dapuzzo"
+archivesBaseName = "wine-inventory"
 version = determineVersion()
 
 repositories {
