@@ -14,12 +14,18 @@ buildscript {
     }
 }
 
+
+
 apply plugin: 'kotlin'
+apply plugin: 'java'
 apply plugin: "kotlin-spring"
 apply plugin: 'org.springframework.boot'
 
-def determineVersion(){
-    if(System.env.BUILD_VERSION  == null){
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+static def determineVersion() {
+    if (System.env.BUILD_VERSION == null) {
         return "NO_VERSION"
     }
 
