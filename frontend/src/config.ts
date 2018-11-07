@@ -16,7 +16,7 @@ const environment: EnvironmentName = function () {
 
 
 const backendUriMap = {
-    [EnvironmentName.DEV]: "http://localhost:8080",
+    [EnvironmentName.DEV]: "http://localhost:8081",
     [EnvironmentName.E2E]: "http://localhost:3210"
 };
 

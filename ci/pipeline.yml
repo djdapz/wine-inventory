@@ -60,21 +60,11 @@ jobs:
         - -exc
         - |
           source /docker-lib.sh
-          source repo/ci/tasks/common.sh
 
           start_docker
 
-          docker load -i postgres/image
-          docker load -i openjdk-node-cf/image
-
-          docker images
-
-          # Run the container with tests and its dependencies.
           docker-compose -f repo/ci/docker-compose.tests.yml run unit-integration-tests
 
-          # Cleanup.
-          # Not sure if this is required.
-          # It's quite possible that Concourse is smart enough to clean up the Docker mess itself.
           docker-compose -f repo/ci/docker-compose.tests.yml down
           docker volume rm $(docker volume ls -q)
   - put: version
