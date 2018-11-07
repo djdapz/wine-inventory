@@ -149,7 +149,6 @@ jobs:
     privileged: true
     image: openjdk-node-cf
     config:
-      platform: linux
       inputs:
       - name: repo
       - name: version
@@ -166,7 +165,11 @@ jobs:
 
           cd repo
           ./gradlew clean assemble -Pversion=$BUILD_VERSION
+
+          ls -lsa build/libs
+
           echo " >>>> Uploading jar to aws"
+
           /root/bin/aws s3 cp "build/libs/wine-inventory-${BUILD_VERSION}.jar" "s3://wine-inventory/app/wine-inventory-${BUILD_VERSION}.jar"
           echo " <<<< Uploaded jar to aws"
       params:
