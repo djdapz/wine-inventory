@@ -1,6 +1,0 @@
-.gradle
-
-out
-build
-frontend-react/cypress/screenshots
-/ci/credentials.yml

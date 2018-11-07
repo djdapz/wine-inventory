@@ -2,35 +2,97 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a68c11f7-4bd3-4410-9b56-37d989b7f563" name="Default" comment="Make the wine form look much nicer!">
-      <change afterPath="$PROJECT_DIR$/ci/concourse-config/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ci/concourse-config/gen-keys.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ci/concourse-config/keys/web/authorized_worker_keys" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ci/concourse-config/keys/web/session_signing_key" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ci/concourse-config/keys/web/session_signing_key.pub" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ci/concourse-config/keys/web/tsa_host_key" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ci/concourse-config/keys/web/tsa_host_key.pub" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ci/concourse-config/keys/worker/tsa_host_key.pub" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ci/concourse-config/keys/worker/worker_key" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ci/concourse-config/keys/worker/worker_key.pub" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ci/docker-compose.tests.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ci/pipeline.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ci/run-backend-tests.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/CountryController.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/CountryReader.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/CountryRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/dapuzzo/devon/wineventory/CountryControllerTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/dapuzzo/devon/wineventory/CountryRepositoryTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3eeba685-7332-423a-8e97-2c4b38044b2d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3eeba685-7332-423a-8e97-2c4b38044b2d.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3eeba685-7332-423a-8e97-2c4b38044b2d/storage_v2/_src_/database/wine-test.1lMi8Q/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3eeba685-7332-423a-8e97-2c4b38044b2d/storage_v2/_src_/database/wine-test.1lMi8Q/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/wine/CreateWineForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/wine/CreateWineForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/wine/WineList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/wine/WineList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/WineRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/WineRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migrations/V1__intial_table_setup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migrations/V1__intial_table_setup.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/dapuzzo/devon/wineventory/ApplicationTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/dapuzzo/devon/wineventory/ApplicationTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3eeba685-7332-423a-8e97-2c4b38044b2d.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3eeba685-7332-423a-8e97-2c4b38044b2d/storage_v2/_src_/database/wine-test.1lMi8Q.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3eeba685-7332-423a-8e97-2c4b38044b2d/storage_v2/_src_/database/wine-test.1lMi8Q/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/wine-inventory_main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/wine-inventory_test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/typescript-compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/wine-inventory.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ci/concourse-config/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ci/concourse-config/gen-keys.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ci/concourse-config/keys/web/authorized_worker_keys" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ci/concourse-config/keys/web/session_signing_key" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ci/concourse-config/keys/web/session_signing_key.pub" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ci/concourse-config/keys/web/tsa_host_key" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ci/concourse-config/keys/web/tsa_host_key.pub" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ci/concourse-config/keys/worker/tsa_host_key.pub" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ci/concourse-config/keys/worker/worker_key" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ci/concourse-config/keys/worker/worker_key.pub" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ci/docker-compose.tests.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ci/pipeline.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ci/run-backend-tests.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/cypress.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/cypress/fixtures/example.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/cypress/integration/main.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/cypress/plugins/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/cypress/screenshots/examples/actions.spec.js/Actions -- should display a list of wine -- before each hook (failed).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/cypress/support/commands.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/cypress/support/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/cypress/videos/examples/actions.spec.js.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/images.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.test.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/registerServiceWorker.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/wine/CreateWine.actions.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/wine/CreateWine.reducers.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/wine/CreateWine.types.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/wine/CreateWine.types.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/wine/CreateWineForm.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/wine/NewWineButton.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/wine/Wine.actions.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/wine/Wine.reducers.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/wine/WineList.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/tsconfig.prod.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/tsconfig.test.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/tslint.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/Application.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/CountryController.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/CountryReader.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/CountryRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/Wine.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/WineController.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/WineReader.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/WineRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/WineWriter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migrations/V1__intial_table_setup.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/dapuzzo/devon/wineventory/ApplicationTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/dapuzzo/devon/wineventory/CountryControllerTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/dapuzzo/devon/wineventory/CountryRepositoryTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/dapuzzo/devon/wineventory/WineControllerTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/dapuzzo/devon/wineventory/WineRepositoryTest.kt" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -170,7 +232,7 @@
     <session id="-865467153">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="8" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.12" value="3" />
           <entry key="project.open.time.18" value="1" />
@@ -274,94 +336,7 @@
     <favorites_list name="wine-inventory" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/WineRepository.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="25" column="32" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ci/concourse-config/docker-compose.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ci/pipeline.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ci/docker-compose.tests.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="17" lean-forward="true" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ci/run-backend-tests.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ci/credentials.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="65" selection-end-line="36" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/CountryRepository.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/kotlin/com/dapuzzo/devon/wineventory/CountryRepositoryTest.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="16" selection-start-line="16" selection-end-line="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -833,11 +808,6 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths>
-      <path value="$PROJECT_DIR$/frontend/package.json" />
-    </packageJsonPaths>
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="840" />
     <option name="y" value="23" />
@@ -925,7 +895,7 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/devondapuzzo/workspace/wine-inventory/src/test/kotlin/com/dapuzzo/devon/wineventory/ApplicationTest.kt" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541549094892" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541549104317" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL&#10;DDL Data Source" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="TEXT" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
@@ -1133,7 +1103,7 @@
       <workItem from="1540357328497" duration="3725000" />
       <workItem from="1540575860027" duration="11929000" />
       <workItem from="1540920290012" duration="3190000" />
-      <workItem from="1541451842760" duration="1737000" />
+      <workItem from="1541451842760" duration="1870000" />
     </task>
     <task id="LOCAL-00001" summary="Open and hide wine form.">
       <created>1540599656645</created>
@@ -1185,13 +1155,12 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72706000" />
+    <option name="totallyTimeSpent" value="72839000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1027" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.78172046" visible="true" weight="0.18376069" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.78172046" visible="true" weight="0.18376069" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1207,7 +1176,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.32903227" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.6817043" visible="true" weight="0.38930482" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.6817043" visible="true" weight="0.38930482" />
       <window_info anchor="bottom" id="Docker" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.31829575" side_tool="true" weight="0.38930482" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
@@ -1625,13 +1594,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ci/concourse-config/docker-compose.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1660,6 +1622,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
           <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ci/concourse-config/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
         </state>
       </provider>
     </entry>
