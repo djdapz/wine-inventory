@@ -1,8 +1,9 @@
 import com.dapuzzo.devon.wineventory.Country
+import com.dapuzzo.devon.wineventory.CountryController
 import com.dapuzzo.devon.wineventory.WinenventoryApplication
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import io.netty.handler.codec.http.HttpHeaderValues.APPLICATION_JSON
+import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import org.assertj.core.api.Assertions.assertThat
 import org.hamcrest.Matchers.equalTo
@@ -13,25 +14,31 @@ import org.skyscreamer.jsonassert.JSONAssert
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.core.ParameterizedTypeReference
+import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.boot.web.server.LocalServerPort
+import java.math.BigInteger
 
-@SpringBootTest(classes = [WinenventoryApplication::class])
+
+@SpringBootTest(classes = [WinenventoryApplication::class], webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner::class)
 open class ApplicationTest {
 
     @Autowired
     lateinit var jdbcTemplate: JdbcTemplate
 
+    @LocalServerPort
+    lateinit var port: BigInteger
+
     @Before
     fun setUp() {
-
         jdbcTemplate.execute("TRUNCATE TABLE wines")
     }
 
     @Test
     fun shouldFetchWineFromDatabase() {
-        given()
+        given().port(port.toInt())
                 //language=json
                 .body("""
                     {
@@ -48,13 +55,13 @@ open class ApplicationTest {
                 .then()
                 .statusCode(201)
 
-        val body = given()
+        val body = given().port(port.toInt())
                 .`when`()
                 .get("/wine")
                 .andReturn()
                 .body.print()
 
-        JSONAssert.assertEquals(body,
+        JSONAssert.assertEquals(
                 //language=json
                 """
                     {
@@ -69,18 +76,18 @@ open class ApplicationTest {
                       ]
                     }
 
-                """.trimIndent(), false)
+                """.trimIndent(), body,false)
     }
 
     @Test
     fun shouldServeListOfAllCountriesForDropdown() {
-        val countries = given()
-                .get("/countries")
+        val countries = given().port(port.toInt())
+                .get("/country/all")
                 .andReturn()
                 .body.print()
 
-        val list: List<Country> = jacksonObjectMapper().readValue(countries)
+        val list: CountryController.CountryListResponse = jacksonObjectMapper().readValue(countries)
 
-        assertThat(list.size).isEqualTo(246)
+        assertThat(list.countries.size).isEqualTo(246)
     }
 }

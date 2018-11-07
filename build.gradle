@@ -50,21 +50,39 @@ dependencies {
 
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
     compile("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
-    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.2")
-    compile("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.0")
-    compile("com.fasterxml.jackson.core:jackson-core:2.9.2")
-    compile("commons-validator:commons-validator:1.4.0")
-    compile("org.flywaydb:flyway-core:4.1.0")
-    compile("org.postgresql:postgresql:9.4.1212.jre7")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.7")
+    compile("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.7")
+    compile("com.fasterxml.jackson.core:jackson-core:2.9.7")
+    compile("org.flywaydb:flyway-core:5.2.1")
+
+    compile("org.postgresql:postgresql:42.2.5")
     compile("org.springframework.boot:spring-boot-starter-jdbc:$spring_boot_version")
     compile("org.springframework.boot:spring-boot-starter-webflux:$spring_boot_version")
 
-    testCompile("com.nhaarman:mockito-kotlin-kt1.1:1.5.0")
-    testCompile("io.rest-assured:rest-assured:3.0.5")
+    testCompile("com.nhaarman:mockito-kotlin:1.6.0")
+    testCompile("io.rest-assured:rest-assured:3.2.0")
     testCompile("org.jetbrains.kotlin:kotlin-test")
     testCompile("org.jetbrains.kotlin:kotlin-test-junit")
     testCompile("com.github.javafaker:javafaker:0.14")
     testCompile("org.skyscreamer:jsonassert:1.5.0")
     testCompile("org.springframework.boot:spring-boot-starter-test:$spring_boot_version")
+}
 
+test {
+    testLogging {
+        // set options for log level LIFECYCLE
+        events "started", "skipped", "failed"
+        exceptionFormat "short"
+        showCauses true
+        exceptionFormat "full"
+        // set options for log level DEBUG
+        //noinspection GroovyAssignabilityCheck
+        debug {
+            events "started", "skipped", "failed"
+        }
+
+        // remove standard output/error logging from --info builds
+        // by assigning only 'failed' and 'skipped' events
+        info.events = ["failed", "skipped"]
+    }
 }
