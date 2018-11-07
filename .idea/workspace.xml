@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a68c11f7-4bd3-4410-9b56-37d989b7f563" name="Default" comment="Add">
-      <change afterPath="$PROJECT_DIR$/ci/tasks/run-backend-tests.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="a68c11f7-4bd3-4410-9b56-37d989b7f563" name="Default" comment="Add backend testes shell script">
+      <change afterPath="$PROJECT_DIR$/ci/tasks/run-backend-tests-exe.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ci/docker-compose.tests.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ci/docker-compose.tests.yml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -166,17 +165,17 @@
           <entry key="lock" value="6" />
           <entry key="md" value="483" />
           <entry key="scss" value="2" />
-          <entry key="sh" value="41" />
+          <entry key="sh" value="57" />
           <entry key="sql" value="61" />
           <entry key="ts" value="2988" />
           <entry key="tsx" value="4265" />
-          <entry key="txt" value="124" />
-          <entry key="yml" value="429" />
+          <entry key="txt" value="155" />
+          <entry key="yml" value="433" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Bash" value="41" />
+          <entry key="Bash" value="57" />
           <entry key="CSS" value="65" />
           <entry key="HTML" value="14" />
           <entry key="JSON" value="112" />
@@ -184,13 +183,13 @@
           <entry key="Kotlin" value="1104" />
           <entry key="Less" value="63" />
           <entry key="Markdown" value="483" />
-          <entry key="PLAIN_TEXT" value="98" />
+          <entry key="PLAIN_TEXT" value="129" />
           <entry key="SCSS" value="2" />
           <entry key="SQL" value="62" />
           <entry key="Scratch" value="26" />
           <entry key="TypeScript" value="2988" />
           <entry key="TypeScript JSX" value="4202" />
-          <entry key="YAML" value="429" />
+          <entry key="YAML" value="433" />
           <entry key="yarn.lock" value="6" />
         </counts>
       </usages-collector>
@@ -213,7 +212,7 @@
           <entry key="md" value="1" />
           <entry key="png" value="1" />
           <entry key="scss" value="6" />
-          <entry key="sh" value="3" />
+          <entry key="sh" value="4" />
           <entry key="sql" value="1" />
           <entry key="svg" value="1" />
           <entry key="tasks" value="1" />
@@ -225,7 +224,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Bash" value="3" />
+          <entry key="Bash" value="4" />
           <entry key="CSS" value="5" />
           <entry key="Git file" value="2" />
           <entry key="HTML" value="2" />
@@ -267,16 +266,21 @@
         <entry file="file://$PROJECT_DIR$/ci/docker-compose.tests.yml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+              <caret line="16" column="51" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ci/tasks/run-backend-tests-exe.sh">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ci/tasks/run-backend-tests.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
-              <caret line="2" column="16" lean-forward="true" selection-end-line="2" selection-end-column="20" />
+              <caret line="3" column="20" lean-forward="true" selection-end-line="3" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -286,15 +290,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
               <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/config.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="43" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -964,11 +959,11 @@
       <recent name="$PROJECT_DIR$/frontend-react/cypress/integration" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ci/tasks" />
       <recent name="$PROJECT_DIR$/ci" />
       <recent name="$PROJECT_DIR$/ci/concourse-config" />
       <recent name="$PROJECT_DIR$/frontend/src/wine" />
       <recent name="$PROJECT_DIR$/frontend/public" />
-      <recent name="$PROJECT_DIR$/frontend" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.dapuzzo.devon.wineventory" />
@@ -1142,7 +1137,7 @@
       <workItem from="1540920290012" duration="3190000" />
       <workItem from="1541451842760" duration="1737000" />
       <workItem from="1541549546464" duration="864000" />
-      <workItem from="1541550875247" duration="552000" />
+      <workItem from="1541550875247" duration="720000" />
     </task>
     <task id="LOCAL-00001" summary="Open and hide wine form.">
       <created>1540599656645</created>
@@ -1165,7 +1160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541550254636</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add backend testes shell script">
+      <created>1541551793472</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1541551793472</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1201,7 +1203,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74122000" />
+    <option name="totallyTimeSpent" value="74290000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1232,11 +1234,11 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32941177" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.32903227" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.6817043" weight="0.38930482" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.6817043" visible="true" weight="0.38930482" />
       <window_info anchor="bottom" id="Docker" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.31829575" side_tool="true" weight="0.38930482" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
-      <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.49498746" visible="true" weight="0.32834226" />
+      <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.49498746" weight="0.32834226" />
       <window_info anchor="bottom" id="Spring" order="13" weight="0.32941177" />
       <window_info anchor="bottom" id="TypeScript" order="14" sideWeight="0.49868765" weight="0.32834226" />
       <window_info anchor="bottom" id="Messages" order="15" sideWeight="0.49749374" weight="0.32834226" />
@@ -1332,7 +1334,8 @@
     <MESSAGE value="Open and hide wine form." />
     <MESSAGE value="Make the wine form look much nicer!" />
     <MESSAGE value="Eject and setup ci" />
-    <option name="LAST_COMMIT_MESSAGE" value="Eject and setup ci" />
+    <MESSAGE value="Add backend testes shell script" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add backend testes shell script" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1365,7 +1368,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/frontend/src/wine/SideBar.tsx" />
     <entry file="file://$PROJECT_DIR$/frontend/src/wine/Wine.reducers.tsx">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1589,14 +1591,17 @@
     <entry file="file://$PROJECT_DIR$/ci/tasks/run-backend-tests.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
-          <caret line="2" column="16" lean-forward="true" selection-end-line="2" selection-end-column="20" />
+          <caret line="3" column="20" lean-forward="true" selection-end-line="3" selection-end-column="24" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ci/tasks/run-backend-tests-exe.sh">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/ci/docker-compose.tests.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+          <caret line="16" column="51" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
         </state>
       </provider>
     </entry>

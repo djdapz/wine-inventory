@@ -14,6 +14,6 @@ services:
     privileged: true
     links: [db]
     depends_on: [db]
-    command: "./repo/ci/tasks/run-backend-tests.sh"
+    command: "./repo/ci/tasks/run-backend-tests-exe.sh"
     volumes:
       - ../:/repo
