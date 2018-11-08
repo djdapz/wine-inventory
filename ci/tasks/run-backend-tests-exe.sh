@@ -2,7 +2,7 @@
 
 set -e
 
-export DB_URL="jdbc:postgresql://test-db:5432/test?user=user&password=pwd"
+export DB_URL="jdbc:postgresql://db:5432/test?user=user&password=pwd"
 export DB_USERNAME=user
 export DB_PASSWORD=pwd
 
