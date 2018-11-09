@@ -30,9 +30,9 @@ resources:
   source:
     api: https://api.run.pivotal.io
     username: ((PCF_USERNAME))
-    password: ((PCF_USERNAME))
+    password: ((PCF_PASSWORD))
     organization: dapuzzo
-    space: acceptance
+    space: development
 
 - name: version
   type: semver
@@ -132,7 +132,9 @@ jobs:
 
           echo " >>>> Zipping Frontend"
           touch build/Staticfile
-          zip -r frontend.zip build
+          cd build
+          zip -r ../frontend.zip *
+          cd ..
           echo " <<<< Frontend Zipped"
 
           echo " >>>> Uploading frontend-server.zip to aws"
@@ -187,23 +189,16 @@ jobs:
         AWS_ACCESS_KEY_ID: ((AWS_ACCESS_KEY_ID))
         AWS_SECRET_ACCESS_KEY: ((AWS_SECRET_ACCESS_KEY))
 
-- name: wait-for-eachother
+- name: deploy-frontend-acceptance
   plan:
   - get: version
     trigger: true
     passed: ["build-and-upload-backend", "build-and-upload-frontend"]
   - get: repo
     trigger: true
-    passed: ["build-and-upload-frontend", "build-and-upload-backend"]
-
-- name: deploy-frontend-acceptance
-  plan:
-  - get: version
-    trigger: true
-    passed: ['wait-for-eachother']
-  - get: repo
-    trigger: true
-    passed: ['wait-for-eachother']
+    passed: ["build-and-upload-backend", "build-and-upload-frontend"]
+  - get: openjdk-node-cf
+    params: {save: true}
   - task: download-zip
     privileged: true
     image: openjdk-node-cf
@@ -212,6 +207,8 @@ jobs:
       inputs:
       - name: repo
       - name: version
+      outputs:
+      - name: deploy
       run:
         path: sh
         args:
@@ -219,11 +216,65 @@ jobs:
         - |
           #!/bin/bash
 
+          export BUILD_VERSION=`cat version/number`
+
           set -ex
 
-          /root/bin/aws s3 cp  "s3://wine-inventory/app/frontend-${BUILD_VERSION}.zip"  ./frontend.zip
-
+          /root/bin/aws s3 cp  "s3://wine-inventory/app/frontend-${BUILD_VERSION}.zip"  ./deploy/frontend.zip
+          cp ./repo/ci/manifests/acceptance/mainfest-frontend.yml ./deploy/manifest.yml
           export BUILD_VERSION=`cat version/number`
+
+      params:
+        AWS_ACCESS_KEY_ID: ((AWS_ACCESS_KEY_ID))
+        AWS_SECRET_ACCESS_KEY: ((AWS_SECRET_ACCESS_KEY))
   - put: acceptance
     params:
-      manifest: frontend.zip
+      inputs:
+      - name: deploy
+      path: deploy/frontend.zip
+      manifest: deploy/manifest.yml
+
+- name: deploy-backend-acceptance
+  plan:
+  - get: version
+    trigger: true
+    passed: ["build-and-upload-backend", "build-and-upload-frontend"]
+  - get: repo
+    trigger: true
+    passed: ["build-and-upload-backend", "build-and-upload-frontend"]
+  - get: openjdk-node-cf
+    params: {save: true}
+  - task: download-jar
+    privileged: true
+    image: openjdk-node-cf
+    config:
+      platform: linux
+      inputs:
+      - name: repo
+      - name: version
+      outputs:
+      - name: deploy
+      run:
+        path: sh
+        args:
+        - -exc
+        - |
+          #!/bin/bash
+
+          export BUILD_VERSION=`cat version/number`
+
+          set -ex
+
+          /root/bin/aws s3 cp  "s3://wine-inventory/app/wine-inventory-${BUILD_VERSION}.jar"  ./deploy/backend.jar
+          cp ./repo/ci/manifests/acceptance/mainfest-backend.yml ./deploy/manifest.yml
+          export BUILD_VERSION=`cat version/number`
+
+      params:
+        AWS_ACCESS_KEY_ID: ((AWS_ACCESS_KEY_ID))
+        AWS_SECRET_ACCESS_KEY: ((AWS_SECRET_ACCESS_KEY))
+  - put: acceptance
+    params:
+      inputs:
+      - name: deploy
+      path: deploy/frontend.zip
+      manifest: deploy/manifest.yml
