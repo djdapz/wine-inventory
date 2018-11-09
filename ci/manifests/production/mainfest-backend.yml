@@ -1,0 +1,7 @@
+---
+applications:
+- name: wine-inventory-backend-prod
+  memory: 1G
+  instances: 1
+  services:
+    - wine-db

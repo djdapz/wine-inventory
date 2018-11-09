@@ -34,6 +34,15 @@ resources:
     organization: dapuzzo
     space: development
 
+- name: production
+  type: cf
+  source:
+    api: https://api.run.pivotal.io
+    username: ((PCF_USERNAME))
+    password: ((PCF_PASSWORD))
+    organization: dapuzzo
+    space: production
+
 - name: version
   type: semver
   source:
@@ -276,5 +285,95 @@ jobs:
     params:
       inputs:
       - name: deploy
+      path: deploy/backend.jar
+      manifest: deploy/manifest.yml
+
+- name: deploy-frontend-production
+  plan:
+  - get: version
+    trigger: false
+    passed: ["deploy-backend-acceptance", "deploy-frontend-acceptance"]
+  - get: repo
+    trigger: false
+    passed: ["deploy-backend-acceptance", "deploy-frontend-acceptance"]
+  - get: openjdk-node-cf
+    params: {save: true}
+  - task: download-zip
+    privileged: true
+    image: openjdk-node-cf
+    config:
+      platform: linux
+      inputs:
+      - name: repo
+      - name: version
+      outputs:
+      - name: deploy
+      run:
+        path: sh
+        args:
+        - -exc
+        - |
+          #!/bin/bash
+
+          export BUILD_VERSION=`cat version/number`
+
+          set -ex
+
+          /root/bin/aws s3 cp  "s3://wine-inventory/app/frontend-${BUILD_VERSION}.zip"  ./deploy/frontend.zip
+          cp ./repo/ci/manifests/production/mainfest-frontend.yml ./deploy/manifest.yml
+          export BUILD_VERSION=`cat version/number`
+
+      params:
+        AWS_ACCESS_KEY_ID: ((AWS_ACCESS_KEY_ID))
+        AWS_SECRET_ACCESS_KEY: ((AWS_SECRET_ACCESS_KEY))
+  - put: production
+    params:
+      inputs:
+      - name: deploy
       path: deploy/frontend.zip
+      manifest: deploy/manifest.yml
+
+- name: deploy-backend-production
+  plan:
+  - get: version
+    trigger: true
+    passed: ["deploy-backend-acceptance", "deploy-frontend-acceptance"]
+  - get: repo
+    trigger: true
+    passed: ["deploy-backend-acceptance", "deploy-frontend-acceptance"]
+  - get: openjdk-node-cf
+    params: {save: true}
+  - task: download-jar
+    privileged: true
+    image: openjdk-node-cf
+    config:
+      platform: linux
+      inputs:
+      - name: repo
+      - name: version
+      outputs:
+      - name: deploy
+      run:
+        path: sh
+        args:
+        - -exc
+        - |
+          #!/bin/bash
+
+          export BUILD_VERSION=`cat version/number`
+
+          set -ex
+
+          /root/bin/aws s3 cp  "s3://wine-inventory/app/wine-inventory-${BUILD_VERSION}.jar"  ./deploy/backend.jar
+          cp ./repo/ci/manifests/production/mainfest-backend.yml ./deploy/manifest.yml
+          export BUILD_VERSION=`cat version/number`
+
+      params:
+        AWS_ACCESS_KEY_ID: ((AWS_ACCESS_KEY_ID))
+        AWS_SECRET_ACCESS_KEY: ((AWS_SECRET_ACCESS_KEY))
+  - put: production
+    params:
+      inputs:
+      - name: deploy
+      path: deploy/backend.jar
       manifest: deploy/manifest.yml
