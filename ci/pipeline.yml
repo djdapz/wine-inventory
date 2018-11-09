@@ -336,10 +336,10 @@ jobs:
 - name: deploy-backend-production
   plan:
   - get: version
-    trigger: true
+    trigger: false
     passed: ["deploy-backend-acceptance", "deploy-frontend-acceptance"]
   - get: repo
-    trigger: true
+    trigger: false
     passed: ["deploy-backend-acceptance", "deploy-frontend-acceptance"]
   - get: openjdk-node-cf
     params: {save: true}
