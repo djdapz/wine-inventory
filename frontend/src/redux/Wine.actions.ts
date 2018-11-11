@@ -1,21 +1,24 @@
-import {AnyAction, Dispatch} from "redux";
+import {Dispatch} from "redux";
 
 import axios from 'axios';
-import {Wine} from "./WineList";
 import {backendUri} from "../config";
+import {Wine} from "../domain/Wine.types";
+import {ApiAction} from "./ReduxTypes";
 
 export enum WineActionTypes {
     GET_ALL_WINE_SUCCESS = "GET_ALL_WINE_SUCCESS",
     GET_ALL_WINE_FAILURE = "GET_ALL_WINE_FAILURE"
 }
 
-function wineFailure(): AnyAction {
+export type GetWineActionTypes = ApiAction<WineActionTypes.GET_ALL_WINE_SUCCESS, WineActionTypes.GET_ALL_WINE_FAILURE, Wine[]>
+
+function wineFailure(): GetWineActionTypes {
     return {
         type: WineActionTypes.GET_ALL_WINE_FAILURE
     }
 }
 
-function wineSuccess(wines: Wine[]): AnyAction {
+function wineSuccess(wines: Wine[]): GetWineActionTypes {
     return {
         type: WineActionTypes.GET_ALL_WINE_SUCCESS,
         payload: wines

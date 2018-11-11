@@ -2,18 +2,13 @@ import * as React from "react";
 
 import {connect} from 'react-redux'
 import {Dispatch} from "redux";
-import {getAllWine} from "./Wine.actions";
+import {getAllWine} from "../redux/Wine.actions";
 import Card from "@material-ui/core/Card/Card";
 
 import styled from "styled-components";
+import {Wine} from "../domain/Wine.types";
 
-export class Wine {
-    type: string;
-    producer: string;
-    year: number;
-    quantity: number;
-    country: string;
-}
+
 
 interface WineListDispatchProps {
     getWines: () => void

@@ -1,9 +1,9 @@
 import * as React from "react";
-import {CreateWineRequest} from "./CreateWine.types";
+import {CreateWineRequest} from "../domain/CreateWine.types";
 import AddIcon from '@material-ui/icons/Add';
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {openCreateWineForm} from "./CreateWine.actions";
+import {openCreateWineForm} from "../redux/CreateWine.actions";
 import Button from "@material-ui/core/Button/Button";
 import styled from "styled-components";
 

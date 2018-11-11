@@ -1,23 +1,27 @@
 import {AnyAction} from "redux";
-import {CreateWineRequest} from "./CreateWine.types";
-import {CreateWineRequestActions} from "./CreateWine.actions";
+import {CreateWineRequest} from "../domain/CreateWine.types";
+import {
+    AddNumberToCreateWineRequest,
+    AddStringToCreateWineRequest,
+    CreateWineRequestActions, OpenCreateWineForm
+} from "./CreateWine.actions";
 
 export const createWineFormReducer = (state: CreateWineRequest | null = null, action: AnyAction): CreateWineRequest | null => {
 
     switch (action.type) {
-        case CreateWineRequestActions.addQuantityToWineRequest:
+        case AddNumberToCreateWineRequest.addQuantityToWineRequest:
             return state!.withQuantity(action.payload);
-        case CreateWineRequestActions.addCountryToWineRequest:
+        case AddStringToCreateWineRequest.addCountryToWineRequest:
             return state!.withCountry(action.payload);
-        case CreateWineRequestActions.addProducerToWineRequest:
+        case AddStringToCreateWineRequest.addProducerToWineRequest:
             return state!.withProducer(action.payload);
-        case CreateWineRequestActions.addTypeToWineRequest:
+        case AddStringToCreateWineRequest.addTypeToWineRequest:
             return state!.withType(action.payload);
-        case CreateWineRequestActions.addYearToWineRequest:
+        case AddNumberToCreateWineRequest.addYearToWineRequest:
             return state!.withYear(action.payload);
         case CreateWineRequestActions.createWineSucceded:
             return null;
-        case CreateWineRequestActions.openCreateWineForm:
+        case OpenCreateWineForm.openCreateWineForm:
             return new CreateWineRequest();
         default:
             return state

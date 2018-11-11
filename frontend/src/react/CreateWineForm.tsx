@@ -1,6 +1,5 @@
 import * as React from "react";
 import TextField from "@material-ui/core/TextField/TextField";
-import {CreateWineRequest} from "./CreateWine.types";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {
@@ -11,14 +10,22 @@ import {
     addYearToWineRequest,
     openCreateWineForm,
     submitCreateWine
-} from "./CreateWine.actions";
+} from "../redux/CreateWine.actions";
 import Button from "@material-ui/core/Button/Button";
 import styled from "styled-components";
 import Cancel from "@material-ui/icons/Cancel";
 import {BottomButton} from "./NewWineButton";
+import Select from "@material-ui/core/Select/Select";
+import FormControl from "@material-ui/core/FormControl/FormControl";
+import InputLabel from "@material-ui/core/InputLabel/InputLabel";
+import {CreateWineRequest} from "../domain/CreateWine.types";
+import {Country} from "../redux/Country.actions";
+import {StoreType} from "../index";
+import FilledInput from "@material-ui/core/es/FilledInput/FilledInput";
 
 interface CreateWineFormProps {
     createWineFormRequest: CreateWineRequest | null
+    countries: Country[]
     changeType: (type: string) => void
     changeYear: (year: number) => void
     changeQuantity: (quantity: number) => void
@@ -54,8 +61,14 @@ const StyledForm = styled.div<Collapsable>`
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
   }
+  .country-input,  .country-input > div{
+    background-color: white;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
 `;
-
+const renderMenuItems = (countries: Country[]) => countries.map(country =>
+    <option value={country.name}>{country.name}</option>);
 
 const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormRequest ?
     <StyledForm id="create-wine-form"
@@ -69,14 +82,21 @@ const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormReque
                 <Cancel/>
             </Button>
         </BottomButton>
-        <TextField
-            className={'country-input'}
-            label="Country"
-            value={props.createWineFormRequest.country}
-            onChange={(event) => props.changeCountry(event.target.value)}
-            margin="normal"
-            variant="filled"
-        />
+
+        <FormControl variant="filled"
+                     className={'country-input'}>
+            <InputLabel htmlFor="country-dropdown">Country</InputLabel>
+            <Select
+                native
+                value={props.createWineFormRequest.country}
+                onChange={(event) => props.changeCountry(event.target.value)}
+                input={<FilledInput name="country"
+                                    id="country-dropdown"/>}
+            >
+                <option value=""/>
+                {renderMenuItems(props.countries)}
+            </Select>
+        </FormControl>
         <TextField
             className={'producer-input'}
             label="Producer"
@@ -116,10 +136,11 @@ const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormReque
             Create
         </Button>
     </StyledForm> : <StyledForm id="create-wine-form"
-                                isCollapsed={true}/>
+                                isCollapsed={true}/>;
 
-const mapStateToProps = (state: any) => ({
-    createWineFormRequest: state.createWineForm
+const mapStateToProps = (state: StoreType) => ({
+    createWineFormRequest: state.createWineForm,
+    countries: state.countries
 });
 
 const mapActionsToProps = (dispatch: Dispatch) => ({
