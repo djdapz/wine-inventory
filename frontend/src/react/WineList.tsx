@@ -9,7 +9,6 @@ import styled from "styled-components";
 import {Wine} from "../domain/Wine.types";
 
 
-
 interface WineListDispatchProps {
     getWines: () => void
 }
@@ -61,14 +60,11 @@ class WineList extends React.Component<WineListProps> {
                                                               className={'wine-card'}>
             <div>
                 <div>
-                    <span className={'producer'}>{wine.producer}</span>
-                    <Pipe/>
-                    <span className={'country'}>{wine.country}</span>
+                    <span className={'year'}>{wine.year}</span> <span className={'type'}>{wine.type}</span>
+                    <Pipe/><span className={'producer'}>{wine.producer}</span>
                 </div>
                 <div>
-                    <span className={'type'}>{wine.type}</span>
-                    <Pipe/>
-                    <span className={'year'}>{wine.year}</span>
+                    <span className={'country'}>{wine.country}</span>
                 </div>
             </div>
             <div className={'quantity'}><b>{wine.quantity}</b> left</div>
