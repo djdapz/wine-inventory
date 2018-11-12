@@ -55,7 +55,6 @@ const StyledForm = styled.div<Collapsable>`
   right: 0;
   height: 100%;
   max-width: ${p => p.isCollapsed ? 0 : "10rem"};
-  transition: max-width .3s, padding-left .3s, padding-right .3s, width .3s;
   input{
     background-color: white;
     border-top-left-radius: 4px;
