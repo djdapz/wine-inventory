@@ -25,7 +25,7 @@ const backendUriMap = {
     [EnvironmentName.DEV]: "http://localhost:8081",
     [EnvironmentName.E2E]: "http://localhost:3210",
     [EnvironmentName.DEVELOPMENT_PCF]: "https://wine-inventory-backend-acceptance.cfapps.io",
-    [EnvironmentName.PROD]: "https://wine-inventory-backend-production.cfapps.io"
+    [EnvironmentName.PROD]: "https://wine-inventory-backend-prod.cfapps.io"
 };
 
 export const backendUri = backendUriMap[environment];
