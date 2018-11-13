@@ -7,7 +7,7 @@ import {
     addProducerToWineRequest,
     addQuantityToWineRequest,
     addTypeToWineRequest,
-    addYearToWineRequest,
+    addYearToWineRequest, closeCreateWineForm,
     openCreateWineForm,
     submitCreateWine
 } from "../redux/CreateWine.actions";
@@ -33,6 +33,7 @@ interface CreateWineFormProps {
     changeCountry: (country: string) => void
     submit: (createWineRequest: CreateWineRequest) => void,
     openForm: () => void
+    closeForm: () => void
 }
 
 let handleNum = (fun: (n: number) => void) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +68,7 @@ const StyledForm = styled.div<Collapsable>`
   }
 `;
 const renderMenuItems = (countries: Country[]) => countries.map(country =>
-    <option value={country.name}>{country.name}</option>);
+    <option key={country.name} value={country.name}>{country.name}</option>);
 
 const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormRequest ?
     <StyledForm id="create-wine-form"
@@ -77,7 +78,7 @@ const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormReque
                 id={"cancel-new-wine"}
                 variant={'fab'}
                 color={"secondary"}
-                onClick={() => props.submit(props.createWineFormRequest!)}>
+                onClick={props.closeForm}>
                 <Cancel/>
             </Button>
         </BottomButton>
@@ -149,7 +150,8 @@ const mapActionsToProps = (dispatch: Dispatch) => ({
     changeProducer: (producer: string) => dispatch(addProducerToWineRequest(producer)),
     changeCountry: (country: string) => dispatch(addCountryToWineRequest(country)),
     submit: (createWineRequest: CreateWineRequest) => submitCreateWine(dispatch, createWineRequest),
-    openForm: () => dispatch(openCreateWineForm())
+    openForm: () => dispatch(openCreateWineForm()),
+    closeForm: () => dispatch(closeCreateWineForm())
 });
 
 export default connect(mapStateToProps, mapActionsToProps)(CreateWineForm)

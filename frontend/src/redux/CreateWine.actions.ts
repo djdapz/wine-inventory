@@ -30,8 +30,12 @@ export const addYearToWineRequest = (year: number): AddNumberToCreateWineRequest
     payload: year
 });
 
-export const openCreateWineForm = (): Action<OpenCreateWineForm> => ({
-    type: OpenCreateWineForm.openCreateWineForm,
+export const openCreateWineForm = (): Action<ToggleCreateWineForm> => ({
+    type: ToggleCreateWineForm.openCreateWineForm,
+});
+
+export const closeCreateWineForm = (): Action<ToggleCreateWineForm> => ({
+    type: ToggleCreateWineForm.closeCreateWineForm,
 });
 
 export const submitCreateWine = (dispatch: Dispatch, createWineRequest: CreateWineRequest) => {
@@ -59,8 +63,9 @@ export const enum AddNumberToCreateWineRequest {
     addYearToWineRequest = "addYearToWineRequest",
 }
 
-export const enum OpenCreateWineForm {
+export const enum ToggleCreateWineForm {
     openCreateWineForm = "openCreateWineForm",
+    closeCreateWineForm = "closeCreateWineForm",
 }
 
 
@@ -69,5 +74,5 @@ type AddNumberToCreateWineRequestType = ActionWithPayload<AddNumberToCreateWineR
 
 export type CreateWineActions = AddStringToCreateWineRequestType
     | AddNumberToCreateWineRequestType
-    | Action<OpenCreateWineForm>
+    | Action<ToggleCreateWineForm>
     | Action<CreateWineRequestActions>

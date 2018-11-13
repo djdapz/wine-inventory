@@ -3,7 +3,7 @@ import {CreateWineRequest} from "../domain/CreateWine.types";
 import {
     AddNumberToCreateWineRequest,
     AddStringToCreateWineRequest,
-    CreateWineRequestActions, OpenCreateWineForm
+    CreateWineRequestActions, ToggleCreateWineForm
 } from "./CreateWine.actions";
 
 export const createWineFormReducer = (state: CreateWineRequest | null = null, action: AnyAction): CreateWineRequest | null => {
@@ -21,7 +21,9 @@ export const createWineFormReducer = (state: CreateWineRequest | null = null, ac
             return state!.withYear(action.payload);
         case CreateWineRequestActions.createWineSucceded:
             return null;
-        case OpenCreateWineForm.openCreateWineForm:
+        case ToggleCreateWineForm.closeCreateWineForm:
+            return null;
+        case ToggleCreateWineForm.openCreateWineForm:
             return new CreateWineRequest();
         default:
             return state
