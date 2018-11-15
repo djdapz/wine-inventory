@@ -4,11 +4,9 @@
     <bookmark url="file://$PROJECT_DIR$/frontend/src/redux/CreateWine.actions.ts" description="createWineSucceded = &quot;createWineSucceded&quot;," line="56" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a68c11f7-4bd3-4410-9b56-37d989b7f563" name="Default" comment="Make it possible to delete a single number from a text field.">
+    <list default="true" id="a68c11f7-4bd3-4410-9b56-37d989b7f563" name="Default" comment="Actually display the cellar location">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/cypress/integration/main.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/cypress/integration/main.spec.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/domain/Wine.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/domain/Wine.types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/react/WineList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/react/WineList.tsx" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -145,6 +143,7 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="65" />
+          <entry key="gitignore" value="6" />
           <entry key="gradle" value="441" />
           <entry key="html" value="31" />
           <entry key="js" value="1458" />
@@ -157,7 +156,7 @@
           <entry key="sql" value="111" />
           <entry key="ts" value="6783" />
           <entry key="tsx" value="6077" />
-          <entry key="txt" value="630" />
+          <entry key="txt" value="666" />
           <entry key="yml" value="1661" />
         </counts>
       </usages-collector>
@@ -165,6 +164,7 @@
         <counts>
           <entry key="Bash" value="67" />
           <entry key="CSS" value="65" />
+          <entry key="Git file" value="6" />
           <entry key="Groovy" value="441" />
           <entry key="HTML" value="31" />
           <entry key="JSON" value="116" />
@@ -172,7 +172,7 @@
           <entry key="Kotlin" value="1588" />
           <entry key="Less" value="71" />
           <entry key="Markdown" value="483" />
-          <entry key="PLAIN_TEXT" value="604" />
+          <entry key="PLAIN_TEXT" value="640" />
           <entry key="SCSS" value="2" />
           <entry key="SQL" value="112" />
           <entry key="Scratch" value="26" />
@@ -192,7 +192,7 @@
           <entry key="bat" value="1" />
           <entry key="country" value="2" />
           <entry key="css" value="5" />
-          <entry key="gitignore" value="3" />
+          <entry key="gitignore" value="4" />
           <entry key="gradle" value="2" />
           <entry key="gradlew" value="1" />
           <entry key="html" value="3" />
@@ -226,7 +226,7 @@
           <entry key="Bash" value="9" />
           <entry key="CSS" value="5" />
           <entry key="Database Element" value="6" />
-          <entry key="Git file" value="3" />
+          <entry key="Git file" value="4" />
           <entry key="Groovy" value="2" />
           <entry key="HTML" value="3" />
           <entry key="Image" value="2" />
@@ -314,22 +314,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/cypress/integration/main.spec.js">
+        <entry file="file://$PROJECT_DIR$/frontend/src/react/WineList.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="114" column="45" lean-forward="true" selection-start-line="114" selection-start-column="45" selection-end-line="114" selection-end-column="45" />
+            <state relative-caret-position="357">
+              <caret line="46" column="1" lean-forward="true" selection-end-line="89" selection-end-column="117" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/frontend/src/react/WineList.tsx">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="75" column="96" selection-start-line="75" selection-start-column="96" selection-end-line="75" selection-end-column="96" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="105">
+              <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -871,7 +871,6 @@
         <option value="$PROJECT_DIR$/src/test/kotlin/com/dapuzzo/devon/wineventory/CountryControllerTest.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/CountryController.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/CountryRepository.kt" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/ci/run-tests.sh" />
         <option value="$PROJECT_DIR$/src/main/resources/application.yml" />
         <option value="$PROJECT_DIR$/frontend/src/App.tsx" />
@@ -916,6 +915,7 @@
         <option value="$PROJECT_DIR$/frontend/cypress/integration/main.spec.js" />
         <option value="$PROJECT_DIR$/frontend/src/domain/Wine.types.ts" />
         <option value="$PROJECT_DIR$/frontend/src/react/WineList.tsx" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -1064,7 +1064,7 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/devondapuzzo/workspace/wine-inventory/src/test/kotlin/com/dapuzzo/devon/wineventory/ApplicationTest.kt" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542260859551" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542260900354" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL&#10;DDL Data Source" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="TEXT" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
@@ -1271,7 +1271,7 @@
       <workItem from="1541571993924" duration="9065000" />
       <workItem from="1541967860516" duration="9624000" />
       <workItem from="1542078910359" duration="749000" />
-      <workItem from="1542220244577" duration="9061000" />
+      <workItem from="1542220244577" duration="9131000" />
     </task>
     <task id="LOCAL-00001" summary="Open and hide wine form.">
       <created>1540599656645</created>
@@ -1350,7 +1350,14 @@
       <option name="project" value="LOCAL" />
       <updated>1542260154462</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Actually display the cellar location">
+      <created>1542260885497</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1542260885497</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1386,7 +1393,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109885000" />
+    <option name="totallyTimeSpent" value="109955000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1401,7 +1408,7 @@
     <frame x="0" y="23" width="1680" height="1027" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.78172046" visible="true" weight="0.24725275" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.78172046" visible="true" weight="0.24725275" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1411,7 +1418,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49498746" visible="true" weight="0.30481285" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49498746" weight="0.30481285" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1421,7 +1428,7 @@
       <window_info anchor="bottom" id="Docker" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.31829575" side_tool="true" weight="0.38930482" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
-      <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.49498746" weight="0.32834226" />
+      <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.49498746" visible="true" weight="0.32834226" />
       <window_info anchor="bottom" id="Spring" order="13" weight="0.32941177" />
       <window_info anchor="bottom" id="TypeScript" order="14" sideWeight="0.49868765" weight="0.32834226" />
       <window_info anchor="bottom" id="Messages" order="15" sideWeight="0.49749374" weight="0.32834226" />
@@ -1526,7 +1533,8 @@
     <MESSAGE value="Refactor directory structure and add countries as a dropdown option." />
     <MESSAGE value="Add Cellar Location as field on a Wine Record" />
     <MESSAGE value="Make it possible to delete a single number from a text field." />
-    <option name="LAST_COMMIT_MESSAGE" value="Make it possible to delete a single number from a text field." />
+    <MESSAGE value="Actually display the cellar location" />
+    <option name="LAST_COMMIT_MESSAGE" value="Actually display the cellar location" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1741,9 +1749,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/com/dapuzzo/devon/wineventory/Wine.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -1956,11 +1961,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/react/WineList.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="75" column="96" selection-start-line="75" selection-start-column="96" selection-end-line="75" selection-end-column="96" />
+        <state relative-caret-position="357">
+          <caret line="46" column="1" lean-forward="true" selection-end-line="89" selection-end-column="117" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
         </state>
       </provider>
     </entry>
