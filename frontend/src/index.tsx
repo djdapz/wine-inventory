@@ -9,6 +9,7 @@ import {createWineFormReducer} from "./redux/CreateWine.reducers";
 import {FetchCountriesMiddleware} from "./redux/Country.actions";
 import {fetchCountriesReducer} from "./redux/Country.reducer";
 import {StateType} from "./redux/ReduxTypes";
+import {composeWithDevTools} from "redux-devtools-extension";
 
 
 const rootReducer = combineReducers(
@@ -18,9 +19,9 @@ const rootReducer = combineReducers(
         countries: fetchCountriesReducer
     }
 );
-export type StoreType = StateType<typeof rootReducer>
 
-const store = createStore(rootReducer, applyMiddleware(FetchCountriesMiddleware));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(FetchCountriesMiddleware)));
+export type StoreType = StateType<typeof rootReducer>
 
 ReactDOM.render(
     <Provider store={store}>

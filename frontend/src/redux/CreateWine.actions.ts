@@ -5,7 +5,7 @@ import {Action, Dispatch} from "redux";
 import {getAllWine} from "./Wine.actions";
 import {ActionWithPayload} from "./ReduxTypes";
 
-export const addQuantityToWineRequest = (quantity: number): AddNumberToCreateWineRequestType => ({
+export const addQuantityToWineRequest = (quantity: number | undefined): AddNumberToCreateWineRequestType => ({
     type: AddNumberToCreateWineRequest.addQuantityToWineRequest,
     payload: quantity
 });
@@ -30,10 +30,11 @@ export const addTypeToWineRequest = (type: string): AddStringToCreateWineRequest
     payload: type
 });
 
-export const addYearToWineRequest = (year: number): AddNumberToCreateWineRequestType => ({
-    type: AddNumberToCreateWineRequest.addYearToWineRequest,
-    payload: year
-});
+export const addYearToWineRequest = (year: number | undefined): AddNumberToCreateWineRequestType =>
+    ({
+        type: AddNumberToCreateWineRequest.addYearToWineRequest,
+        payload: year
+    });
 
 export const openCreateWineForm = (): Action<ToggleCreateWineForm> => ({
     type: ToggleCreateWineForm.openCreateWineForm,
@@ -76,7 +77,7 @@ export const enum ToggleCreateWineForm {
 
 
 type AddStringToCreateWineRequestType = ActionWithPayload<AddStringToCreateWineRequest, string>
-type AddNumberToCreateWineRequestType = ActionWithPayload<AddNumberToCreateWineRequest, number>
+type AddNumberToCreateWineRequestType = ActionWithPayload<AddNumberToCreateWineRequest, number | undefined>
 
 export type CreateWineActions = AddStringToCreateWineRequestType
     | AddNumberToCreateWineRequestType

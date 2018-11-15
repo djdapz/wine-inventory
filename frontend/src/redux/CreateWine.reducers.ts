@@ -10,23 +10,23 @@ export const createWineFormReducer = (state: CreateWineRequest | null = null, ac
 
     switch (action.type) {
         case AddNumberToCreateWineRequest.addQuantityToWineRequest:
-            return state!.withQuantity(action.payload);
+            return {...state, quantity: action.payload};
         case AddStringToCreateWineRequest.addCountryToWineRequest:
-            return state!.withCountry(action.payload);
+            return {...state, country: action.payload};
         case AddStringToCreateWineRequest.addProducerToWineRequest:
-            return state!.withProducer(action.payload);
+            return {...state, producer: action.payload};
         case AddStringToCreateWineRequest.addCellarLocationToWineRequest:
-            return state!.withCellarLocation(action.payload);
+            return {...state, cellarLocation: action.payload};
         case AddStringToCreateWineRequest.addTypeToWineRequest:
-            return state!.withType(action.payload);
+            return {...state, type: action.payload};
         case AddNumberToCreateWineRequest.addYearToWineRequest:
-            return state!.withYear(action.payload);
+            return {...state, year: action.payload};
         case CreateWineRequestActions.createWineSucceded:
             return null;
         case ToggleCreateWineForm.closeCreateWineForm:
             return null;
         case ToggleCreateWineForm.openCreateWineForm:
-            return new CreateWineRequest();
+            return {};
         default:
             return state
     }

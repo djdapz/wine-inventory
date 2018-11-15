@@ -122,6 +122,12 @@ context('Actions', () => {
             });
         });
 
+        it.only('should allow the user to delete entirely a numeric value', function () {
+            cy.get("#create-wine-form .year-input input").type("1");
+            cy.get("#create-wine-form .year-input input").clear();
+            cy.get("#create-wine-form .year-input input").should('have.value', '')
+
+        });
 
         it('should not allow the user to submit the button until the form is complete', function () {
             cy.get("#create-wine-form .country-input select").select("Spain");
