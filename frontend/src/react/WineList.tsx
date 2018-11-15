@@ -29,17 +29,21 @@ const WineCard = styled(Card)`
   align-items: center;
 `;
 
-const PipeWrapper = styled.span`
-   margin: 0 .5rem;
+const ProducerHeading = styled.div`
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: .25rem;
 `;
-
-const Pipe = () => <PipeWrapper>|</PipeWrapper>;
 
 const StyledWineList = styled.div`
   flex-grow:  1;
   padding: 1rem;
   max-width: 60rem;
   overflow-y: scroll;
+`;
+
+const LeftPanel = styled.div`
+  text-align: right;
 `;
 
 class WineList extends React.Component<WineListProps> {
@@ -59,15 +63,18 @@ class WineList extends React.Component<WineListProps> {
         return this.props.wines.map((wine: Wine) => <WineCard key={wine.year + wine.producer + wine.type}
                                                               className={'wine-card'}>
             <div>
+                <ProducerHeading className={'producer'}> {wine.producer}</ProducerHeading>
                 <div>
                     <span className={'year'}>{wine.year}</span> <span className={'type'}>{wine.type}</span>
-                    <Pipe/><span className={'producer'}>{wine.producer}</span>
                 </div>
                 <div>
                     <span className={'country'}>{wine.country}</span>
                 </div>
             </div>
-            <div className={'quantity'}><b>{wine.quantity}</b> left</div>
+            <LeftPanel>
+                <div className={'quantity'}><b>{wine.quantity}</b> left</div>
+                <div className={'cellar-location'}>Cellar Location: <b>{wine.cellarLocation}</b></div>
+            </LeftPanel>
         </WineCard>)
     }
 }

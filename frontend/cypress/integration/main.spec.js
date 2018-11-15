@@ -108,7 +108,7 @@ context('Actions', () => {
             });
 
 
-            it.only('should hide form on success', function () {
+            it('should hide form on success', function () {
                 cy.get("#create-wine-form .submit-button").click();
                 cy.wait("@postWines");
                 cy.wait(100);
@@ -122,7 +122,7 @@ context('Actions', () => {
             });
         });
 
-        it.only('should allow the user to delete entirely a numeric value', function () {
+        it('should allow the user to delete entirely a numeric value', function () {
             cy.get("#create-wine-form .year-input input").type("1");
             cy.get("#create-wine-form .year-input input").clear();
             cy.get("#create-wine-form .year-input input").should('have.value', '')

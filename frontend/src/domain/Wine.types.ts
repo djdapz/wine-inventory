@@ -4,4 +4,5 @@ export class Wine {
     year: number;
     quantity: number;
     country: string;
+    cellarLocation: string;
 }
