@@ -12,13 +12,15 @@ context('Actions', () => {
                     quantity: 10,
                     type: "Barolo",
                     year: 2009,
+                    cellarLocation: "Upper Left"
                 },
                 {
                     type: "Chianti",
                     producer: "Monsanto",
                     year: 2012,
                     quantity: 8,
-                    country: "Italy"
+                    country: "Italy",
+                    cellarLocation: "Bottom Right"
                 }
             ]
         }).as('getWines');
@@ -27,8 +29,21 @@ context('Actions', () => {
         cy.route({
             method: "POST",
             url: "/wines",
-            status: 201
+            status: 201,
+            response: "Created: i guess i need a response..."
         }).as('postWines');
+
+        cy.route({
+            method: "GET",
+            url: "/country/all",
+            status: 201,
+            response: {
+                countries: [
+                    {"name": "Spain", code: "ES"},
+                    {"name": "Italy", code: "IT"}
+                ]
+            }
+        }).as('getCountries');
 
         cy.visit('/');
         cy.wait("@getWines")
@@ -52,12 +67,14 @@ context('Actions', () => {
             expect(record[0].querySelector(".year").innerText).to.eq('2009');
             expect(record[0].querySelector(".quantity").innerText).to.eq('10 left');
             expect(record[0].querySelector(".country").innerText).to.eq("Italy");
+            expect(record[0].querySelector(".cellar-location").innerText).to.eq("Upper Left");
 
             expect(record[1].querySelector(".type").innerText).to.eq("Chianti");
             expect(record[1].querySelector(".producer").innerText).to.eq("Monsanto");
             expect(record[1].querySelector(".year").innerText).to.eq('2012');
             expect(record[1].querySelector(".quantity").innerText).to.eq('8 left');
             expect(record[1].querySelector(".country").innerText).to.eq("Italy");
+            expect(record[1].querySelector(".cellar-location").innerText).to.eq("Bottom Right");
         })
     });
 
@@ -68,8 +85,10 @@ context('Actions', () => {
 
         describe("When i fill out the form completely", () => {
             beforeEach(function () {
-                cy.get("#create-wine-form .country-input input").type("Spain");
+                cy.get("#create-wine-form .country-input select").select("Spain");
+
                 cy.get("#create-wine-form .producer-input input").type("Orin Swift");
+                cy.get("#create-wine-form .cellar-location-input input").type("Upper Left");
                 cy.get("#create-wine-form .type-input input").type("Tempranillo");
                 cy.get("#create-wine-form .quantity-input input").type("12");
                 cy.get("#create-wine-form .year-input input").type("2014");
@@ -83,14 +102,16 @@ context('Actions', () => {
                     producer: "Orin Swift",
                     type: "Tempranillo",
                     quantity: 12,
-                    year: 2014
+                    year: 2014,
+                    cellarLocation: "Upper Left"
                 })
             });
 
 
-            it('should hide form on success', function () {
+            it.only('should hide form on success', function () {
                 cy.get("#create-wine-form .submit-button").click();
                 cy.wait("@postWines");
+                cy.wait(100);
                 cy.get('#create-wine-form').should('not.exist');
             });
 
@@ -103,9 +124,10 @@ context('Actions', () => {
 
 
         it('should not allow the user to submit the button until the form is complete', function () {
-            cy.get("#create-wine-form .country-input input").type("Spain");
+            cy.get("#create-wine-form .country-input select").select("Spain");
             cy.get("#create-wine-form .producer-input input").type("Orin Swift");
             cy.get("#create-wine-form .type-input input").type("Tempranillo");
+            cy.get("#create-wine-form .cellar-location-input input").type("Upper Left");
             cy.get("#create-wine-form .quantity-input input").type("12");
 
             cy.get("#create-wine-form .submit-button").should("be.disabled");
@@ -117,7 +139,7 @@ context('Actions', () => {
 
 
         it('should remove the form if i click cancel', function () {
-            cy.get("#create-wine-form .country-input input").type("Spain");
+            cy.get("#create-wine-form .country-input select").select("Spain");
             cy.get("#create-wine-form button#cancel-new-wine").click();
 
             cy.get('#create-wine-form').should('not.exist');

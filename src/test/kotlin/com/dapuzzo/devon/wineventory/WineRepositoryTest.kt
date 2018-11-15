@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner::class)
 @ActiveProfiles("test")
-open class WineRepositoryTest {
+class WineRepositoryTest {
 
     @Autowired
     lateinit var jdbcTemplate: JdbcTemplate
@@ -26,15 +26,17 @@ open class WineRepositoryTest {
         val year = 2001
         val quantity = 12
         val country = "Italy"
+        val cellarLocation = "floor"
 
-        val expected = subject.save(type, producer, year, quantity, country).run {
+        val expected = subject.save(type, producer, year, quantity, country, cellarLocation).run {
             Wine(
                     type = type,
                     producer = producer,
                     year = year,
                     quantity = quantity,
+                    country = country,
                     id = this,
-                    country=country
+                    cellarLocation = cellarLocation
             )
         }
 

@@ -15,6 +15,11 @@ export const addCountryToWineRequest = (name: string): AddStringToCreateWineRequ
     payload: name
 });
 
+export const addCellarLocationToWineRequest = (name: string): AddStringToCreateWineRequestType => ({
+    type: AddStringToCreateWineRequest.addCellarLocationToWineRequest,
+    payload: name
+});
+
 export const addProducerToWineRequest = (producer: string): AddStringToCreateWineRequestType => ({
     type: AddStringToCreateWineRequest.addProducerToWineRequest,
     payload: producer
@@ -53,6 +58,7 @@ export const enum CreateWineRequestActions {
 }
 
 export const enum AddStringToCreateWineRequest {
+    addCellarLocationToWineRequest="addCellarLocationToWineRequest",
     addCountryToWineRequest = "addCountryToWineRequest",
     addProducerToWineRequest = "addProducerToWineRequest",
     addTypeToWineRequest = "addTypeToWineRequest",

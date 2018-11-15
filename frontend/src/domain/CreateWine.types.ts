@@ -2,15 +2,17 @@ export class CreateWineRequest {
     type: string;
     producer: string;
     year?: number;
+    cellarLocation?: string;
     quantity?: number;
     country: string;
 
-    constructor(type: string = "", producer: string = "", year?: number, quantity?: number, country: string = "") {
+    constructor(type: string = "", producer: string = "", year?: number, quantity?: number, country: string = "", cellarLocation: string = "") {
         this.type = type;
         this.producer = producer;
         this.year = year;
         this.quantity = quantity;
         this.country = country;
+        this.cellarLocation = cellarLocation;
     }
 
     withYear(year: number) {
@@ -19,7 +21,8 @@ export class CreateWineRequest {
             this.producer,
             year,
             this.quantity,
-            this.country
+            this.country,
+            this.cellarLocation
         )
     }
 
@@ -29,7 +32,8 @@ export class CreateWineRequest {
             producer,
             this.year,
             this.quantity,
-            this.country
+            this.country,
+            this.cellarLocation
         )
     }
 
@@ -39,7 +43,8 @@ export class CreateWineRequest {
             this.producer,
             this.year,
             this.quantity,
-            this.country
+            this.country,
+            this.cellarLocation
         )
     }
 
@@ -49,7 +54,8 @@ export class CreateWineRequest {
             this.producer,
             this.year,
             quantity,
-            this.country
+            this.country,
+            this.cellarLocation
         )
     }
 
@@ -59,7 +65,19 @@ export class CreateWineRequest {
             this.producer,
             this.year,
             this.quantity,
-            country
+            country,
+            this.cellarLocation
+        )
+    }
+
+    withCellarLocation(cellarLocation: string) {
+        return new CreateWineRequest(
+            this.type,
+            this.producer,
+            this.year,
+            this.quantity,
+            this.country,
+            cellarLocation
         )
     }
 

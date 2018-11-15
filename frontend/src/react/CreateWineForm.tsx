@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {
+    addCellarLocationToWineRequest,
     addCountryToWineRequest,
     addProducerToWineRequest,
     addQuantityToWineRequest,
@@ -31,6 +32,7 @@ interface CreateWineFormProps {
     changeQuantity: (quantity: number) => void
     changeProducer: (producer: string) => void
     changeCountry: (country: string) => void
+    changeCellarLocation: (cellarLocation: string) => void
     submit: (createWineRequest: CreateWineRequest) => void,
     openForm: () => void
     closeForm: () => void
@@ -68,7 +70,8 @@ const StyledForm = styled.div<Collapsable>`
   }
 `;
 const renderMenuItems = (countries: Country[]) => countries.map(country =>
-    <option key={country.name} value={country.name}>{country.name}</option>);
+    <option key={country.name}
+            value={country.name}>{country.name}</option>);
 
 const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormRequest ?
     <StyledForm id="create-wine-form"
@@ -128,6 +131,13 @@ const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormReque
             onChange={handleNum(props.changeQuantity)}
             margin="normal"
             variant="filled"/>
+        <TextField
+            className={'cellar-location-input'}
+            label="Cellar Location"
+            value={props.createWineFormRequest.cellarLocation}
+            onChange={(event) => props.changeCellarLocation(event.target.value)}
+            margin="normal"
+            variant="filled"/>
         <Button disabled={!props.createWineFormRequest.isComplete()}
                 className={"submit-button"}
                 color={"secondary"}
@@ -135,8 +145,8 @@ const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormReque
                 onClick={() => props.submit(props.createWineFormRequest!)}>
             Create
         </Button>
-    </StyledForm> : <StyledForm id="create-wine-form"
-                                isCollapsed={true}/>;
+    </StyledForm>
+    : <div/>;
 
 const mapStateToProps = (state: StoreType) => ({
     createWineFormRequest: state.createWineForm,
@@ -149,6 +159,7 @@ const mapActionsToProps = (dispatch: Dispatch) => ({
     changeQuantity: (quantity: number) => dispatch(addQuantityToWineRequest(quantity)),
     changeProducer: (producer: string) => dispatch(addProducerToWineRequest(producer)),
     changeCountry: (country: string) => dispatch(addCountryToWineRequest(country)),
+    changeCellarLocation: (cellarLocation: string) => dispatch(addCellarLocationToWineRequest(cellarLocation)),
     submit: (createWineRequest: CreateWineRequest) => submitCreateWine(dispatch, createWineRequest),
     openForm: () => dispatch(openCreateWineForm()),
     closeForm: () => dispatch(closeCreateWineForm())

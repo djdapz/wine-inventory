@@ -14,7 +14,8 @@ class WineController(
             val producer: String,
             val year: Int,
             val quantity: Int,
-            val country: String
+            val country: String,
+            val cellarLocation: String
     )
 
     data class WineResponse(val wine: Collection<Wine>)
@@ -26,7 +27,8 @@ class WineController(
             producer = request.producer,
             year = request.year,
             quantity = request.quantity,
-            country = request.country
+            country = request.country,
+            cellarLocation = request.cellarLocation
     )
 
     @GetMapping

@@ -11,6 +11,7 @@ describe("Create Wine Types", () => {
     const subjectWithType = subject.withType("Barolo");
     const subjectWithQuantity = subject.withQuantity(12);
     const subjectWithCounty = subject.withCountry("Italy");
+    const subjectWithCellarLocation = subject.withCellarLocation("Floor");
 
     it('should not have modified original state', function () {
         expect(subject).to.eql(new CreateWineRequest(undefined, undefined, undefined, undefined, undefined))
@@ -34,6 +35,10 @@ describe("Create Wine Types", () => {
 
     it('should have returned a new instance with a type', function () {
         expect(subjectWithType.type).to.eql("Barolo")
+    });
+
+    it('should have returned a new instance with a type', function () {
+        expect(subjectWithCellarLocation.cellarLocation).to.eql("Floor")
     });
 
     it('should only return is Complete when the form is complete', function () {

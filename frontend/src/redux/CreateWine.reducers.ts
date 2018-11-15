@@ -15,6 +15,8 @@ export const createWineFormReducer = (state: CreateWineRequest | null = null, ac
             return state!.withCountry(action.payload);
         case AddStringToCreateWineRequest.addProducerToWineRequest:
             return state!.withProducer(action.payload);
+        case AddStringToCreateWineRequest.addCellarLocationToWineRequest:
+            return state!.withCellarLocation(action.payload);
         case AddStringToCreateWineRequest.addTypeToWineRequest:
             return state!.withType(action.payload);
         case AddNumberToCreateWineRequest.addYearToWineRequest:

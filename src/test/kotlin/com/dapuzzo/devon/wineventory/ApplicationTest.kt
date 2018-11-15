@@ -25,7 +25,7 @@ import java.math.BigInteger
 @SpringBootTest(classes = [WinenventoryApplication::class], webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner::class)
 @ActiveProfiles("test")
-open class ApplicationTest {
+class ApplicationTest {
 
     @Autowired
     lateinit var jdbcTemplate: JdbcTemplate
@@ -48,7 +48,8 @@ open class ApplicationTest {
                       "producer": "Lionello Marchesi",
                       "year": 2009,
                       "quantity": 10,
-                      "country": "Italy"
+                      "country": "Italy",
+                      "cellarLocation": "floor"
                     }
                 """.trimIndent())
                 .contentType(APPLICATION_JSON.toString())
@@ -73,12 +74,13 @@ open class ApplicationTest {
                           "producer": "Lionello Marchesi",
                           "year": 2009,
                           "quantity": 10,
-                          "country": "Italy"
+                          "country": "Italy",
+                          "cellarLocation": "floor"
                         }
                       ]
                     }
 
-                """.trimIndent(), body,false)
+                """.trimIndent(), body, false)
     }
 
     @Test

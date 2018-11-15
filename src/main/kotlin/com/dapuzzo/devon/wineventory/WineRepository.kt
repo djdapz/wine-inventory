@@ -23,18 +23,19 @@ class WineRepository(jdbcTemplate: JdbcTemplate) : WineWriter, WineReader {
                         producer = rs.getString("producer"),
                         year = rs.getInt("year"),
                         quantity = rs.getInt("quantity"),
+                        country = rs.getString("country_name"),
                         id = rs.getInt("id"),
-                        country = rs.getString("country_name")
+                        cellarLocation = rs.getString("cellar_location")
                 )
             }
 
-    override fun save(type: String, producer: String, year: Int, quantity: Int, country: String): Int =
+    override fun save(type: String, producer: String, year: Int, quantity: Int, country: String, cellarLocation: String): Int =
             GeneratedKeyHolder().run {
                 db.update(
                         //language=sql
                         """
-                INSERT INTO wines(type, producer, year, quantity, country_code)
-                VALUES (:type, :producer, :year, :quantity, (SELECT country_code  from country WHERE country_name LIKE :country))
+                INSERT INTO wines(type, producer, year, quantity, cellar_location, country_code)
+                VALUES (:type, :producer, :year, :quantity,  :cellar_location, (SELECT country_code  from country WHERE country_name LIKE :country))
             """.trimIndent(),
                         MapSqlParameterSource(
                                 mapOf(
@@ -42,7 +43,8 @@ class WineRepository(jdbcTemplate: JdbcTemplate) : WineWriter, WineReader {
                                         "producer" to producer,
                                         "year" to year,
                                         "quantity" to quantity,
-                                        "country" to country
+                                        "country" to country,
+                                        "cellar_location" to cellarLocation
                                 )
                         ), this)
                 this.keys!!["id"] as Int
