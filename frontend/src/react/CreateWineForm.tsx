@@ -39,9 +39,10 @@ interface CreateWineFormProps {
 const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
   padding: 1rem;
   height: 100%;
-   background-image: linear-gradient(to bottom right,#8e2dfa,rgb(160, 44, 157));
+  background-image: linear-gradient(to bottom right,#8e2dfa,rgb(160, 44, 157));
   .create-wine-form-input{
     flex-shrink: 0;
   }
@@ -96,16 +97,16 @@ const CreateWineForm = (props: CreateWineFormProps) =>
                         onClick={() => props.submit(props.createWineFormRequest!)}>
                     Create
                 </Button>
-                <BottomButton>
-                    <Button
-                        id={"cancel-new-wine"}
-                        variant={'fab'}
-                        color={"secondary"}
-                        onClick={props.closeForm}>
-                        <Cancel/>
-                    </Button>
-                </BottomButton>
             </StyledForm> : <StyledForm/>}
+        <BottomButton>
+            <Button
+                id={"cancel-new-wine"}
+                variant={'fab'}
+                color={"secondary"}
+                onClick={props.closeForm}>
+                <Cancel/>
+            </Button>
+        </BottomButton>
     </Drawer>;
 
 const mapStateToProps = (state: StoreType) => ({
