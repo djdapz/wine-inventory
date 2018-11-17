@@ -127,7 +127,7 @@
         <counts>
           <entry key="project.closed" value="10" />
           <entry key="project.open.time.11" value="1" />
-          <entry key="project.open.time.12" value="3" />
+          <entry key="project.open.time.12" value="4" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.16" value="2" />
           <entry key="project.open.time.17" value="1" />
@@ -137,13 +137,13 @@
           <entry key="project.open.time.4" value="2" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="15" />
+          <entry key="project.opened" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="65" />
-          <entry key="gitignore" value="6" />
+          <entry key="gitignore" value="10" />
           <entry key="gradle" value="441" />
           <entry key="html" value="31" />
           <entry key="js" value="1458" />
@@ -155,8 +155,8 @@
           <entry key="sh" value="67" />
           <entry key="sql" value="111" />
           <entry key="ts" value="6783" />
-          <entry key="tsx" value="6077" />
-          <entry key="txt" value="666" />
+          <entry key="tsx" value="6486" />
+          <entry key="txt" value="696" />
           <entry key="yml" value="1661" />
         </counts>
       </usages-collector>
@@ -164,27 +164,27 @@
         <counts>
           <entry key="Bash" value="67" />
           <entry key="CSS" value="65" />
-          <entry key="Git file" value="6" />
+          <entry key="Git file" value="10" />
           <entry key="Groovy" value="441" />
           <entry key="HTML" value="31" />
           <entry key="JSON" value="116" />
           <entry key="JavaScript" value="1458" />
           <entry key="Kotlin" value="1588" />
-          <entry key="Less" value="71" />
+          <entry key="Less" value="75" />
           <entry key="Markdown" value="483" />
-          <entry key="PLAIN_TEXT" value="640" />
+          <entry key="PLAIN_TEXT" value="670" />
           <entry key="SCSS" value="2" />
           <entry key="SQL" value="112" />
           <entry key="Scratch" value="26" />
           <entry key="TypeScript" value="6783" />
-          <entry key="TypeScript JSX" value="6006" />
+          <entry key="TypeScript JSX" value="6411" />
           <entry key="YAML" value="1661" />
           <entry key="yarn.lock" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts">
         <counts>
-          <entry key="TypeScriptServerServiceImpl" value="12" />
+          <entry key="TypeScriptServerServiceImpl" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -259,8 +259,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/redux/CreateWine.actions.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="43" column="28" lean-forward="true" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
+            <state relative-caret-position="570">
+              <caret line="43" column="28" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
               <folding>
                 <element signature="e#0#61#0" expanded="true" />
               </folding>
@@ -271,8 +271,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/react/CreateWineForm.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="70" column="26" selection-start-line="70" selection-start-column="26" selection-end-line="70" selection-end-column="26" />
+            <state relative-caret-position="517">
+              <caret line="149" column="31" selection-start-line="149" selection-start-column="31" selection-end-line="149" selection-end-column="31" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -292,7 +292,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/redux/Wine.actions.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
+            <state relative-caret-position="420">
               <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
@@ -304,8 +304,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/redux/Wine.reducers.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="38" lean-forward="true" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+            <state relative-caret-position="45">
+              <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -317,7 +317,7 @@
         <entry file="file://$PROJECT_DIR$/frontend/src/react/WineList.tsx">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="357">
-              <caret line="46" column="1" lean-forward="true" selection-end-line="89" selection-end-column="117" />
+              <caret line="46" column="1" selection-end-line="89" selection-end-column="117" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -329,7 +329,7 @@
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
-              <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
             </state>
           </provider>
         </entry>
@@ -910,11 +910,11 @@
         <option value="$PROJECT_DIR$/frontend/src/domain/CreateWine.types.spec.ts" />
         <option value="$PROJECT_DIR$/frontend/src/domain/CreateWine.types.ts" />
         <option value="$PROJECT_DIR$/frontend/src/redux/CreateWine.reducers.ts" />
-        <option value="$PROJECT_DIR$/frontend/src/react/CreateWineForm.tsx" />
         <option value="$PROJECT_DIR$/frontend/src/redux/CreateWine.actions.ts" />
         <option value="$PROJECT_DIR$/frontend/cypress/integration/main.spec.js" />
         <option value="$PROJECT_DIR$/frontend/src/domain/Wine.types.ts" />
         <option value="$PROJECT_DIR$/frontend/src/react/WineList.tsx" />
+        <option value="$PROJECT_DIR$/frontend/src/react/CreateWineForm.tsx" />
         <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
@@ -939,10 +939,9 @@
       <path value="$PROJECT_DIR$/frontend/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="207" />
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="1473" />
+    <option name="width" value="1680" />
     <option name="height" value="1027" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -998,8 +997,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -1010,50 +1007,14 @@
             <path>
               <item name="wine-inventory" type="b2602c69:ProjectViewProjectNode" />
               <item name="wine-inventory" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wine-inventory" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wine-inventory" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="cypress" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wine-inventory" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wine-inventory" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="cypress" type="462c0819:PsiDirectoryNode" />
-              <item name="integration" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wine-inventory" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wine-inventory" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wine-inventory" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wine-inventory" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="react" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wine-inventory" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wine-inventory" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="redux" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wine-inventory" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wine-inventory" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1064,7 +1025,7 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/devondapuzzo/workspace/wine-inventory/src/test/kotlin/com/dapuzzo/devon/wineventory/ApplicationTest.kt" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542260900354" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542260903933" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL&#10;DDL Data Source" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="TEXT" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
@@ -1272,6 +1233,7 @@
       <workItem from="1541967860516" duration="9624000" />
       <workItem from="1542078910359" duration="749000" />
       <workItem from="1542220244577" duration="9131000" />
+      <workItem from="1542412858659" duration="1718000" />
     </task>
     <task id="LOCAL-00001" summary="Open and hide wine form.">
       <created>1540599656645</created>
@@ -1357,7 +1319,14 @@
       <option name="project" value="LOCAL" />
       <updated>1542260885497</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Use drawer for wine form.">
+      <created>1542414502205</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1542414502206</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1393,7 +1362,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109955000" />
+    <option name="totallyTimeSpent" value="111673000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1408,7 +1377,7 @@
     <frame x="0" y="23" width="1680" height="1027" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.78172046" visible="true" weight="0.24725275" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.78172046" visible="true" weight="0.25030527" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1424,11 +1393,11 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32941177" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.32834226" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.6817043" weight="0.3486631" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.6817043" visible="true" weight="0.3486631" />
       <window_info anchor="bottom" id="Docker" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.31829575" side_tool="true" weight="0.38930482" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
-      <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.49498746" visible="true" weight="0.32834226" />
+      <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.49498746" weight="0.32834226" />
       <window_info anchor="bottom" id="Spring" order="13" weight="0.32941177" />
       <window_info anchor="bottom" id="TypeScript" order="14" sideWeight="0.49868765" weight="0.32834226" />
       <window_info anchor="bottom" id="Messages" order="15" sideWeight="0.49749374" weight="0.32834226" />
@@ -1534,7 +1503,8 @@
     <MESSAGE value="Add Cellar Location as field on a Wine Record" />
     <MESSAGE value="Make it possible to delete a single number from a text field." />
     <MESSAGE value="Actually display the cellar location" />
-    <option name="LAST_COMMIT_MESSAGE" value="Actually display the cellar location" />
+    <MESSAGE value="Use drawer for wine form." />
+    <option name="LAST_COMMIT_MESSAGE" value="Use drawer for wine form." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1571,13 +1541,11 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/frontend/src/redux/CreateWine.reducers.ts</url>
           <line>26</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/frontend/src/domain/CreateWine.types.spec.ts</url>
           <line>19</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1893,30 +1861,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/redux/CreateWine.actions.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="43" column="28" lean-forward="true" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
+        <state relative-caret-position="570">
+          <caret line="43" column="28" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
           <folding>
             <element signature="e#0#61#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/redux/Wine.reducers.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="38" lean-forward="true" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/redux/Wine.actions.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1928,27 +1876,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/react/CreateWineForm.tsx">
+    <entry file="file://$PROJECT_DIR$/frontend/src/redux/Wine.actions.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="70" column="26" selection-start-line="70" selection-start-column="26" selection-end-line="70" selection-end-column="26" />
+        <state relative-caret-position="420">
+          <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/domain/Wine.types.ts">
+    <entry file="file://$PROJECT_DIR$/frontend/src/redux/Wine.reducers.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://3eeba685-7332-423a-8e97-2c4b38044b2d/database/wine-test/schema/public/table/wines">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
+        <state relative-caret-position="45">
+          <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1959,10 +1903,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="das://3eeba685-7332-423a-8e97-2c4b38044b2d/database/wine-test/schema/public/table/wines">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/domain/Wine.types.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/react/WineList.tsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
-          <caret line="46" column="1" lean-forward="true" selection-end-line="89" selection-end-column="117" />
+          <caret line="46" column="1" selection-end-line="89" selection-end-column="117" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/react/CreateWineForm.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="517">
+          <caret line="149" column="31" selection-start-line="149" selection-start-column="31" selection-end-line="149" selection-end-column="31" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -1972,7 +1940,7 @@
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
