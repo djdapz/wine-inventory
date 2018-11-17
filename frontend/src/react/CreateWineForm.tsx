@@ -1,5 +1,4 @@
 import * as React from "react";
-import TextField from "@material-ui/core/TextField/TextField";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {
@@ -16,15 +15,12 @@ import {
 import Button from "@material-ui/core/Button/Button";
 import Cancel from "@material-ui/icons/Cancel";
 import {BottomButton} from "./NewWineButton";
-import Select from "@material-ui/core/Select/Select";
-import FormControl from "@material-ui/core/FormControl/FormControl";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import {CreateWineRequest, isWineRequestReadyToSubmit} from "../domain/CreateWine.types";
 import {Country} from "../redux/Country.actions";
 import {StoreType} from "../index";
-import FilledInput from "@material-ui/core/es/FilledInput/FilledInput";
 import styled from "styled-components";
 import Drawer from "@material-ui/core/Drawer/Drawer";
+import {DropDown, NumberInput, TextInput} from "./FormComponents";
 
 interface CreateWineFormProps {
     createWineFormRequest: CreateWineRequest | null
@@ -40,39 +36,21 @@ interface CreateWineFormProps {
     closeForm: () => void
 }
 
-let handleNum = (fun: (n?: number) => void) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    const passedValue = event.target.value;
-    if (passedValue === "") {
-        fun(undefined)
-    } else if (!isNaN(parseInt(passedValue)) || passedValue === "") {
-        fun(parseInt(event.target.value))
-    }
-};
-
 const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(to bottom right,#8e2dfa,rgb(160, 44, 157));
   padding: 1rem;
   height: 100%;
-  max-width:10rem;
-  min-height: 40rem;
-  input{
-    background-color: white;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+   background-image: linear-gradient(to bottom right,#8e2dfa,rgb(160, 44, 157));
+  .create-wine-form-input{
+    flex-shrink: 0;
   }
-  .country-input,  .country-input > div{
+  input, .country-input,  .country-input > div{
     background-color: white;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
   }
 `;
-
-const renderMenuItems = (countries: Country[]) => countries.map(country =>
-    <option key={country.name}
-            value={country.name}>{country.name}</option>);
-
 
 const CreateWineForm = (props: CreateWineFormProps) =>
     <Drawer
@@ -80,59 +58,37 @@ const CreateWineForm = (props: CreateWineFormProps) =>
         open={props.createWineFormRequest !== null && props.createWineFormRequest !== undefined}
         onClose={() => null}>
         {props.createWineFormRequest ?
-            <StyledForm>
-                <FormControl variant="filled"
-                             className={'country-input'}>
-                    <InputLabel htmlFor="country-dropdown">Country</InputLabel>
-                    <Select
-                        native
-                        value={props.createWineFormRequest.country}
-                        onChange={(event) => props.changeCountry(event.target.value)}
-                        input={<FilledInput name="country"
-                                            id="country-dropdown"/>}
-                    >
-                        <option value=""/>
-                        {renderMenuItems(props.countries)}
-                    </Select>
-                </FormControl>
-                <TextField
-                    className={'producer-input'}
+            <StyledForm id={"create-wine-form"}>
+                <DropDown
+                    onChange={props.changeCountry}
+                    value={props.createWineFormRequest.country}
+                    elements={props.countries}
+                    getValueFromElement={(country: Country) => country.name}/>
+                <TextInput
+                    onChange={props.changeProducer}
                     label="Producer"
                     value={props.createWineFormRequest.producer}
-                    onChange={(event) => props.changeProducer(event.target.value)}
-                    margin="normal"
-                    variant="filled"
-                />
-                <TextField
-                    className={'type-input'}
+                    className={'create-wine-form-input producer-input'}/>
+                <TextInput
+                    onChange={props.changeType}
                     label="Type"
                     value={props.createWineFormRequest.type}
-                    onChange={(event) => props.changeType(event.target.value)}
-                    margin="normal"
-                    variant="filled"
-                />
-                <TextField
-                    className={'year-input'}
+                    className={'create-wine-form-input type-input'}/>
+                <NumberInput
+                    className={'create-wine-form-input year-input'}
                     label="Year"
                     value={props.createWineFormRequest.year}
-                    onChange={handleNum(props.changeYear)}
-                    margin="normal"
-                    variant="filled"
-                />
-                <TextField
-                    className={'quantity-input'}
+                    onChange={props.changeYear}/>
+                <NumberInput
+                    className={'create-wine-form-input quantity-input'}
                     label="Quantity"
                     value={props.createWineFormRequest.quantity}
-                    onChange={handleNum(props.changeQuantity)}
-                    margin="normal"
-                    variant="filled"/>
-                <TextField
-                    className={'cellar-location-input'}
+                    onChange={props.changeQuantity}/>
+                <TextInput
+                    className={'create-wine-form-input cellar-location-input'}
                     label="Cellar Location"
                     value={props.createWineFormRequest.cellarLocation}
-                    onChange={(event) => props.changeCellarLocation(event.target.value)}
-                    margin="normal"
-                    variant="filled"/>
+                    onChange={props.changeCellarLocation}/>
                 <Button disabled={!isWineRequestReadyToSubmit(props.createWineFormRequest)}
                         className={"submit-button"}
                         color={"secondary"}

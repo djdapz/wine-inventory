@@ -19,8 +19,7 @@ context('Actions', () => {
                     producer: "Monsanto",
                     year: 2012,
                     quantity: 8,
-                    country: "Italy",
-                    cellarLocation: "Bottom Right"
+                    country: "Italy"
                 }
             ]
         }).as('getWines');
@@ -51,14 +50,6 @@ context('Actions', () => {
 
 
     it('should display a list of wine', () => {
-        // https://on.cypress.io/trigger
-
-        // To interact with a range input (slider)
-        // we need to set its value & trigger the
-        // event to signal it changed
-
-        // Here, we invoke jQuery's val() method to set
-        // the value and trigger the 'change' event
         cy.get(".wine-card").should(record => {
             expect(record.length).to.eq(2);
 
@@ -67,15 +58,21 @@ context('Actions', () => {
             expect(record[0].querySelector(".year").innerText).to.eq('2009');
             expect(record[0].querySelector(".quantity").innerText).to.eq('10 left');
             expect(record[0].querySelector(".country").innerText).to.eq("Italy");
-            expect(record[0].querySelector(".cellar-location").innerText).to.eq("Upper Left");
+            expect(record[0].querySelector(".cellar-location").innerText).to.eq("Cellar Location: Upper Left");
 
             expect(record[1].querySelector(".type").innerText).to.eq("Chianti");
             expect(record[1].querySelector(".producer").innerText).to.eq("Monsanto");
             expect(record[1].querySelector(".year").innerText).to.eq('2012');
             expect(record[1].querySelector(".quantity").innerText).to.eq('8 left');
             expect(record[1].querySelector(".country").innerText).to.eq("Italy");
-            expect(record[1].querySelector(".cellar-location").innerText).to.eq("Bottom Right");
         })
+    });
+
+    it('should not display a cellar location if one is not passed', function () {
+        cy.get(".wine-card").should(record => {
+            expect(record[1].querySelector(".cellar-location")).to.eql(null)
+        })
+
     });
 
     describe("Creating wine", () => {
@@ -129,7 +126,7 @@ context('Actions', () => {
 
         });
 
-        it('should not allow the user to submit the button until the form is complete', function () {
+        it.only('should not allow the user to submit the button until the form is complete', function () {
             cy.get("#create-wine-form .country-input select").select("Spain");
             cy.get("#create-wine-form .producer-input input").type("Orin Swift");
             cy.get("#create-wine-form .type-input input").type("Tempranillo");

@@ -73,7 +73,8 @@ class WineList extends React.Component<WineListProps> {
             </div>
             <LeftPanel>
                 <div className={'quantity'}><b>{wine.quantity}</b> left</div>
-                <div className={'cellar-location'}>Cellar Location: <b>{wine.cellarLocation}</b></div>
+                {wine.cellarLocation ?
+                    <div className={'cellar-location'}>Cellar Location: <b>{wine.cellarLocation}</b></div> : ""}
             </LeftPanel>
         </WineCard>)
     }
