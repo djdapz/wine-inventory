@@ -7,5 +7,5 @@ data class Wine(
         val quantity: Int,
         val country: String,
         val id: Int,
-        val cellarLocation: String
+        val cellarLocation: String?
 )

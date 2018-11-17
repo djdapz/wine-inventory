@@ -43,4 +43,31 @@ class WineRepositoryTest {
         assertThat(subject.getAll()).contains(expected)
 
     }
+
+
+    @Test
+    fun shouldAllowCellarLocationToBeNull() {
+        val subject = WineRepository(jdbcTemplate)
+
+        val type = "Barolo"
+        val producer = "Monteverde"
+        val year = 2001
+        val quantity = 12
+        val country = "Italy"
+
+        val expected = subject.save(type, producer, year, quantity, country, null).run {
+            Wine(
+                    type = type,
+                    producer = producer,
+                    year = year,
+                    quantity = quantity,
+                    country = country,
+                    id = this,
+                    cellarLocation = null
+            )
+        }
+
+        assertThat(subject.getAll()).contains(expected)
+
+    }
 }

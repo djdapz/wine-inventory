@@ -29,7 +29,7 @@ class WineRepository(jdbcTemplate: JdbcTemplate) : WineWriter, WineReader {
                 )
             }
 
-    override fun save(type: String, producer: String, year: Int, quantity: Int, country: String, cellarLocation: String): Int =
+    override fun save(type: String, producer: String, year: Int, quantity: Int, country: String, cellarLocation: String?): Int =
             GeneratedKeyHolder().run {
                 db.update(
                         //language=sql

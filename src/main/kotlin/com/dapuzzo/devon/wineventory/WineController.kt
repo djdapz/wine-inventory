@@ -15,7 +15,7 @@ class WineController(
             val year: Int,
             val quantity: Int,
             val country: String,
-            val cellarLocation: String
+            val cellarLocation: String?
     )
 
     data class WineResponse(val wine: Collection<Wine>)
