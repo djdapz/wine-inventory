@@ -30,7 +30,7 @@ interface WineResponse {
 }
 
 export const getAllWine = (dispatch: Dispatch) => {
-        axios.get(`${backendUri}/wines`)
+        axios.get(`${backendUri}/wine`)
             .then(response => response.data)
             .then((data: WineResponse) => data.wine)
             .then(wines => dispatch(wineSuccess(wines)),

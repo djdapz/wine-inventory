@@ -97,16 +97,17 @@ const CreateWineForm = (props: CreateWineFormProps) =>
                         onClick={() => props.submit(props.createWineFormRequest!)}>
                     Create
                 </Button>
+                <BottomButton>
+                    <Button
+                        id={"cancel-new-wine"}
+                        variant={'fab'}
+                        color={"secondary"}
+                        onClick={props.closeForm}>
+                        <Cancel/>
+                    </Button>
+                </BottomButton>
             </StyledForm> : <StyledForm/>}
-        <BottomButton>
-            <Button
-                id={"cancel-new-wine"}
-                variant={'fab'}
-                color={"secondary"}
-                onClick={props.closeForm}>
-                <Cancel/>
-            </Button>
-        </BottomButton>
+
     </Drawer>;
 
 const mapStateToProps = (state: StoreType) => ({

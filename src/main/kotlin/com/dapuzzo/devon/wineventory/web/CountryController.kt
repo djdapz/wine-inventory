@@ -1,6 +1,6 @@
-package com.dapuzzo.devon.wineventory
+package com.dapuzzo.devon.wineventory.web
 
-import org.springframework.http.HttpStatus
+import com.dapuzzo.devon.wineventory.domain.CountryReader
 import org.springframework.web.bind.annotation.*
 
 data class Country(val code: String, val name: String)

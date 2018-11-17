@@ -4,22 +4,24 @@ context('Actions', () => {
     beforeEach(() => {
         cy.server();
 
-        cy.route('GET', '/wines', {
+        cy.route('GET', '/wine', {
             wine: [
                 {
                     country: "Italy",
                     producer: "Lionello Marchesi",
-                    quantity: 10,
+                    quantity: 2,
                     type: "Barolo",
                     year: 2009,
-                    cellarLocation: "Upper Left"
+                    cellarLocation: "Upper Left",
+                    id: 12
                 },
                 {
                     type: "Chianti",
                     producer: "Monsanto",
                     year: 2012,
                     quantity: 8,
-                    country: "Italy"
+                    country: "Italy",
+                    id: 15
                 }
             ]
         }).as('getWines');
@@ -27,10 +29,18 @@ context('Actions', () => {
 
         cy.route({
             method: "POST",
-            url: "/wines",
+            url: "/wine",
             status: 201,
             response: "Created: i guess i need a response..."
         }).as('postWines');
+
+
+        cy.route({
+            method: "POST",
+            url: "/wine/remove-bottle-from-cellar",
+            status: 200,
+            response: "Created: i guess i need a response..."
+        }).as('removeBottleFromCellar');
 
         cy.route({
             method: "GET",
@@ -72,7 +82,32 @@ context('Actions', () => {
         cy.get(".wine-card").should(record => {
             expect(record[1].querySelector(".cellar-location")).to.eql(null)
         })
+    });
 
+    describe("deleting bottles from cellar" , () =>{
+        beforeEach(function () {
+            cy.get(".remove-bottle-from-cellar").first().click();
+        });
+
+        it('should call api with id', function () {
+            cy.wait("@removeBottleFromCellar")
+                .its('requestBody').should('eql', {"id": 12})
+        });
+
+        it('should decrease quanity on success', function () {
+            cy.get(".wine-card").should(record => {
+                expect(record[0].querySelector(".quantity").innerText).to.eq('9 left');
+            })
+        });
+
+        it.only('should remove card when it reaches 0', function () {
+            cy.wait("@removeBottleFromCellar");
+            cy.get(".remove-bottle-from-cellar").first().click();
+            cy.wait("@removeBottleFromCellar");
+            cy.get(".wine-card").should(record => {
+                expect(record.length).to.eq(1);
+            })
+        });
     });
 
     describe("Creating wine", () => {
@@ -126,7 +161,7 @@ context('Actions', () => {
 
         });
 
-        it.only('should not allow the user to submit the button until the form is complete', function () {
+        it('should not allow the user to submit the button until the form is complete', function () {
             cy.get("#create-wine-form .country-input select").select("Spain");
             cy.get("#create-wine-form .producer-input input").type("Orin Swift");
             cy.get("#create-wine-form .type-input input").type("Tempranillo");

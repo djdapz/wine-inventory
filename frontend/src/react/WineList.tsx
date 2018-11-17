@@ -7,10 +7,14 @@ import Card from "@material-ui/core/Card/Card";
 
 import styled from "styled-components";
 import {Wine} from "../domain/Wine.types";
+import {StoreType} from "../index";
+import Button from "@material-ui/core/es/Button/Button";
+import {removeBottleFromCellar} from "../redux/Cellar.actions";
 
 
 interface WineListDispatchProps {
-    getWines: () => void
+    getWines: () => void,
+    removeBottleFromCellar: (id: number) => void,
 }
 
 interface WineListPassedProps {
@@ -53,13 +57,14 @@ class WineList extends React.Component<WineListProps> {
         this.props.getWines()
     }
 
+
     render() {
         return <StyledWineList id={'wine-list'}>
             {this.renderWines()}
         </StyledWineList>
     }
 
-    private renderWines() {
+    renderWines = () => {
         return this.props.wines.map((wine: Wine) => <WineCard key={wine.year + wine.producer + wine.type}
                                                               className={'wine-card'}>
             <div>
@@ -72,6 +77,7 @@ class WineList extends React.Component<WineListProps> {
                 </div>
             </div>
             <LeftPanel>
+                <Button className={'remove-bottle-from-cellar'} onClick={() => this.props.removeBottleFromCellar(wine.id)}>Remove One Bottle From Cellar</Button>
                 <div className={'quantity'}><b>{wine.quantity}</b> left</div>
                 {wine.cellarLocation ?
                     <div className={'cellar-location'}>Cellar Location: <b>{wine.cellarLocation}</b></div> : ""}
@@ -80,12 +86,13 @@ class WineList extends React.Component<WineListProps> {
     }
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: StoreType) => ({
     wines: state.wines
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    getWines: () => getAllWine(dispatch)
+    getWines: () => getAllWine(dispatch),
+    removeBottleFromCellar: (id: number) => removeBottleFromCellar(dispatch, id),
 });
 
 export default connect<WineListPassedProps, WineListDispatchProps, {}>(mapStateToProps, mapDispatchToProps)(WineList)

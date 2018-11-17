@@ -1,5 +1,8 @@
 package com.dapuzzo.devon.wineventory
 
+import com.dapuzzo.devon.wineventory.domain.Wine
+import com.dapuzzo.devon.wineventory.repo.WineRepository
+import com.github.javafaker.Faker
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -13,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 @RunWith(SpringJUnit4ClassRunner::class)
 @ActiveProfiles("test")
 class WineRepositoryTest {
+    val faker = Faker()
 
     @Autowired
     lateinit var jdbcTemplate: JdbcTemplate
@@ -68,6 +72,73 @@ class WineRepositoryTest {
         }
 
         assertThat(subject.getAll()).contains(expected)
-
     }
+
+    @Test
+    fun shouldUpdateWineRecord() {
+        val subject = WineRepository(jdbcTemplate)
+        val firstWine = randomWine()
+
+        val id = subject.save(
+                type = firstWine.type,
+                producer = firstWine.producer,
+                year = firstWine.year,
+                quantity = firstWine.quantity,
+                country = firstWine.country,
+                cellarLocation = firstWine.cellarLocation
+        )
+
+        val updatedWine = randomWine(id)
+
+        subject.updateWine(updatedWine)
+
+        val actualUpdatedWine = subject.getWineById(id)
+
+        assertThat(actualUpdatedWine).isEqualTo(updatedWine)
+    }
+
+
+    @Test
+    fun shouldDeleteWineRecord() {
+        val subject = WineRepository(jdbcTemplate)
+        val firstWine = randomWine()
+
+        val id = subject.save(
+                type = firstWine.type,
+                producer = firstWine.producer,
+                year = firstWine.year,
+                quantity = firstWine.quantity,
+                country = firstWine.country,
+                cellarLocation = firstWine.cellarLocation
+        )
+        val sizeBeforeDelete = subject.getAll().size
+
+        subject.deleteWine(id)
+
+        val sizeAfterDelete = subject.getAll().size
+        val expetedSizeAfterDelete = sizeBeforeDelete - 1
+
+        assertThat(sizeAfterDelete).isEqualTo(expetedSizeAfterDelete)
+    }
+
+    @Test
+    fun shouldChangeQuantity() {
+        val subject = WineRepository(jdbcTemplate)
+        val firstWine = randomWine()
+
+        val id = subject.save(
+                type = firstWine.type,
+                producer = firstWine.producer,
+                year = firstWine.year,
+                quantity = firstWine.quantity,
+                country = firstWine.country,
+                cellarLocation = firstWine.cellarLocation
+        )
+        subject.changeQuantityOfBottlesInCellar(id, firstWine.quantity - 1)
+        val quantityAfter = subject.getWineById(id).quantity
+
+        assertThat(quantityAfter).isEqualTo(firstWine.quantity - 1)
+    }
+
+
 }

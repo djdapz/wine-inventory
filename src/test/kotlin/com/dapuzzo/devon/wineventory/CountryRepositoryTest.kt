@@ -1,5 +1,7 @@
 package com.dapuzzo.devon.wineventory
 
+import com.dapuzzo.devon.wineventory.repo.CountryRepository
+import com.dapuzzo.devon.wineventory.web.Country
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith

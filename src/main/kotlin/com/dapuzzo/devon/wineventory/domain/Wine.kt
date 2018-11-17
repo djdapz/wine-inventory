@@ -1,4 +1,4 @@
-package com.dapuzzo.devon.wineventory
+package com.dapuzzo.devon.wineventory.domain
 
 data class Wine(
         val type: String,

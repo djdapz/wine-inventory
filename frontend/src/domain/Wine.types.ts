@@ -5,4 +5,5 @@ export interface Wine {
     quantity: number;
     country: string;
     cellarLocation?: string;
+    id: number;
 }

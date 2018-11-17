@@ -45,7 +45,7 @@ export const closeCreateWineForm = (): Action<ToggleCreateWineForm> => ({
 });
 
 export const submitCreateWine = (dispatch: Dispatch, createWineRequest: CreateWineRequest) => {
-    axios.post(`${backendUri}/wines`, createWineRequest)
+    axios.post(`${backendUri}/wine`, createWineRequest)
         .then(() => dispatch(createWineSucceded()), () => dispatch(createWineFailed()))
         .then(() => getAllWine(dispatch))
 };
