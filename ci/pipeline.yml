@@ -282,7 +282,7 @@ jobs:
            export BUILD_VERSION=`cat version/number`
 
            /root/bin/aws s3 cp  "s3://wine-inventory/app/wine-inventory-${BUILD_VERSION}.jar"  ./deploy/backend.jar
-           cp ./repo/ci/manifests/acceptance/mainfest-backend.yml ./deploy/manifest-backend.yml
+           cp ./repo/ci/manifests/production/mainfest-backend.yml ./deploy/manifest-backend.yml
 
            /root/bin/aws s3 cp  "s3://wine-inventory/app/frontend-${BUILD_VERSION}.zip"  ./deploy/frontend.zip
            cp ./repo/ci/manifests/production/mainfest-frontend.yml ./deploy/manifest-frontend.yml

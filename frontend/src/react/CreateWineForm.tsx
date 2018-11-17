@@ -56,6 +56,7 @@ const StyledForm = styled.div`
   padding: 1rem;
   height: 100%;
   max-width:10rem;
+  min-height: 40rem;
   input{
     background-color: white;
     border-top-left-radius: 4px;
