@@ -25,12 +25,13 @@ const CardSection = styled.div`
   display: flex;
   flex-direction: column;
    justify-content: space-around;
+   padding-right: 1rem;
+   padding-left: 1rem;
 `;
 
 const LeftPanel = styled.div`
   text-align: right;
   display: flex;
-  
 `;
 
 
@@ -45,7 +46,7 @@ interface Props {
 const WineCard = (props: ReduxActions & Props) =>
     <StyledWineCard key={props.wine.year + props.wine.producer + props.wine.type}
                     className={'wine-card'}>
-        <div>
+        <CardSection>
             <ProducerHeading className={'producer'}> {props.wine.producer}</ProducerHeading>
             <div>
                 <span className={'year'}>{props.wine.year}</span> <span className={'type'}>{props.wine.type}</span>
@@ -53,20 +54,21 @@ const WineCard = (props: ReduxActions & Props) =>
             <div>
                 <span className={'country'}>{props.wine.country}</span>
             </div>
-        </div>
+        </CardSection>
         <LeftPanel>
             <CardSection>
                 <div className={'quantity'}><b>{props.wine.quantity}</b> left</div>
                 {props.wine.cellarLocation ?
-                    <div className={'cellar-location'}>Cellar Location: <b>{props.wine.cellarLocation}</b></div> : ""}
+                    <div className={'cellar-location'}>Cellar Location: {props.wine.cellarLocation}</div> : ""}
             </CardSection>
             <ActionMenu actions={[{
-                label: "Remove One Bottle FromCellar",
+                label: props.wine.quantity === 1 ? "Remove Last Bottle From Celler" : "Remove One Bottle From Cellar",
                 action: () => props.removeBottleFromCellar(props.wine.id),
                 className: 'remove-bottle-from-cellar'
             }]}/>
         </LeftPanel>
     </StyledWineCard>;
+
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     removeBottleFromCellar: (id: number) => removeBottleFromCellar(dispatch, id),
