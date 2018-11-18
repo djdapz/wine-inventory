@@ -26,6 +26,7 @@ const StyledWineList = styled.div`
   padding: 1rem;
   max-width: 60rem;  
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 `;
 
 class WineList extends React.Component<WineListProps> {
