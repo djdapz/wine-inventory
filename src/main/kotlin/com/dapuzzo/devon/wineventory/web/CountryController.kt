@@ -12,4 +12,7 @@ class CountryController(val countryReader: CountryReader) {
     @GetMapping("/country/all")
     fun getAll(): CountryListResponse = CountryListResponse(countryReader.getAll())
 
+    @GetMapping("/country/top-5")
+    fun getTop5(): CountryListResponse = CountryListResponse(countryReader.getTop5())
+
 }

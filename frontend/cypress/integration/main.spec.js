@@ -52,7 +52,19 @@ context('Actions', () => {
                     {"name": "Italy", code: "IT"}
                 ]
             }
-        }).as('getCountries');
+        }).as('getAllCountries');
+
+        cy.route({
+            method: "GET",
+            url: "/country/top-5",
+            status: 201,
+            response: {
+                countries: [
+                    {"name": "France", code: "FR"},
+                    {"name": "United States", code: "US"}
+                ]
+            }
+        }).as('getTop5Countries');
 
         cy.visit('/');
         cy.wait("@getWines")
@@ -108,6 +120,11 @@ context('Actions', () => {
                 expect(record.length).to.eq(1);
             })
         });
+    });
+
+    it('should fetch all countries and the top 5 countries', function () {
+        cy.wait("@getAllCountries")
+        cy.wait("@getTop5Countries")
     });
 
     describe("Creating wine", () => {

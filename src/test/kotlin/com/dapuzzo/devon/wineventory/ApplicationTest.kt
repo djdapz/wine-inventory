@@ -1,5 +1,6 @@
 import com.dapuzzo.devon.wineventory.web.CountryController
 import com.dapuzzo.devon.wineventory.WinenventoryApplication
+import com.dapuzzo.devon.wineventory.web.Country
 import com.dapuzzo.devon.wineventory.web.WineController
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
@@ -38,23 +39,7 @@ class ApplicationTest {
 
     @Test
     fun shouldFetchWineFromDatabase() {
-        given().port(port.toInt())
-                //language=json
-                .body("""
-                    {
-                      "type": "Barolo",
-                      "producer": "Lionello Marchesi",
-                      "year": 2009,
-                      "quantity": 10,
-                      "country": "Italy",
-                      "cellarLocation": "floor"
-                    }
-                """.trimIndent())
-                .contentType(APPLICATION_JSON.toString())
-                .`when`()
-                .post("/wine")
-                .then()
-                .statusCode(201)
+        createWine()
 
         val body = given().port(port.toInt())
                 .`when`()
@@ -83,6 +68,14 @@ class ApplicationTest {
 
     @Test
     fun shouldServeListOfAllCountriesForDropdown() {
+        createWine("Italy")
+        createWine("Italy")
+        createWine("Italy")
+        createWine("France")
+        createWine("United States")
+        createWine("Spain")
+        createWine("China")
+
         val countries = given().port(port.toInt())
                 .get("/country/all")
                 .andReturn()
@@ -91,6 +84,38 @@ class ApplicationTest {
         val list: CountryController.CountryListResponse = jacksonObjectMapper().readValue(countries)
 
         assertThat(list.countries.size).isEqualTo(246)
+    }
+
+    private fun createWine(country: String = "Italy") {
+        given().port(port.toInt())
+                //language=json
+                .body("""
+                        {
+                          "type": "Barolo",
+                          "producer": "Lionello Marchesi",
+                          "year": 2009,
+                          "quantity": 10,
+                          "country": "Italy",
+                          "cellarLocation": "floor"
+                        }
+                    """.trimIndent())
+                .contentType(APPLICATION_JSON.toString())
+                .`when`()
+                .post("/wine")
+                .then()
+                .statusCode(201)
+    }
+
+    @Test
+    fun shouldServeListOfTop5CountriesForDropdown() {
+        val countries = given().port(port.toInt())
+                .get("/country/top-5")
+                .andReturn()
+                .body.print()
+
+        val list: CountryController.CountryListResponse = jacksonObjectMapper().readValue(countries)
+
+        assertThat(list.countries.size).isEqualTo(5)
     }
 
     @Test

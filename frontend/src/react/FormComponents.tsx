@@ -11,7 +11,7 @@ const BaseTextField = <T extends any>(props: {
     value?: T,
     label: string,
     className: string,
-    onChange:  React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+    onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
 }) => <TextField
     className={props.className}
     label={props.label}
@@ -53,11 +53,11 @@ export const NumberInput = (props: {
     }}
 />;
 
-export const DropDown = <T extends any>(props: {
+export const MultiDropDown = <T extends any>(props: {
     onChange: (val: string) => void,
     value?: string,
     children?: React.ReactNode
-    elements: T[],
+    elements: { label: string, list: T[] }[],
     getValueFromElement: (el: T) => string
 }) => <FormControl variant="filled"
                    className={'country-input create-wine-form-input'}>
@@ -70,8 +70,17 @@ export const DropDown = <T extends any>(props: {
                             id="country-dropdown"/>}>
         <option value=""/>
         {props.elements
-            .map(props.getValueFromElement)
-            .map(value => <option key={value}
-                                  value={value}>{value}</option>)}
+            .map(el =>
+                <optgroup label={el.label}>}
+                    {el.list.map(props.getValueFromElement)
+                        .map(value =>{
+                            console.log(value + el.label)
+                            return <option key={value + el.label}
+                                           value={value}>
+                                {value}
+                            </option>
+                        }
+                            )}
+                </optgroup>)}
     </Select>
 </FormControl>;

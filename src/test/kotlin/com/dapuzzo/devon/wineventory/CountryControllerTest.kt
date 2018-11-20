@@ -35,4 +35,22 @@ class CountryControllerTest {
 
         assertThat(countriesResponse.countries).containsExactlyElementsOf(expectedCountries)
     }
+
+
+    @Test
+    fun shouldGetTop5() {
+        val expectedCountries = listOf(
+                Country("US", "United States")
+        )
+        whenever(countryReader.getTop5()).thenReturn(expectedCountries)
+
+        val countriesResponse= testClient.get()
+                .uri("/country/top-5")
+                .exchange()
+                .returnResult(CountryController.CountryListResponse::class.java)
+                .responseBody
+                .blockFirst()!!
+
+        assertThat(countriesResponse.countries).containsExactlyElementsOf(expectedCountries)
+    }
 }

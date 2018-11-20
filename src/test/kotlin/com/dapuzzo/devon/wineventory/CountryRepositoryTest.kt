@@ -24,7 +24,7 @@ open class CountryRepositoryTest {
     fun shouldReadAndWriteWine() {
         val subject = CountryRepository(jdbcTemplate)
 
-        assertThat(subject.getAll().size).isEqualTo(246 + 5)
+        assertThat(subject.getAll().size).isEqualTo(246)
         assertThat(subject.getAll()).contains(Country("IT", "Italy"), Country("US", "United States"))
     }
 
@@ -53,12 +53,15 @@ open class CountryRepositoryTest {
 
         wineRepo.save("type", "producer", 2012, 1, "United States", null)
 
-        assertThat(subject.getAll().size).isEqualTo(246 + 5)
+        val top5 = subject.getTop5()
 
-        assertThat(subject.getAll()[0]).isEqualTo(Country("IT", "Italy"))
-        assertThat(subject.getAll()[1]).isEqualTo(Country("FR", "France"))
-        assertThat(subject.getAll()[2]).isEqualTo(Country("ES", "Spain"))
-        assertThat(subject.getAll()[3]).isEqualTo(Country("AT", "Austria"))
-        assertThat(subject.getAll()[4]).isEqualTo(Country("US", "United States"))
+        assertThat(top5.size).isEqualTo(5)
+
+        assertThat(top5[0]).isEqualTo(listOf(
+                Country("IT", "Italy"),
+                Country("FR", "France"),
+                Country("ES", "Spain"),
+                Country("AT", "Austria"),
+                Country("US", "United States")))
     }
 }

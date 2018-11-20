@@ -8,8 +8,7 @@ import CreateWineForm from "./CreateWineForm";
 import NewWineButton from "./NewWineButton";
 import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from "redux";
-import {Country, fetchCountries} from "../redux/Country.actions";
-import {StoreType} from "../index";
+import {fetchCountries} from "../redux/Country.actions";
 
 const StyledApp = styled.div`
   display: flex;
@@ -36,12 +35,8 @@ export interface DispatchProps {
     fetchCountries: () => void
 }
 
-export interface PassedProps {
-    countries: Country[]
-}
-
-class App extends React.Component<DispatchProps & PassedProps> {
-    constructor(props: DispatchProps & PassedProps,) {
+class App extends React.Component<DispatchProps> {
+    constructor(props: DispatchProps,) {
         super(props);
         props.fetchCountries()
     }
@@ -63,8 +58,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
     fetchCountries: fetchCountries
 }, dispatch);
 
-const mapStateToProps = (state: StoreType) => ({
-    countries: state.countries
-});
 
-export default connect<PassedProps, DispatchProps, {}>(mapStateToProps, mapDispatchToProps)(App);
+export default connect<{}, DispatchProps, {}>(null, mapDispatchToProps)(App);

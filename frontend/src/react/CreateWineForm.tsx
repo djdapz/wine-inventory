@@ -20,11 +20,12 @@ import {Country} from "../redux/Country.actions";
 import {StoreType} from "../index";
 import styled from "styled-components";
 import Drawer from "@material-ui/core/Drawer/Drawer";
-import {DropDown, NumberInput, TextInput} from "./FormComponents";
+import {MultiDropDown, NumberInput, TextInput} from "./FormComponents";
+import {Countries} from "../redux/Country.reducer";
 
 interface CreateWineFormProps {
     createWineFormRequest: CreateWineRequest | null
-    countries: Country[]
+    countries: Countries
     changeType: (type: string) => void
     changeYear: (year?: number) => void
     changeQuantity: (quantity?: number) => void
@@ -60,10 +61,19 @@ const CreateWineForm = (props: CreateWineFormProps) =>
         onClose={() => null}>
         {props.createWineFormRequest ?
             <StyledForm id={"create-wine-form"}>
-                <DropDown
+                <MultiDropDown
                     onChange={props.changeCountry}
                     value={props.createWineFormRequest.country}
-                    elements={props.countries}
+                    elements={[
+                        {
+                            list: props.countries.top5,
+                            label: "top 5"
+                        },
+                        {
+                            list: props.countries.all,
+                            label: "all"
+                        }
+                    ]}
                     getValueFromElement={(country: Country) => country.name}/>
                 <TextInput
                     onChange={props.changeProducer}
