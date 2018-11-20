@@ -68,13 +68,6 @@ class ApplicationTest {
 
     @Test
     fun shouldServeListOfAllCountriesForDropdown() {
-        createWine("Italy")
-        createWine("Italy")
-        createWine("Italy")
-        createWine("France")
-        createWine("United States")
-        createWine("Spain")
-        createWine("China")
 
         val countries = given().port(port.toInt())
                 .get("/country/all")
@@ -95,7 +88,7 @@ class ApplicationTest {
                           "producer": "Lionello Marchesi",
                           "year": 2009,
                           "quantity": 10,
-                          "country": "Italy",
+                          "country": "$country",
                           "cellarLocation": "floor"
                         }
                     """.trimIndent())
@@ -108,6 +101,18 @@ class ApplicationTest {
 
     @Test
     fun shouldServeListOfTop5CountriesForDropdown() {
+        createWine("Italy")
+        createWine("Italy")
+        createWine("Italy")
+        createWine("France")
+        createWine("France")
+        createWine("United States")
+        createWine("United States")
+        createWine("Spain")
+        createWine("Spain")
+        createWine("China")
+        createWine("China")
+
         val countries = given().port(port.toInt())
                 .get("/country/top-5")
                 .andReturn()

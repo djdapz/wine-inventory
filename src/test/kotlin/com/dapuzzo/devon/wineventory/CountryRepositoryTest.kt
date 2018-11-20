@@ -57,7 +57,7 @@ open class CountryRepositoryTest {
 
         assertThat(top5.size).isEqualTo(5)
 
-        assertThat(top5[0]).isEqualTo(listOf(
+        assertThat(top5).isEqualTo(listOf(
                 Country("IT", "Italy"),
                 Country("FR", "France"),
                 Country("ES", "Spain"),
