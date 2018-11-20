@@ -62,7 +62,7 @@ const WineCard = (props: ReduxActions & Props) =>
                     <div className={'cellar-location'}>Cellar Location: {props.wine.cellarLocation}</div> : ""}
             </CardSection>
             <ActionMenu actions={[{
-                label: props.wine.quantity === 1 ? "Remove Last Bottle From Celler" : "Remove One Bottle From Cellar",
+                label: props.wine.quantity === 1 ? "Remove Last Bottle From Cellar" : "Remove One Bottle From Cellar",
                 action: () => props.removeBottleFromCellar(props.wine.id),
                 className: 'remove-bottle-from-cellar'
             }]}/>
