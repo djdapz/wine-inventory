@@ -67,11 +67,11 @@ const CreateWineForm = (props: CreateWineFormProps) =>
                     elements={[
                         {
                             list: props.countries.top5,
-                            label: "top 5"
+                            label: "Most Popular"
                         },
                         {
                             list: props.countries.all,
-                            label: "all"
+                            label: "All"
                         }
                     ]}
                     getValueFromElement={(country: Country) => country.name}/>

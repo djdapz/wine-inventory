@@ -73,14 +73,12 @@ export const MultiDropDown = <T extends any>(props: {
             .map(el =>
                 <optgroup label={el.label}>}
                     {el.list.map(props.getValueFromElement)
-                        .map(value =>{
-                            console.log(value + el.label)
-                            return <option key={value + el.label}
-                                           value={value}>
+                        .map(value =>
+                            <option key={`${value}-${el.label}`}>
+                                    value={value}>
                                 {value}
                             </option>
-                        }
-                            )}
+                        )}
                 </optgroup>)}
     </Select>
 </FormControl>;
