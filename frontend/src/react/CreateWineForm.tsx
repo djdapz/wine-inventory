@@ -47,12 +47,8 @@ const StyledForm = styled.div`
   .create-wine-form-input{
     flex-shrink: 0;
   }
-  input, .country-input,  .country-input > div{
-    background-color: white;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-  }
 `;
+
 
 const CreateWineForm = (props: CreateWineFormProps) =>
     <Drawer
