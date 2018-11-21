@@ -24,9 +24,9 @@ const ProducerHeading = styled.div`
 const CardSection = styled.div`
   display: flex;
   flex-direction: column;
-   justify-content: space-around;
-   padding-right: 1rem;
-   padding-left: 1rem;
+  justify-content: space-around;
+  padding-right: 1rem;
+  padding-left: 1rem;
 `;
 
 const LeftPanel = styled.div`

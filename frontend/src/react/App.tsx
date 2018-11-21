@@ -1,14 +1,11 @@
 import * as React from 'react';
-
-import WineList from "./WineList";
 import styled from "styled-components";
 import {createMuiTheme} from "@material-ui/core";
 import {MuiThemeProvider} from "@material-ui/core/es";
-import CreateWineForm from "./CreateWineForm";
-import NewWineButton from "./NewWineButton";
 import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from "redux";
 import {fetchCountries} from "../redux/Country.actions";
+import WineListPage from "./WineListPage";
 
 const StyledApp = styled.div`
   display: flex;
@@ -45,9 +42,7 @@ class App extends React.Component<DispatchProps> {
         return (
             <MuiThemeProvider theme={theme}>
                 <StyledApp className="App">
-                    <CreateWineForm/>
-                    <WineList/>
-                    <NewWineButton/>
+                    <WineListPage/>
                 </StyledApp>
             </MuiThemeProvider>
         );

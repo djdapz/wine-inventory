@@ -9,6 +9,7 @@ import {Wine} from "../domain/Wine.types";
 import {StoreType} from "../index";
 import {removeBottleFromCellar} from "../redux/Cellar.actions";
 import WineCard from "./WineCard";
+import {getVisibleWine} from "../redux/selectors/filteredWine";
 
 interface WineListDispatchProps {
     getWines: () => void,
@@ -16,17 +17,21 @@ interface WineListDispatchProps {
 }
 
 interface WineListPassedProps {
-    wines: Wine[],
+    wines: Wine[]
 }
 
 type WineListProps = WineListDispatchProps & WineListPassedProps
 
 const StyledWineList = styled.div`
-  flex-grow:  1;
-  padding: 1rem;
-  max-width: 60rem;  
-  overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  flex-grow:  1;
+  padding: .25rem 1rem;
+  box-sizing: border-box;
+  max-width: 60rem;  
+  width: 100%;
+  overflow-y: scroll;
+  margin-right: auto;
+  margin-left: auto;
 `;
 
 class WineList extends React.Component<WineListProps> {
@@ -38,13 +43,15 @@ class WineList extends React.Component<WineListProps> {
 
     render() {
         return <StyledWineList id={'wine-list'}>
-            {this.props.wines.map((wine: Wine) => <WineCard key={wine.id} wine={wine}/>)}
+            {this.props.wines.map((wine: Wine) =>
+                <WineCard key={wine.id}
+                          wine={wine}/>)}
         </StyledWineList>
     }
 }
 
 const mapStateToProps = (state: StoreType) => ({
-    wines: state.wines
+    wines: getVisibleWine(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

@@ -88,7 +88,7 @@ export const MultiDropDown = <T extends any>(props: {
         <option value=""/>
         {props.elements
             .map(el =>
-                <optgroup label={el.label}>}
+                <optgroup label={el.label}> key={el.label}
                     {el.list
                         .map(props.getValueFromElement)
                         .map(value =>

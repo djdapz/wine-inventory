@@ -2,6 +2,7 @@ import {Action} from "redux";
 import {GetWineActionTypes} from "./Wine.actions";
 import {CreateWineActions} from "./CreateWine.actions";
 import {FetchCountriesType} from "./Country.actions";
+import {SearchForWineActionType} from "./Filter.Actions";
 
 export type SuccessfulAction<T, P> = ActionWithPayload<T, P>
 
@@ -17,6 +18,7 @@ export type ApiAction<S, F, P> = SuccessfulAction<S, P> | FailureAction<F>
 export  type WineAppActionTypes = GetWineActionTypes
     | CreateWineActions
     | FetchCountriesType
+    | SearchForWineActionType
 
 export type StateType<ReducerOrMap> = ReducerOrMap extends (
     ...args: any[]

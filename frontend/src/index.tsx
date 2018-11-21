@@ -10,13 +10,15 @@ import {FetchCountriesMiddleware} from "./redux/Country.actions";
 import {fetchCountriesReducer} from "./redux/Country.reducer";
 import {StateType} from "./redux/ReduxTypes";
 import {composeWithDevTools} from "redux-devtools-extension";
+import {searchReducer} from "./redux/Filter.reducer";
 
 
 const rootReducer = combineReducers(
     {
         wines: wineReducer,
         createWineForm: createWineFormReducer,
-        countries: fetchCountriesReducer
+        countries: fetchCountriesReducer,
+        searchQuery: searchReducer
     }
 );
 

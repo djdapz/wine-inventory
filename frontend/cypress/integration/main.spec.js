@@ -96,7 +96,7 @@ context('Actions', () => {
         })
     });
 
-    describe("deleting bottles from cellar" , () =>{
+    describe("deleting bottles from cellar", () => {
         beforeEach(function () {
             cy.get(".remove-bottle-from-cellar").first().click();
         });
@@ -106,7 +106,7 @@ context('Actions', () => {
                 .its('requestBody').should('eql', {"id": 12})
         });
 
-        it('should decrease quanity on success', function () {
+        it('should decrease quantity on success', function () {
             cy.get(".wine-card").should(record => {
                 expect(record[0].querySelector(".quantity").innerText).to.eq('9 left');
             })
@@ -122,8 +122,18 @@ context('Actions', () => {
         });
     });
 
+    it('should filter when the user types in the search box', function () {
+        cy.find("#search-bar").type("Monsanto");
+
+        cy.get(".wine-card").should(record => {
+            expect(record.length).to.eq(1);
+
+            expect(record[0].querySelector(".producer").innerText).to.eq("Monsanto");
+        })
+    });
+
     it('should fetch all countries and the top 5 countries', function () {
-        cy.wait("@getAllCountries")
+        cy.wait("@getAllCountries");
         cy.wait("@getTop5Countries")
     });
 
