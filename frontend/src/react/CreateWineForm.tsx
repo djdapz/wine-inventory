@@ -22,6 +22,8 @@ import styled from "styled-components";
 import Drawer from "@material-ui/core/Drawer/Drawer";
 import {MultiDropDown, NumberInput, TextInput} from "./FormComponents";
 import {Countries} from "../redux/Country.reducer";
+import {MuiThemeProvider} from "@material-ui/core";
+import {whiteInputs} from "./SearchBar";
 
 interface CreateWineFormProps {
     createWineFormRequest: CreateWineRequest | null
@@ -57,45 +59,47 @@ const CreateWineForm = (props: CreateWineFormProps) =>
         onClose={() => null}>
         {props.createWineFormRequest ?
             <StyledForm id={"create-wine-form"}>
-                <MultiDropDown
-                    onChange={props.changeCountry}
-                    value={props.createWineFormRequest.country}
-                    elements={[
-                        {
-                            list: props.countries.top5,
-                            label: "Most Popular"
-                        },
-                        {
-                            list: props.countries.all,
-                            label: "All"
-                        }
-                    ]}
-                    getValueFromElement={(country: Country) => country.name}/>
-                <TextInput
-                    onChange={props.changeProducer}
-                    label="Producer"
-                    value={props.createWineFormRequest.producer}
-                    className={'create-wine-form-input producer-input'}/>
-                <TextInput
-                    onChange={props.changeType}
-                    label="Type"
-                    value={props.createWineFormRequest.type}
-                    className={'create-wine-form-input type-input'}/>
-                <NumberInput
-                    className={'create-wine-form-input year-input'}
-                    label="Year"
-                    value={props.createWineFormRequest.year}
-                    onChange={props.changeYear}/>
-                <NumberInput
-                    className={'create-wine-form-input quantity-input'}
-                    label="Quantity"
-                    value={props.createWineFormRequest.quantity}
-                    onChange={props.changeQuantity}/>
-                <TextInput
-                    className={'create-wine-form-input cellar-location-input'}
-                    label="Cellar Location"
-                    value={props.createWineFormRequest.cellarLocation}
-                    onChange={props.changeCellarLocation}/>
+                <MuiThemeProvider theme={whiteInputs}>
+                    <MultiDropDown
+                        onChange={props.changeCountry}
+                        value={props.createWineFormRequest.country}
+                        elements={[
+                            {
+                                list: props.countries.top5,
+                                label: "Most Popular"
+                            },
+                            {
+                                list: props.countries.all,
+                                label: "All"
+                            }
+                        ]}
+                        getValueFromElement={(country: Country) => country.name}/>
+                    <TextInput
+                        onChange={props.changeProducer}
+                        label="Producer"
+                        value={props.createWineFormRequest.producer}
+                        className={'create-wine-form-input producer-input'}/>
+                    <TextInput
+                        onChange={props.changeType}
+                        label="Type"
+                        value={props.createWineFormRequest.type}
+                        className={'create-wine-form-input type-input'}/>
+                    <NumberInput
+                        className={'create-wine-form-input year-input'}
+                        label="Year"
+                        value={props.createWineFormRequest.year}
+                        onChange={props.changeYear}/>
+                    <NumberInput
+                        className={'create-wine-form-input quantity-input'}
+                        label="Quantity"
+                        value={props.createWineFormRequest.quantity}
+                        onChange={props.changeQuantity}/>
+                    <TextInput
+                        className={'create-wine-form-input cellar-location-input'}
+                        label="Cellar Location"
+                        value={props.createWineFormRequest.cellarLocation}
+                        onChange={props.changeCellarLocation}/>
+                </MuiThemeProvider>
                 <Button disabled={!isWineRequestReadyToSubmit(props.createWineFormRequest)}
                         className={"submit-button"}
                         color={"secondary"}

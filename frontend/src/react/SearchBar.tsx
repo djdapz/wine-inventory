@@ -23,18 +23,17 @@ const SearchBarWrapper = styled.div`
   padding: .5rem  1rem;
   box-sizing: border-box;
   `
-const white = {
-    light: "#fff",
-    main: "#fff",
-    dark: "#fff",
-    contrastText: "#444",
-}
 
-const theme = createMuiTheme({
+export const whiteInputs = createMuiTheme({
     palette: {
-        primary: white,
+        primary: {
+            light: "#fff",
+            main: "#fff",
+            dark: "#fff",
+            contrastText: "#444",
+        },
         text: {
-            primary: "#fff" , //actually-typing
+            primary: "#fff", //actually-typing
             secondary: "#ddd", //placeholder
             disabled: "#aaa",
             hint: "#ddd",
@@ -46,7 +45,7 @@ const theme = createMuiTheme({
 
 const SearchBar = (props: DispatchProps & StoreProps) => <AppBar>
     <SearchBarWrapper>
-        <MuiThemeProvider theme={theme}>
+        <MuiThemeProvider theme={whiteInputs}>
             <TextField
                 id={"search-bar"}
                 label={"Search..."}

@@ -32,6 +32,7 @@ const StyledWineList = styled.div`
   overflow-y: scroll;
   margin-right: auto;
   margin-left: auto;
+  margin-top: 4.5rem;
 `;
 
 class WineList extends React.Component<WineListProps> {
