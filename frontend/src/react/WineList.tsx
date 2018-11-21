@@ -25,7 +25,7 @@ type WineListProps = WineListDispatchProps & WineListPassedProps
 const StyledWineList = styled.div`
   -webkit-overflow-scrolling: touch;
   flex-grow:  1;
-  padding: .25rem 1rem;
+  padding: 1rem;
   box-sizing: border-box;
   max-width: 60rem;  
   width: 100%;

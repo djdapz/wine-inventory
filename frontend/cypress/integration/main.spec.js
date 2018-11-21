@@ -129,7 +129,7 @@ context('Actions', () => {
         });
     });
 
-    it.only('should filter when the user types in the search box', function () {
+    it('should filter when the user types in the search box', function () {
         cy.get("#search-bar").type("Monsanto");
 
         cy.get(".wine-card").should(record => {
