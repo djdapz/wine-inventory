@@ -37,16 +37,17 @@ export class ActionMenu extends React.Component<{ actions: ActionButton[] }, { a
     render() {
         const {anchorEl} = this.state;
 
-        let actions = this.props.actions.map(action => <MenuItem key={action.label}
-                                                                 className={action.className}
-                                                                 onClick={() => {
-                                                                     action.action();
-                                                                     this.handleClose()
-                                                                 }}>
-            {action.label}
-        </MenuItem>);
+        let actions = this.props.actions.map(action =>
+            <MenuItem key={action.label}
+                      className={action.className}
+                      onClick={() => {
+                          action.action();
+                          this.handleClose()
+                      }}>
+                {action.label}
+            </MenuItem>);
 
-        return <div>
+        return <div className={"dot-dot-dot-menu"}>
             <IconButton
                 aria-label="More"
                 aria-owns={open ? 'long-menu' : undefined}

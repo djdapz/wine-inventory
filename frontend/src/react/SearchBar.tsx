@@ -28,6 +28,7 @@ const SearchBarWrapper = styled.div`
 
 const SearchBar = (props: DispatchProps & StoreProps) => <SearchBarWrapper>
     <TextField
+        id={"search-bar"}
         label={"Search..."}
         variant={"outlined"}
         value={props.searchQuery}

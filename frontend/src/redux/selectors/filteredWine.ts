@@ -15,7 +15,7 @@ const getEasilySearchableWine = (state: StoreType): SearchableWine[] => state.wi
         }, "")
     }));
 
-const getSearchQuery = (state: StoreType): string => state.searchQuery;
+const getSearchQuery = (state: StoreType): string => state.searchQuery.toLowerCase();
 
 export const getVisibleWine = createSelector(
     [getEasilySearchableWine, getSearchQuery],

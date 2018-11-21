@@ -1,5 +1,10 @@
 /// <reference types="Cypress" />
 
+function removeBottleOfWineFromFirstCard() {
+    cy.get(".dot-dot-dot-menu").first().click();
+    cy.get(".remove-bottle-from-cellar").first().click();
+}
+
 context('Actions', () => {
     beforeEach(() => {
         cy.server();
@@ -78,7 +83,7 @@ context('Actions', () => {
             expect(record[0].querySelector(".type").innerText).to.eq("Barolo");
             expect(record[0].querySelector(".producer").innerText).to.eq("Lionello Marchesi");
             expect(record[0].querySelector(".year").innerText).to.eq('2009');
-            expect(record[0].querySelector(".quantity").innerText).to.eq('10 left');
+            expect(record[0].querySelector(".quantity").innerText).to.eq('2 left');
             expect(record[0].querySelector(".country").innerText).to.eq("Italy");
             expect(record[0].querySelector(".cellar-location").innerText).to.eq("Cellar Location: Upper Left");
 
@@ -98,7 +103,7 @@ context('Actions', () => {
 
     describe("deleting bottles from cellar", () => {
         beforeEach(function () {
-            cy.get(".remove-bottle-from-cellar").first().click();
+            removeBottleOfWineFromFirstCard();
         });
 
         it('should call api with id', function () {
@@ -108,13 +113,15 @@ context('Actions', () => {
 
         it('should decrease quantity on success', function () {
             cy.get(".wine-card").should(record => {
-                expect(record[0].querySelector(".quantity").innerText).to.eq('9 left');
+                expect(record[0].querySelector(".quantity").innerText).to.eq('1 left');
             })
         });
 
-        it.only('should remove card when it reaches 0', function () {
+        it('should remove card when it reaches 0', function () {
             cy.wait("@removeBottleFromCellar");
-            cy.get(".remove-bottle-from-cellar").first().click();
+
+            removeBottleOfWineFromFirstCard()
+
             cy.wait("@removeBottleFromCellar");
             cy.get(".wine-card").should(record => {
                 expect(record.length).to.eq(1);
@@ -122,8 +129,8 @@ context('Actions', () => {
         });
     });
 
-    it('should filter when the user types in the search box', function () {
-        cy.find("#search-bar").type("Monsanto");
+    it.only('should filter when the user types in the search box', function () {
+        cy.get("#search-bar").type("Monsanto");
 
         cy.get(".wine-card").should(record => {
             expect(record.length).to.eq(1);
