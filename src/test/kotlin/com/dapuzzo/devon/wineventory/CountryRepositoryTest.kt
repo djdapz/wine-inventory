@@ -1,5 +1,6 @@
 package com.dapuzzo.devon.wineventory
 
+import com.dapuzzo.devon.wineventory.domain.NewWine
 import com.dapuzzo.devon.wineventory.repo.CountryRepository
 import com.dapuzzo.devon.wineventory.repo.WineRepository
 import com.dapuzzo.devon.wineventory.web.Country
@@ -10,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.jdbc.Sql
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner::class)
 @ActiveProfiles("test")
+@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = ["classpath:cleanup.sql"])
 open class CountryRepositoryTest {
 
     @Autowired
@@ -33,25 +36,25 @@ open class CountryRepositoryTest {
         val subject = CountryRepository(jdbcTemplate)
         val wineRepo = WineRepository(jdbcTemplate)
 
-        wineRepo.save("type", "producer", 2012, 1, "Italy", null)
-        wineRepo.save("type", "producer", 2012, 1, "Italy", null)
-        wineRepo.save("type", "producer", 2012, 1, "Italy", null)
-        wineRepo.save("type", "producer", 2012, 1, "Italy", null)
-        wineRepo.save("type", "producer", 2012, 1, "Italy", null)
+        wineRepo.save(NewWine("type", "producer", 2012, 1, "Italy"))
+        wineRepo.save(NewWine("type", "producer", 2012, 1, "Italy"))
+        wineRepo.save(NewWine("type", "producer", 2012, 1, "Italy"))
+        wineRepo.save(NewWine("type", "producer", 2012, 1, "Italy"))
+        wineRepo.save(NewWine("type", "producer", 2012, 1, "Italy"))
 
-        wineRepo.save("type", "producer", 2012, 1, "France", null)
-        wineRepo.save("type", "producer", 2012, 1, "France", null)
-        wineRepo.save("type", "producer", 2012, 1, "France", null)
-        wineRepo.save("type", "producer", 2012, 1, "France", null)
+        wineRepo.save(NewWine("type", "producer", 2012, 1, "France"))
+        wineRepo.save(NewWine("type", "producer", 2012, 1, "France"))
+        wineRepo.save(NewWine("type", "producer", 2012, 1, "France"))
+        wineRepo.save(NewWine("type", "producer", 2012, 1, "France"))
 
-        wineRepo.save("type", "producer", 2012, 1, "Spain", null)
-        wineRepo.save("type", "producer", 2012, 1, "Spain", null)
-        wineRepo.save("type", "producer", 2012, 1, "Spain", null)
+        wineRepo.save(NewWine("type", "producer", 2012, 1, "Spain"))
+        wineRepo.save(NewWine("type", "producer", 2012, 1, "Spain"))
+        wineRepo.save(NewWine("type", "producer", 2012, 1, "Spain"))
 
-        wineRepo.save("type", "producer", 2012, 1, "Austria", null)
-        wineRepo.save("type", "producer", 2012, 1, "Austria", null)
+        wineRepo.save(NewWine("type", "producer", 2012, 1, "Austria"))
+        wineRepo.save(NewWine("type", "producer", 2012, 1, "Austria"))
 
-        wineRepo.save("type", "producer", 2012, 1, "United States", null)
+        wineRepo.save(NewWine("type", "producer", 2012, 1, "United States"))
 
         val top5 = subject.getTop5()
 

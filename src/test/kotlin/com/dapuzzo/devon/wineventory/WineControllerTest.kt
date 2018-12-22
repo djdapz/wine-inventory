@@ -1,9 +1,6 @@
 package com.dapuzzo.devon.wineventory
 
-import com.dapuzzo.devon.wineventory.domain.Cellar
-import com.dapuzzo.devon.wineventory.domain.Wine
-import com.dapuzzo.devon.wineventory.domain.WineReader
-import com.dapuzzo.devon.wineventory.domain.WineWriter
+import com.dapuzzo.devon.wineventory.domain.*
 import com.dapuzzo.devon.wineventory.web.WineController
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
@@ -27,7 +24,7 @@ class WineControllerTest {
     private val testClient = WebTestClient.bindToController(subject).build()
 
     @Test
-    fun shouldCreateWine() {
+    fun shouldCreateWineWithMinumInfo() {
         testClient.post()
                 .uri("/wine")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -37,20 +34,58 @@ class WineControllerTest {
                       "producer": "Lionello Marchesi",
                       "year": 2009,
                       "country": "Italy",
-                      "quantity": 10,
-                      "cellarLocation": "floor"
+                      "quantity": 10
                     }
                 """.trimIndent()))
                 .exchange()
                 .expectStatus().isCreated
 
         verify(wineWriter).save(
-                type = "Barolo",
-                producer = "Lionello Marchesi",
-                year = 2009,
-                quantity = 10,
-                country = "Italy",
-                cellarLocation = "floor"
+                NewWine(
+                        type = "Barolo",
+                        producer = "Lionello Marchesi",
+                        year = 2009,
+                        quantity = 10,
+                        country = "Italy"
+                )
+        )
+    }
+
+
+    @Test
+    fun shouldCreateWine() {
+        testClient.post()
+                .uri("/wine")
+                .contentType(MediaType.APPLICATION_JSON)
+                //language=json
+                .body(just("""
+                    {
+                      "type": "Barolo",
+                      "producer": "Lionello Marchesi",
+                      "year": 2009,
+                      "country": "Italy",
+                      "quantity": 10,
+                      "cellarLocation": "floor",
+                      "originalWoodenCase": true,
+                      "bottleSize": 1000,
+                      "notes": "this wine is cool"
+                    }
+                """.trimIndent()))
+                .exchange()
+                .expectStatus().isCreated
+
+        verify(wineWriter).save(
+                NewWine(
+                        type = "Barolo",
+                        producer = "Lionello Marchesi",
+                        year = 2009,
+                        quantity = 10,
+                        country = "Italy",
+                        cellarLocation = "floor",
+                        originalWoodenCase = true,
+                        bottleSize = 1000,
+                        notes = "this wine is cool"
+                )
         )
     }
 
@@ -63,7 +98,11 @@ class WineControllerTest {
                 year = 2009,
                 country = "Italy",
                 cellarLocation = "floor",
-                id = 24
+                id = 24,
+                originalWoodenCase = true,
+                bottleSize = 1000,
+                notes = "this wine is cool"
+
         )
         whenever(wineReader.getAll()).thenReturn(listOf(expectedWine))
 
@@ -79,7 +118,8 @@ class WineControllerTest {
 
     @Test
     fun shouldReturnLocationWhenNewWineIsCreated() {
-        whenever(wineWriter.save(any(), any(), any(), any(), any(), any())).thenReturn(8576309)
+        whenever(wineWriter.save(any())).thenReturn(8576309)
+
         testClient.post()
                 .uri("/wine")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -98,6 +138,7 @@ class WineControllerTest {
                 .value("Location", equalTo("/wine/8576309"))
     }
 
+
     @Test
     fun shouldCallCellarToRemoveWIne() {
         testClient.post()
@@ -112,4 +153,5 @@ class WineControllerTest {
 
         verify(cellar).removeOneBottle(12)
     }
+
 }

@@ -1,41 +1,29 @@
-import com.dapuzzo.devon.wineventory.web.CountryController
 import com.dapuzzo.devon.wineventory.WinenventoryApplication
-import com.dapuzzo.devon.wineventory.web.Country
-import com.dapuzzo.devon.wineventory.web.WineController
+import com.dapuzzo.devon.wineventory.web.CountryController
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.restassured.RestAssured.given
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.skyscreamer.jsonassert.JSONAssert
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.http.MediaType.APPLICATION_JSON
-import org.springframework.jdbc.core.JdbcTemplate
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.jdbc.Sql
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import java.math.BigInteger
-import kotlin.test.expect
 
 
 @SpringBootTest(classes = [WinenventoryApplication::class], webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner::class)
 @ActiveProfiles("test")
+@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = ["classpath:cleanup.sql"])
 class ApplicationTest {
-
-    @Autowired
-    lateinit var jdbcTemplate: JdbcTemplate
 
     @LocalServerPort
     lateinit var port: BigInteger
-
-    @Before
-    fun setUp() {
-        jdbcTemplate.execute("TRUNCATE TABLE wines")
-    }
 
     @Test
     fun shouldFetchWineFromDatabase() {
@@ -58,7 +46,10 @@ class ApplicationTest {
                           "year": 2009,
                           "quantity": 10,
                           "country": "Italy",
-                          "cellarLocation": "floor"
+                          "cellarLocation": "floor",
+                          "originalWoodCase": true,
+                          "notes": "Super special wine",
+                          "bottleSize": 750
                         }
                       ]
                     }
@@ -89,7 +80,10 @@ class ApplicationTest {
                           "year": 2009,
                           "quantity": 10,
                           "country": "$country",
-                          "cellarLocation": "floor"
+                          "cellarLocation": "floor",
+                          "bottleSize": "750",
+                          "originalWoodCase": true,
+                          "notes": "Super special wine"
                         }
                     """.trimIndent())
                 .contentType(APPLICATION_JSON.toString())
@@ -133,8 +127,7 @@ class ApplicationTest {
                       "producer": "Lionello Marchesi",
                       "year": 2009,
                       "quantity": 10,
-                      "country": "Italy",
-                      "cellarLocation": "floor"
+                      "country": "Italy"
                     }
                 """.trimIndent())
                 .contentType(APPLICATION_JSON.toString())
@@ -154,7 +147,7 @@ class ApplicationTest {
                 .log().body()
                 .statusCode(200)
 
-        given().port(port.toInt())
+        val remainingWine = given().port(port.toInt())
                 .`when`()
                 .get("/wine")
                 .then()
@@ -162,5 +155,7 @@ class ApplicationTest {
                 .extract()
                 .jsonPath()
                 .getInt("wine[0].quantity")
+
+        assertThat(remainingWine).isEqualTo(9)
     }
 }

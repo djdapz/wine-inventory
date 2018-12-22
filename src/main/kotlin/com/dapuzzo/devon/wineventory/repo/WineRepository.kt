@@ -1,5 +1,6 @@
 package com.dapuzzo.devon.wineventory.repo
 
+import com.dapuzzo.devon.wineventory.domain.NewWine
 import com.dapuzzo.devon.wineventory.domain.Wine
 import com.dapuzzo.devon.wineventory.domain.WineReader
 import com.dapuzzo.devon.wineventory.domain.WineWriter
@@ -65,6 +66,9 @@ class WineRepository(jdbcTemplate: JdbcTemplate) : WineWriter, WineReader {
                         year = :year,
                         quantity = :quantity,
                         cellar_location = :cellar_location,
+                        original_wooden_case= :original_wooden_case,
+                        bottle_size= :bottle_size,
+                        notes= :notes,
                         country_code =(
                            SELECT country_code
                            from country
@@ -74,13 +78,16 @@ class WineRepository(jdbcTemplate: JdbcTemplate) : WineWriter, WineReader {
             """.trimIndent(),
                 MapSqlParameterSource(
                         mapOf(
-                                "type" to wine.type,
                                 "id" to wine.id,
+                                "type" to wine.type,
                                 "producer" to wine.producer,
                                 "year" to wine.year,
                                 "quantity" to wine.quantity,
                                 "country" to wine.country,
-                                "cellar_location" to wine.cellarLocation
+                                "cellar_location" to wine.cellarLocation,
+                                "original_wooden_case" to wine.originalWoodenCase,
+                                "bottle_size" to wine.bottleSize,
+                                "notes" to wine.notes
                         )
                 ))
     }
@@ -93,22 +100,41 @@ class WineRepository(jdbcTemplate: JdbcTemplate) : WineWriter, WineReader {
                 LEFT JOIN country on wines.country_code = country.country_code
             """.trimIndent(), ::mapSqlRowToWine)
 
-    override fun save(type: String, producer: String, year: Int, quantity: Int, country: String, cellarLocation: String?): Int =
+    override fun save(newWine: NewWine): Int =
             GeneratedKeyHolder().run {
                 db.update(
-                        //language=sql
+//                        language=sql
                         """
-                INSERT INTO wines(type, producer, year, quantity, cellar_location, country_code)
-                VALUES (:type, :producer, :year, :quantity,  :cellar_location, (SELECT country_code  from country WHERE country_name LIKE :country))
+INSERT INTO wines(type,
+                  producer,
+                  year,
+                  quantity,
+                  cellar_location,
+                  original_wooden_case,
+                  bottle_size,
+                  notes,
+                  country_code)
+VALUES (:type,
+        :producer,
+        :year,
+        :quantity,
+        :cellar_location,
+        :original_wooden_case,
+        :bottle_size,
+        :notes,
+        (SELECT country_code from country WHERE country_name LIKE :country))
             """.trimIndent(),
                         MapSqlParameterSource(
                                 mapOf(
-                                        "type" to type,
-                                        "producer" to producer,
-                                        "year" to year,
-                                        "quantity" to quantity,
-                                        "country" to country,
-                                        "cellar_location" to cellarLocation
+                                        "type" to newWine.type,
+                                        "producer" to newWine.producer,
+                                        "year" to newWine.year,
+                                        "quantity" to newWine.quantity,
+                                        "country" to newWine.country,
+                                        "cellar_location" to newWine.cellarLocation,
+                                        "original_wooden_case" to newWine.originalWoodenCase,
+                                        "bottle_size" to newWine.bottleSize,
+                                        "notes" to newWine.notes
                                 )
                         ), this)
                 this.keys!!["id"] as Int
@@ -122,7 +148,11 @@ class WineRepository(jdbcTemplate: JdbcTemplate) : WineWriter, WineReader {
                     quantity = rs.getInt("quantity"),
                     country = rs.getString("country_name"),
                     id = rs.getInt("id"),
-                    cellarLocation = rs.getString("cellar_location")
+                    cellarLocation = rs.getString("cellar_location"),
+                    notes = rs.getString("notes"),
+                    originalWoodenCase = rs.getBoolean("original_wooden_case"),
+                    bottleSize = rs.getInt("bottle_size")
+
             )
 
 }

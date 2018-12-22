@@ -15,5 +15,9 @@ fun randomWine(
         quantity = quantity,
         cellarLocation = faker.rickAndMorty().location(),
         country = "France",
-        id = id
+        id = id,
+        bottleSize = faker.number().numberBetween(375, 5000),
+        notes = faker.rickAndMorty().quote(),
+        originalWoodenCase = faker.bool().bool()
+
 )

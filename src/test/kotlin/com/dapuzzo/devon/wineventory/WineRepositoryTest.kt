@@ -1,5 +1,6 @@
 package com.dapuzzo.devon.wineventory
 
+import com.dapuzzo.devon.wineventory.domain.NewWine
 import com.dapuzzo.devon.wineventory.domain.Wine
 import com.dapuzzo.devon.wineventory.repo.WineRepository
 import com.github.javafaker.Faker
@@ -31,8 +32,17 @@ class WineRepositoryTest {
         val quantity = 12
         val country = "Italy"
         val cellarLocation = "floor"
+        val notes = "this is a good wine"
 
-        val expected = subject.save(type, producer, year, quantity, country, cellarLocation).run {
+        val expected = subject.save(NewWine(
+                type = type,
+                producer = producer,
+                year = year,
+                quantity = quantity,
+                country = country,
+                cellarLocation = cellarLocation,
+                notes = notes
+        )).run {
             Wine(
                     type = type,
                     producer = producer,
@@ -40,17 +50,19 @@ class WineRepositoryTest {
                     quantity = quantity,
                     country = country,
                     id = this,
-                    cellarLocation = cellarLocation
+                    cellarLocation = cellarLocation,
+                    originalWoodenCase = false,
+                    bottleSize = 750,
+                    notes = notes
             )
         }
 
         assertThat(subject.getAll()).contains(expected)
-
     }
 
 
     @Test
-    fun shouldAllowCellarLocationToBeNull() {
+    fun shouldAllowNullsForNotesAndCellarLocation() {
         val subject = WineRepository(jdbcTemplate)
 
         val type = "Barolo"
@@ -59,7 +71,7 @@ class WineRepositoryTest {
         val quantity = 12
         val country = "Italy"
 
-        val expected = subject.save(type, producer, year, quantity, country, null).run {
+        val expected = subject.save(NewWine(type, producer, year, quantity, country)).run {
             Wine(
                     type = type,
                     producer = producer,
@@ -67,7 +79,10 @@ class WineRepositoryTest {
                     quantity = quantity,
                     country = country,
                     id = this,
-                    cellarLocation = null
+                    cellarLocation = null,
+                    notes = null,
+                    originalWoodenCase = false,
+                    bottleSize = 750
             )
         }
 
@@ -79,14 +94,14 @@ class WineRepositoryTest {
         val subject = WineRepository(jdbcTemplate)
         val firstWine = randomWine()
 
-        val id = subject.save(
+        val id = subject.save(NewWine(
                 type = firstWine.type,
                 producer = firstWine.producer,
                 year = firstWine.year,
                 quantity = firstWine.quantity,
                 country = firstWine.country,
                 cellarLocation = firstWine.cellarLocation
-        )
+        ))
 
         val updatedWine = randomWine(id)
 
@@ -103,14 +118,15 @@ class WineRepositoryTest {
         val subject = WineRepository(jdbcTemplate)
         val firstWine = randomWine()
 
-        val id = subject.save(
+        val id = subject.save(NewWine(
                 type = firstWine.type,
                 producer = firstWine.producer,
                 year = firstWine.year,
                 quantity = firstWine.quantity,
                 country = firstWine.country,
                 cellarLocation = firstWine.cellarLocation
-        )
+        ))
+
         val sizeBeforeDelete = subject.getAll().size
 
         subject.deleteWine(id)
@@ -126,14 +142,15 @@ class WineRepositoryTest {
         val subject = WineRepository(jdbcTemplate)
         val firstWine = randomWine()
 
-        val id = subject.save(
+        val id = subject.save(NewWine(
                 type = firstWine.type,
                 producer = firstWine.producer,
                 year = firstWine.year,
                 quantity = firstWine.quantity,
                 country = firstWine.country,
                 cellarLocation = firstWine.cellarLocation
-        )
+        ))
+
         subject.changeQuantityOfBottlesInCellar(id, firstWine.quantity - 1)
         val quantityAfter = subject.getWineById(id).quantity
 

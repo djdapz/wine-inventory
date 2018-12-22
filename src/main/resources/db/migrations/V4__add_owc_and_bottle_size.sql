@@ -1,0 +1,8 @@
+ALTER TABLE wines
+  ADD COLUMN original_wooden_case BOOLEAN NOT NULL DEFAULT FALSE;
+
+ALTER TABLE wines
+  ADD COLUMN bottle_size INT NOT NULL DEFAULT 750;
+
+ALTER TABLE wines
+  ADD COLUMN notes TEXT;
