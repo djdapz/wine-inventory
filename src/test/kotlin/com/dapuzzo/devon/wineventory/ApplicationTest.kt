@@ -47,8 +47,8 @@ class ApplicationTest {
                           "quantity": 10,
                           "country": "Italy",
                           "cellarLocation": "floor",
-                          "originalWoodCase": true,
                           "notes": "Super special wine",
+                          "originalWoodenCase": true,
                           "bottleSize": 750
                         }
                       ]
@@ -82,7 +82,7 @@ class ApplicationTest {
                           "country": "$country",
                           "cellarLocation": "floor",
                           "bottleSize": "750",
-                          "originalWoodCase": true,
+                          "originalWoodenCase": true,
                           "notes": "Super special wine"
                         }
                     """.trimIndent())
