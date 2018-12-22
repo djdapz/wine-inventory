@@ -15,7 +15,7 @@ const StyledWineCard = styled(Card)`
   justify-content: space-between;
   align-items: center;
 `;
-const ProducerHeading = styled.div`
+const ProducerHeading = styled.span`
   font-size: large;
   font-weight: bold;
   margin-bottom: .25rem;
@@ -34,6 +34,27 @@ const LeftPanel = styled.div`
   display: flex;
 `;
 
+const Badge = styled.span`
+  background-color: gray;
+  border-radius: 10px;
+  flex-grow: 0;
+  padding: 2px 4px;
+  color: white;
+  margin-left: .5rem;
+`
+
+const Country = styled.div`
+  
+`
+
+const Year = styled.span`
+
+`
+
+const WineType = styled.span`
+  margin-left: .5rem;
+`
+
 
 interface ReduxActions {
     removeBottleFromCellar: (id: number) => void
@@ -43,23 +64,37 @@ interface Props {
     wine: Wine
 }
 
+const OriginalWoodenCase = (props: { owc: boolean }) => props.owc ?
+    <Badge data-cy="original-wooden-case-indicator">OWC</Badge> : <span/>
+
 const WineCard = (props: ReduxActions & Props) =>
     <StyledWineCard key={props.wine.year + props.wine.producer + props.wine.type}
-                    className={'wine-card'}>
+                    data-cy={'wine-card'}>
         <CardSection>
-            <ProducerHeading className={'producer'}> {props.wine.producer}</ProducerHeading>
             <div>
-                <span className={'year'}>{props.wine.year}</span> <span className={'type'}>{props.wine.type}</span>
+                <ProducerHeading data-cy={'producer'}>
+                    {props.wine.producer}
+                </ProducerHeading>
             </div>
             <div>
-                <span className={'country'}>{props.wine.country}</span>
+                <Year data-cy={'year'}>{props.wine.year}</Year>
+                <WineType data-cy={'type'}>{props.wine.type}</WineType>
             </div>
+            <Country data-cy={'country'}>
+                {props.wine.country}
+            </Country>
+
+            <div>
+                <span data-cy="bottle-size">{props.wine.bottleSize}ml</span>
+                <OriginalWoodenCase owc={props.wine.originalWoodenCase}/>
+            </div>
+            <div data-cy="notes">{props.wine.notes}</div>
         </CardSection>
         <LeftPanel>
             <CardSection>
-                <div className={'quantity'}><b>{props.wine.quantity}</b> left</div>
+                <div data-cy={'quantity'}><b>{props.wine.quantity}</b> left</div>
                 {props.wine.cellarLocation ?
-                    <div className={'cellar-location'}>Cellar Location: {props.wine.cellarLocation}</div> : ""}
+                    <div data-cy={'cellar-location'}>Cellar Location: {props.wine.cellarLocation}</div> : ""}
             </CardSection>
             <ActionMenu actions={[{
                 label: props.wine.quantity === 1 ? "Remove Last Bottle From Cellar" : "Remove One Bottle From Cellar",
@@ -67,7 +102,8 @@ const WineCard = (props: ReduxActions & Props) =>
                 className: 'remove-bottle-from-cellar'
             }]}/>
         </LeftPanel>
-    </StyledWineCard>;
+    </StyledWineCard>
+;
 
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

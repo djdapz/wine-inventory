@@ -1,9 +1,11 @@
 import {AnyAction} from "redux";
 import {CreateWineRequest} from "../domain/CreateWine.types";
 import {
+    AddBooleanToCreateWineRequest,
     AddNumberToCreateWineRequest,
     AddStringToCreateWineRequest,
-    CreateWineRequestActions, ToggleCreateWineForm
+    CreateWineRequestActions,
+    ToggleCreateWineForm
 } from "./CreateWine.actions";
 
 export const createWineFormReducer = (state: CreateWineRequest | null = null, action: AnyAction): CreateWineRequest | null => {
@@ -21,6 +23,12 @@ export const createWineFormReducer = (state: CreateWineRequest | null = null, ac
             return {...state, type: action.payload};
         case AddNumberToCreateWineRequest.addYearToWineRequest:
             return {...state, year: action.payload};
+        case AddBooleanToCreateWineRequest.addOriginalWoodenCaseToWineRequest:
+            return {...state, originalWoodenCase: action.payload};
+        case AddStringToCreateWineRequest.addNotesToWineRequest:
+            return {...state, notes: action.payload};
+        case AddNumberToCreateWineRequest.addBottleSizeToWineRequest:
+            return {...state, bottleSize: action.payload};
         case CreateWineRequestActions.createWineSucceded:
             return null;
         case ToggleCreateWineForm.closeCreateWineForm:

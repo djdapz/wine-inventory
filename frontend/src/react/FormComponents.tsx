@@ -3,6 +3,7 @@ import * as React from "react";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
 import {FormControl, OutlinedInput} from "@material-ui/core";
+import styled from "styled-components";
 
 const orEmpty = (val?: any) => (val === null || val === undefined) ? "" : val;
 
@@ -56,19 +57,21 @@ export const validateNumericInputFor = (onChange: (val: number | undefined) => v
 };
 
 export const MultiDropDown = <T extends any>(props: {
+    formField: string,
     onChange: (val: string) => void,
     value?: string,
     children?: React.ReactNode
     elements: { label: string, list: T[] }[],
     getValueFromElement: (el: T) => string
 }) => <FormControl variant="outlined"
-                   className={'country-input create-wine-form-input'}>
+                   className={`${props.formField}-input create-wine-form-input`}>
     <InputLabel htmlFor="country-dropdown">Country</InputLabel>
     <Select native
             value={props.value}
             onChange={(event) => props.onChange(event.target.value)}
-            input={<OutlinedInput labelWidth={"country".length * 8} name="country"
-                                id="country-dropdown"/>}>
+            input={<OutlinedInput labelWidth={"country".length * 8}
+                                  name="country"
+                                  id="country-dropdown"/>}>
         <option value=""/>
         {props.elements
             .map(el =>
@@ -84,3 +87,47 @@ export const MultiDropDown = <T extends any>(props: {
                 </optgroup>)}
     </Select>
 </FormControl>;
+
+export const Dropdown = <T extends any>(
+    props: {
+        label: string,
+        formField: string,
+        onChange: (val: T) => void,
+        value?: string,
+        children?: React.ReactNode
+        options: T[],
+        default?: T,
+        optionToLabel: (it: T) => string,
+        convertFromStringToType: (it: string) => T
+    }
+) =>
+    <FormControlWithNormalPadding variant="outlined"
+                                  className={`${props.formField}-input create-wine-form-input`}>
+        <InputLabel htmlFor="country-dropdown">{props.label}</InputLabel>
+        <Select native
+                value={props.value}
+                onChange={(event) => props.onChange(props.convertFromStringToType(event.target.value))}
+                input={<OutlinedInput labelWidth={props.label.length * 8}
+                                      name={`${props.formField}`}
+                                      id={`${props.formField}-dropdown`}/>}>
+            {props.default ?
+                <option value={props.default.toString()}
+                        key={`${props.default}`}>
+                    {props.optionToLabel(props.default)}
+                </option> : ""}
+
+            {props.options
+                .filter(it => it !== props.default)
+                .map(it => <option value={it.toString()}
+                                   key={`${it}`}>
+                    {props.optionToLabel(it)}
+                </option>)}
+        </Select>
+    </FormControlWithNormalPadding>;
+
+const FormControlWithNormalPadding = styled(FormControl)`
+&&{
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+  }
+`

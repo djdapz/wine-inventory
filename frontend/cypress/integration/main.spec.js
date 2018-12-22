@@ -18,7 +18,9 @@ context('Actions', () => {
                     type: "Barolo",
                     year: 2009,
                     cellarLocation: "Upper Left",
-                    id: 12
+                    id: 12,
+                    bottleSize: 750,
+                    originalWoodenCase: true
                 },
                 {
                     type: "Chianti",
@@ -26,7 +28,10 @@ context('Actions', () => {
                     year: 2012,
                     quantity: 8,
                     country: "Italy",
-                    id: 15
+                    id: 15,
+                    notes: "Fancy Label",
+                    bottleSize: 1500,
+                    originalWoodenCase: false
                 }
             ]
         }).as('getWines');
@@ -77,26 +82,31 @@ context('Actions', () => {
 
 
     it('should display a list of wine', () => {
-        cy.get(".wine-card").should(record => {
+        cy.get("[data-cy=wine-card]").should(record => {
             expect(record.length).to.eq(2);
 
-            expect(record[0].querySelector(".type").innerText).to.eq("Barolo");
-            expect(record[0].querySelector(".producer").innerText).to.eq("Lionello Marchesi");
-            expect(record[0].querySelector(".year").innerText).to.eq('2009');
-            expect(record[0].querySelector(".quantity").innerText).to.eq('2 left');
-            expect(record[0].querySelector(".country").innerText).to.eq("Italy");
-            expect(record[0].querySelector(".cellar-location").innerText).to.eq("Cellar Location: Upper Left");
+            expect(record[0].querySelector("[data-cy=type]").innerText).to.eq("Barolo");
+            expect(record[0].querySelector("[data-cy=producer]").innerText).to.eq("Lionello Marchesi");
+            expect(record[0].querySelector("[data-cy=year]").innerText).to.eq('2009');
+            expect(record[0].querySelector("[data-cy=quantity]").innerText).to.eq('2 left');
+            expect(record[0].querySelector("[data-cy=country]").innerText).to.eq("Italy");
+            expect(record[0].querySelector("[data-cy=cellar-location]").innerText).to.eq("Cellar Location: Upper Left");
+            expect(record[0].querySelector("[data-cy=original-wooden-case-indicator]").innerText).to.eq("OWC");
+            expect(record[0].querySelector("[data-cy=bottle-size]").innerText).to.eq("750ml");
 
-            expect(record[1].querySelector(".type").innerText).to.eq("Chianti");
-            expect(record[1].querySelector(".producer").innerText).to.eq("Monsanto");
-            expect(record[1].querySelector(".year").innerText).to.eq('2012');
-            expect(record[1].querySelector(".quantity").innerText).to.eq('8 left');
-            expect(record[1].querySelector(".country").innerText).to.eq("Italy");
+            expect(record[1].querySelector("[data-cy=type]").innerText).to.eq("Chianti");
+            expect(record[1].querySelector("[data-cy=producer]").innerText).to.eq("Monsanto");
+            expect(record[1].querySelector("[data-cy=year]").innerText).to.eq('2012');
+            expect(record[1].querySelector("[data-cy=quantity]").innerText).to.eq('8 left');
+            expect(record[1].querySelector("[data-cy=country]").innerText).to.eq("Italy");
+            expect(record[1].querySelector("[data-cy=notes]").innerText).to.eq("Fancy Label");
+            expect(record[1].querySelector("[data-cy=original-wooden-case-indicator]")).to.not.exist
+            expect(record[1].querySelector("[data-cy=bottle-size]").innerText).to.eq("1500ml");
         })
     });
 
     it('should not display a cellar location if one is not passed', function () {
-        cy.get(".wine-card").should(record => {
+        cy.get("[data-cy=wine-card]").should(record => {
             expect(record[1].querySelector(".cellar-location")).to.eql(null)
         })
     });
@@ -112,8 +122,8 @@ context('Actions', () => {
         });
 
         it('should decrease quantity on success', function () {
-            cy.get(".wine-card").should(record => {
-                expect(record[0].querySelector(".quantity").innerText).to.eq('1 left');
+            cy.get("[data-cy=wine-card]").should(record => {
+                expect(record[0].querySelector("[data-cy=quantity]").innerText).to.eq('1 left');
             })
         });
 
@@ -123,7 +133,7 @@ context('Actions', () => {
             removeBottleOfWineFromFirstCard()
 
             cy.wait("@removeBottleFromCellar");
-            cy.get(".wine-card").should(record => {
+            cy.get("[data-cy=wine-card]").should(record => {
                 expect(record.length).to.eq(1);
             })
         });
@@ -132,10 +142,10 @@ context('Actions', () => {
     it('should filter when the user types in the search box', function () {
         cy.get("#search-bar").type("Monsanto");
 
-        cy.get(".wine-card").should(record => {
+        cy.get("[data-cy=wine-card]").should(record => {
             expect(record.length).to.eq(1);
 
-            expect(record[0].querySelector(".producer").innerText).to.eq("Monsanto");
+            expect(record[0].querySelector("[data-cy=producer]").innerText).to.eq("Monsanto");
         })
     });
 

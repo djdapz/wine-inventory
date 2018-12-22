@@ -4,6 +4,9 @@ export interface Wine {
     year: number;
     quantity: number;
     country: string;
-    cellarLocation?: string;
     id: number;
+    originalWoodenCase: boolean;
+    bottleSize: number;
+    cellarLocation?: string;
+    notes?: string;
 }

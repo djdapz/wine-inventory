@@ -30,6 +30,23 @@ export const addTypeToWineRequest = (type: string): AddStringToCreateWineRequest
     payload: type
 });
 
+export const addNotesToWineRequest = (notes: string): AddStringToCreateWineRequestType => ({
+    type: AddStringToCreateWineRequest.addNotesToWineRequest,
+    payload: notes
+});
+
+export const addOriginalWoodenCaseToWineRequest = (owc: boolean): AddBooleanToCreateWineRequestType => ({
+    type: AddBooleanToCreateWineRequest.addOriginalWoodenCaseToWineRequest,
+    payload: owc
+});
+
+
+export const addBottleSizeToWineRequest = (bottleSize: number): AddNumberToCreateWineRequestType => ({
+    type: AddNumberToCreateWineRequest.addBottleSizeToWineRequest,
+    payload: bottleSize
+});
+
+
 export const addYearToWineRequest = (year: number | undefined): AddNumberToCreateWineRequestType =>
     ({
         type: AddNumberToCreateWineRequest.addYearToWineRequest,
@@ -59,13 +76,15 @@ export const enum CreateWineRequestActions {
 }
 
 export const enum AddStringToCreateWineRequest {
-    addCellarLocationToWineRequest="addCellarLocationToWineRequest",
+    addNotesToWineRequest = "addNotesToWineRequest",
+    addCellarLocationToWineRequest = "addCellarLocationToWineRequest",
     addCountryToWineRequest = "addCountryToWineRequest",
     addProducerToWineRequest = "addProducerToWineRequest",
     addTypeToWineRequest = "addTypeToWineRequest",
 }
 
 export const enum AddNumberToCreateWineRequest {
+    addBottleSizeToWineRequest = "addBottleSizeToWineRequest",
     addQuantityToWineRequest = "addQuantityToWineRequest",
     addYearToWineRequest = "addYearToWineRequest",
 }
@@ -75,11 +94,17 @@ export const enum ToggleCreateWineForm {
     closeCreateWineForm = "closeCreateWineForm",
 }
 
+export const enum AddBooleanToCreateWineRequest {
+    addOriginalWoodenCaseToWineRequest = "addOriginalWoodenCaseToWineRequest"
+}
+
 
 type AddStringToCreateWineRequestType = ActionWithPayload<AddStringToCreateWineRequest, string>
 type AddNumberToCreateWineRequestType = ActionWithPayload<AddNumberToCreateWineRequest, number | undefined>
+type AddBooleanToCreateWineRequestType = ActionWithPayload<AddBooleanToCreateWineRequest, boolean>
 
 export type CreateWineActions = AddStringToCreateWineRequestType
     | AddNumberToCreateWineRequestType
+    | AddBooleanToCreateWineRequestType
     | Action<ToggleCreateWineForm>
     | Action<CreateWineRequestActions>

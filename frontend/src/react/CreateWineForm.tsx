@@ -2,8 +2,11 @@ import * as React from "react";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {
+    addBottleSizeToWineRequest,
     addCellarLocationToWineRequest,
     addCountryToWineRequest,
+    addNotesToWineRequest,
+    addOriginalWoodenCaseToWineRequest,
     addProducerToWineRequest,
     addQuantityToWineRequest,
     addTypeToWineRequest,
@@ -20,10 +23,12 @@ import {Country} from "../redux/Country.actions";
 import {StoreType} from "../index";
 import styled from "styled-components";
 import Drawer from "@material-ui/core/Drawer/Drawer";
-import {MultiDropDown, NumberInput, TextInput} from "./FormComponents";
+import {Dropdown, MultiDropDown, NumberInput, TextInput} from "./FormComponents";
 import {Countries} from "../redux/Country.reducer";
 import {MuiThemeProvider} from "@material-ui/core";
 import {whiteInputs} from "./SearchBar";
+import Checkbox from "@material-ui/core/es/Checkbox";
+import FormControlLabel from "@material-ui/core/es/FormControlLabel";
 
 interface CreateWineFormProps {
     createWineFormRequest: CreateWineRequest | null
@@ -34,6 +39,9 @@ interface CreateWineFormProps {
     changeProducer: (producer: string) => void
     changeCountry: (country: string) => void
     changeCellarLocation: (cellarLocation: string) => void
+    changeNotes: (notes: string) => void,
+    changeBottleSize: (bottleSize: number) => void,
+    changeOriginalWoodenCase: (owc: boolean) => void,
     submit: (createWineRequest: CreateWineRequest) => void,
     openForm: () => void
     closeForm: () => void
@@ -73,7 +81,8 @@ const CreateWineForm = (props: CreateWineFormProps) =>
                                 label: "All"
                             }
                         ]}
-                        getValueFromElement={(country: Country) => country.name}/>
+                        getValueFromElement={(country: Country) => country.name}
+                        formField={"country"}/>
                     <TextInput
                         onChange={props.changeProducer}
                         label="Producer"
@@ -94,11 +103,41 @@ const CreateWineForm = (props: CreateWineFormProps) =>
                         label="Quantity"
                         value={props.createWineFormRequest.quantity}
                         onChange={props.changeQuantity}/>
+                    <Dropdown label={"Bottle Size"}
+                              formField={"bottle-size"}
+                              onChange={props.changeBottleSize}
+                              options={[375, 750, 1500, 3000, 6000]}
+                              default={750}
+                              optionToLabel={(option: number) => {
+                                  if (option > 1000) {
+                                      return `${option / 1000}L`
+                                  }
+                                  return `${option} mL`
+                              }}
+                              convertFromStringToType={(option: string) => parseInt(option)}/>
                     <TextInput
                         className={'create-wine-form-input cellar-location-input'}
                         label="Cellar Location"
                         value={props.createWineFormRequest.cellarLocation}
                         onChange={props.changeCellarLocation}/>
+                    <TextInput
+                        className={'create-wine-form-input notes-input'}
+                        label="Notes"
+                        value={props.createWineFormRequest.notes}
+                        onChange={props.changeNotes}/>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                className={'create-wine-form-input original-wooden-case-input'}
+                                checked={props.createWineFormRequest.originalWoodenCase}
+                                onChange={(it) => props.changeOriginalWoodenCase(it.target.checked)}
+                                value="checkedA"
+                                color={"primary"}
+                            />
+                        }
+                        label="Original Wooden Case"
+                    />
+
                 </MuiThemeProvider>
                 <Button disabled={!isWineRequestReadyToSubmit(props.createWineFormRequest)}
                         className={"submit-button"}
@@ -132,6 +171,9 @@ const mapActionsToProps = (dispatch: Dispatch) => ({
     changeProducer: (producer: string) => dispatch(addProducerToWineRequest(producer)),
     changeCountry: (country: string) => dispatch(addCountryToWineRequest(country)),
     changeCellarLocation: (cellarLocation: string) => dispatch(addCellarLocationToWineRequest(cellarLocation)),
+    changeNotes: (notes: string) => dispatch(addNotesToWineRequest(notes)),
+    changeBottleSize: (bottleSize: number) => dispatch(addBottleSizeToWineRequest(bottleSize)),
+    changeOriginalWoodenCase: (owc: boolean) => dispatch(addOriginalWoodenCaseToWineRequest(owc)),
     submit: (createWineRequest: CreateWineRequest) => submitCreateWine(dispatch, createWineRequest),
     openForm: () => dispatch(openCreateWineForm()),
     closeForm: () => dispatch(closeCreateWineForm())

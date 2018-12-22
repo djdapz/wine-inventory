@@ -5,6 +5,9 @@ export interface CreateWineRequest {
     cellarLocation?: string;
     quantity?: number;
     country?: string;
+    originalWoodenCase?: boolean,
+    notes?: string,
+    bottleSize?: number
 }
 
 export const isWineRequestReadyToSubmit = (request: CreateWineRequest) =>

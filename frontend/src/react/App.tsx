@@ -15,6 +15,9 @@ const StyledApp = styled.div`
 `;
 
 const theme = createMuiTheme({
+    typography: {
+        useNextVariants: true,
+    },
     palette: {
         primary: {
             main: "#8e2dfa"

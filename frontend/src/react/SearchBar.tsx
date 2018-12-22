@@ -25,6 +25,9 @@ const SearchBarWrapper = styled.div`
   `
 
 export const whiteInputs = createMuiTheme({
+    typography: {
+        useNextVariants: true,
+    },
     palette: {
         primary: {
             light: "#fff",
@@ -40,7 +43,6 @@ export const whiteInputs = createMuiTheme({
         },
         type: "dark"
     },
-    typography: {useNextVariants: true},
 });
 
 const SearchBar = (props: DispatchProps & StoreProps) => <AppBar>
