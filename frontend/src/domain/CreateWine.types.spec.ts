@@ -1,9 +1,9 @@
-import {CreateWineRequest, isWineRequestReadyToSubmit} from "./CreateWine.types";
+import {isWineRequestReadyToSubmit, WineRequest} from "./CreateWine.types";
 
 import {expect} from 'chai'
 
 describe("Create Wine Types", () => {
-    const complete : CreateWineRequest= {
+    const complete : WineRequest= {
         type: "Chianti",
         producer: "Lionello",
         year: 2014,

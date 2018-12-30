@@ -1,5 +1,4 @@
-import CreateWineForm from "./CreateWineForm";
-import SearchBar from "./SearchBar";
+import CreateWineForm from "./wine-form/CreateWineForm";
 import WineList from "./WineList";
 import NewWineButton from "./NewWineButton";
 import * as React from "react";
@@ -12,8 +11,8 @@ const StyledWineListPage = styled.div`
 `
 
 export default () => <StyledWineListPage>
+    // @ts-ignore
     <CreateWineForm/>
-    <SearchBar/>
     <WineList/>
     <NewWineButton/>
 </StyledWineListPage>

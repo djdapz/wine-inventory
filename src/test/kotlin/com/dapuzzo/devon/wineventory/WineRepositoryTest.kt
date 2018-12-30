@@ -156,6 +156,4 @@ class WineRepositoryTest {
 
         assertThat(quantityAfter).isEqualTo(firstWine.quantity - 1)
     }
-
-
 }

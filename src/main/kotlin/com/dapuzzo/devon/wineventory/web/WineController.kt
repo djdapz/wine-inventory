@@ -53,4 +53,20 @@ class WineController(
         cellar.removeOneBottle(body.id)
     }
 
+    @PutMapping("/wine/{id}")
+    fun saveWine(@RequestBody request: WineRequest, @PathVariable("id") id: Int) = wineWriter.updateWine(
+            Wine(
+                    type = request.type,
+                    producer = request.producer,
+                    year = request.year,
+                    quantity = request.quantity,
+                    country = request.country,
+                    cellarLocation = request.cellarLocation,
+                    originalWoodenCase = request.originalWoodenCase!!,
+                    bottleSize = request.bottleSize!!,
+                    notes = request.notes,
+                    id = id
+            )
+    )
+
 }

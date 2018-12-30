@@ -1,41 +1,15 @@
 /// <reference types="Cypress" />
 
+import {baselineServerSetup} from "./util";
+
 function removeBottleOfWineFromFirstCard() {
     cy.get(".dot-dot-dot-menu").first().click();
     cy.get(".remove-bottle-from-cellar").first().click();
 }
 
-context('Actions', () => {
+context('Wine List', () => {
     beforeEach(() => {
-        cy.server();
-
-        cy.route('GET', '/wine', {
-            wine: [
-                {
-                    country: "Italy",
-                    producer: "Lionello Marchesi",
-                    quantity: 2,
-                    type: "Barolo",
-                    year: 2009,
-                    cellarLocation: "Upper Left",
-                    id: 12,
-                    bottleSize: 750,
-                    originalWoodenCase: true
-                },
-                {
-                    type: "Chianti",
-                    producer: "Monsanto",
-                    year: 2012,
-                    quantity: 8,
-                    country: "Italy",
-                    id: 15,
-                    notes: "Fancy Label",
-                    bottleSize: 1500,
-                    originalWoodenCase: false
-                }
-            ]
-        }).as('getWines');
-
+        baselineServerSetup()
 
         cy.route({
             method: "POST",
@@ -51,30 +25,6 @@ context('Actions', () => {
             status: 200,
             response: "Created: i guess i need a response..."
         }).as('removeBottleFromCellar');
-
-        cy.route({
-            method: "GET",
-            url: "/country/all",
-            status: 201,
-            response: {
-                countries: [
-                    {"name": "Spain", code: "ES"},
-                    {"name": "Italy", code: "IT"}
-                ]
-            }
-        }).as('getAllCountries');
-
-        cy.route({
-            method: "GET",
-            url: "/country/top-5",
-            status: 201,
-            response: {
-                countries: [
-                    {"name": "France", code: "FR"},
-                    {"name": "United States", code: "US"}
-                ]
-            }
-        }).as('getTop5Countries');
 
         cy.visit('/');
         cy.wait("@getWines")
@@ -133,9 +83,7 @@ context('Actions', () => {
             removeBottleOfWineFromFirstCard()
 
             cy.wait("@removeBottleFromCellar");
-            cy.get("[data-cy=wine-card]").should(record => {
-                expect(record.length).to.eq(1);
-            })
+            cy.get("[data-cy=wine-card]").should(record => expect(record.length).to.eq(1))
         });
     });
 
@@ -227,4 +175,6 @@ context('Actions', () => {
             cy.get('#create-wine-form').should('not.exist');
         });
     })
+
+
 });

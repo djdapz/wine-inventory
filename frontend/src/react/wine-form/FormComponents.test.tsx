@@ -1,5 +1,5 @@
 import {validateNumericInputFor} from "./FormComponents";
-import {expect} from 'chai'
+import {expect} from "chai"
 
 describe("Input Scrubbing", () => {
     let mockedValue: any = undefined;

@@ -1,13 +1,14 @@
 import * as React from "react";
-import MenuItem from "@material-ui/core/MenuItem/MenuItem";
+import MenuItem, {MenuItemProps} from "@material-ui/core/MenuItem/MenuItem";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import Menu from "@material-ui/core/Menu/Menu";
 import styled from "styled-components";
 
 interface ActionButton {
     label: string,
-    action: () => void,
-    className: string
+    action?: () => void,
+    className: string,
+    component?: React.ReactType<MenuItemProps>
 }
 
 const StyledDotDot = styled.svg`
@@ -40,8 +41,9 @@ export class ActionMenu extends React.Component<{ actions: ActionButton[] }, { a
         let actions = this.props.actions.map(action =>
             <MenuItem key={action.label}
                       className={action.className}
+                      component={action.component}
                       onClick={() => {
-                          action.action();
+                          action.action ? action.action() : "";
                           this.handleClose()
                       }}>
                 {action.label}

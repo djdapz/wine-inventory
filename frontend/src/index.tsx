@@ -5,7 +5,7 @@ import registerServiceWorker from './registerServiceWorker';
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
 import {wineReducer} from "./redux/Wine.reducers";
-import {createWineFormReducer} from "./redux/CreateWine.reducers";
+import {showCreateWineFormReducer} from "./redux/CreateWine.reducers";
 import {FetchCountriesMiddleware} from "./redux/Country.actions";
 import {fetchCountriesReducer} from "./redux/Country.reducer";
 import {StateType} from "./redux/ReduxTypes";
@@ -16,7 +16,7 @@ import {searchReducer} from "./redux/Filter.reducer";
 const rootReducer = combineReducers(
     {
         wines: wineReducer,
-        createWineForm: createWineFormReducer,
+        showCreateWineForm: showCreateWineFormReducer,
         countries: fetchCountriesReducer,
         searchQuery: searchReducer
     }

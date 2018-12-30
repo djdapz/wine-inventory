@@ -5,7 +5,9 @@ import {MuiThemeProvider} from "@material-ui/core/es";
 import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from "redux";
 import {fetchCountries} from "../redux/Country.actions";
-import WineListPage from "./WineListPage";
+import WineAppBar from "./WineAppBar";
+import {BrowserRouter as Router} from "react-router-dom";
+import RouteDeclarations from "./RouteDeclarations"
 
 const StyledApp = styled.div`
   display: flex;
@@ -14,6 +16,9 @@ const StyledApp = styled.div`
   justify-content: center;
 `;
 
+const FullPage = styled.div`
+  width: 100%;
+`
 const theme = createMuiTheme({
     typography: {
         useNextVariants: true,
@@ -45,7 +50,12 @@ class App extends React.Component<DispatchProps> {
         return (
             <MuiThemeProvider theme={theme}>
                 <StyledApp className="App">
-                    <WineListPage/>
+                    <Router>
+                        <FullPage>
+                            <WineAppBar/>
+                            <RouteDeclarations/>
+                        </FullPage>
+                    </Router>
                 </StyledApp>
             </MuiThemeProvider>
         );

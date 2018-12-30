@@ -1,5 +1,5 @@
 import * as React from "react";
-import {CreateWineRequest} from "../domain/CreateWine.types";
+import {WineRequest} from "../domain/CreateWine.types";
 import AddIcon from '@material-ui/icons/Add';
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button/Button";
 import styled from "styled-components";
 
 interface CreateWineFormProps {
-    createWineFormRequest: CreateWineRequest | null
+    createWineFormRequest: WineRequest | null
     openForm: () => void
 }
 

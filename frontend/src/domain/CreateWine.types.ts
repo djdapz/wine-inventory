@@ -1,4 +1,6 @@
-export interface CreateWineRequest {
+import {Wine} from "./Wine.types";
+
+export interface WineRequest {
     type?: string;
     producer?: string;
     year?: number;
@@ -10,7 +12,7 @@ export interface CreateWineRequest {
     bottleSize?: number
 }
 
-export const isWineRequestReadyToSubmit = (request: CreateWineRequest) =>
+export const isWineRequestReadyToSubmit = (request: WineRequest) =>
     request.type !== ""
     && request.type !== undefined
     && request.producer !== ""
@@ -21,3 +23,7 @@ export const isWineRequestReadyToSubmit = (request: CreateWineRequest) =>
     && request.quantity > 0
     && request.year !== undefined
     && request.year > 0;
+
+export const areEquivalent = (wine: Wine, wineRequest: WineRequest) =>
+    Object.keys(wineRequest)
+        .reduce((prev: boolean, key: string) => wineRequest[key] === wine[key] && prev, true)

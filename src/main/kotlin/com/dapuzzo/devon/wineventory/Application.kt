@@ -24,5 +24,7 @@ class CorsGlobalConfiguration : WebFluxConfigurer {
 
     override fun addCorsMappings(corsRegistry: CorsRegistry?) {
         corsRegistry!!.addMapping("/**")
+                .allowedMethods("GET", "PUT", "POST")
+
     }
 }

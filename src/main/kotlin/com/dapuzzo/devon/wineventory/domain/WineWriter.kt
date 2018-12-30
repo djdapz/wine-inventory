@@ -38,4 +38,5 @@ interface WineWriter {
     fun save(newWine: NewWine): Int
     fun changeQuantityOfBottlesInCellar(id: Int, newQuantity: Int)
     fun deleteWine(id: Int)
+    fun updateWine(wine: Wine)
 }

@@ -57,7 +57,7 @@ class WineRepository(jdbcTemplate: JdbcTemplate) : WineWriter, WineReader {
             ::mapSqlRowToWine)!!
 
 
-    fun updateWine(wine: Wine) {
+    override fun updateWine(wine: Wine) {
         db.update(
                 //language=sql
                 """UPDATE wines
