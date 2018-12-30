@@ -31,7 +31,7 @@ context('Wine List', () => {
     });
 
 
-    it('should display a list of wine', () => {
+    it.only('should display a list of wine', () => {
         cy.get("[data-cy=wine-card]").should(record => {
             expect(record.length).to.eq(2);
 
@@ -42,7 +42,7 @@ context('Wine List', () => {
             expect(record[0].querySelector("[data-cy=country]").innerText).to.eq("Italy");
             expect(record[0].querySelector("[data-cy=cellar-location]").innerText).to.eq("Cellar Location: Upper Left");
             expect(record[0].querySelector("[data-cy=original-wooden-case-indicator]").innerText).to.eq("OWC");
-            expect(record[0].querySelector("[data-cy=bottle-size]").innerText).to.eq("750ml");
+            expect(record[0].querySelector("[data-cy=bottle-size]").innerText).to.eq("750 mL");
 
             expect(record[1].querySelector("[data-cy=type]").innerText).to.eq("Chianti");
             expect(record[1].querySelector("[data-cy=producer]").innerText).to.eq("Monsanto");
@@ -51,7 +51,7 @@ context('Wine List', () => {
             expect(record[1].querySelector("[data-cy=country]").innerText).to.eq("Italy");
             expect(record[1].querySelector("[data-cy=notes]").innerText).to.eq("Fancy Label");
             expect(record[1].querySelector("[data-cy=original-wooden-case-indicator]")).to.not.exist
-            expect(record[1].querySelector("[data-cy=bottle-size]").innerText).to.eq("1500ml");
+            expect(record[1].querySelector("[data-cy=bottle-size]").innerText).to.eq("1.5 L");
         })
     });
 

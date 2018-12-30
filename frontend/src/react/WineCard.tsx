@@ -7,6 +7,7 @@ import {Dispatch} from "redux";
 import {removeBottleFromCellar} from "../redux/Cellar.actions";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import {BottleSize} from "../domain/BottleSize";
 
 const StyledWineCard = styled(Card)`
   margin-bottom: 1rem;
@@ -86,7 +87,7 @@ const WineCard = (props: ReduxActions & Props) =>
             </Country>
 
             <div>
-                <span data-cy="bottle-size">{props.wine.bottleSize}ml</span>
+                <span data-cy="bottle-size">{new BottleSize(props.wine.bottleSize).display}</span>
                 <OriginalWoodenCase owc={props.wine.originalWoodenCase}/>
             </div>
             <div data-cy="notes">{props.wine.notes}</div>

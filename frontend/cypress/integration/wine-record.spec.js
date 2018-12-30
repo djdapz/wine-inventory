@@ -7,7 +7,7 @@ context('Wine Record Page', () => {
         baselineServerSetup()
     });
 
-    describe.only("Navigating directly to the page", () => {
+    describe("Navigating directly to the page", () => {
         beforeEach(function () {
             cy.visit('/wine-record/12');
         });
@@ -21,7 +21,7 @@ context('Wine Record Page', () => {
         });
     })
 
-    describe.only("Navigating to an invalid url", () => {
+    describe("Navigating to an invalid url", () => {
         beforeEach(function () {
             cy.visit('/wine-record/122');
         });
