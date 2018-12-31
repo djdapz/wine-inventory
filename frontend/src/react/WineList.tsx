@@ -23,13 +23,11 @@ interface WineListPassedProps {
 type WineListProps = WineListDispatchProps & WineListPassedProps
 
 const StyledWineList = styled.div`
-  -webkit-overflow-scrolling: touch;
   flex-grow:  1;
   padding: 1rem;
   box-sizing: border-box;
   max-width: 60rem;  
   width: 100%;
-  overflow-y: scroll;
   margin-right: auto;
   margin-left: auto;
   margin-top: 4.5rem;

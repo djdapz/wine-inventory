@@ -14,6 +14,8 @@ const StyledApp = styled.div`
   font-family: 'Raleway', sans-serif;
   background-color: #fafafa;
   justify-content: center;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 `;
 
 const FullPage = styled.div`

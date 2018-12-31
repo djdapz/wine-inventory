@@ -12,6 +12,7 @@ const WinePage = styled.div`
   padding-top: 5.5rem;
   padding-left: 3rem;
   padding-right: 3rem;
+  overflow-y: scroll;
 `
 
 const FormContainer = styled.div`

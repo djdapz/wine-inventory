@@ -6,6 +6,7 @@ import {Dropdown, MultiDropDown, NumberInput, TextInput} from "./FormComponents"
 import {Countries} from "../../redux/Country.reducer";
 import Checkbox from "@material-ui/core/es/Checkbox";
 import FormControlLabel from "@material-ui/core/es/FormControlLabel";
+import styled from "styled-components";
 
 export interface WineFormProps {
     submit: (createWineRequest: WineRequest) => void,
@@ -14,6 +15,10 @@ export interface WineFormProps {
     canBeSubmitted: (createWineRequest: WineRequest) => boolean,
     buttonText: string
 }
+
+const CheckboxContainer = styled.div`
+  padding: .5rem 0;
+`
 
 export class WineForm extends React.Component<WineFormProps, { request: WineRequest }> {
 
@@ -96,6 +101,7 @@ export class WineForm extends React.Component<WineFormProps, { request: WineRequ
                 label="Notes"
                 value={this.state.request.notes}
                 onChange={this.updateNotes}/>
+            <CheckboxContainer>
             <FormControlLabel
                 control={
                     <Checkbox
@@ -108,6 +114,7 @@ export class WineForm extends React.Component<WineFormProps, { request: WineRequ
                 }
                 label="Original Wooden Case"
             />
+            </CheckboxContainer>
 
             <Button disabled={!this.props.canBeSubmitted(this.state.request)}
                     className={"submit-button"}
