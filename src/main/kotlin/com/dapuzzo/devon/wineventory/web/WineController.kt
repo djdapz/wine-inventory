@@ -31,22 +31,27 @@ class WineController(
 
     @PostMapping("/wine")
     @ResponseStatus(HttpStatus.CREATED)
-    fun createWine(@RequestBody request: WineRequest): ResponseEntity<Unit> = wineWriter.save(
-            NewWine(
-                    type = request.type,
-                    producer = request.producer,
-                    year = request.year,
-                    quantity = request.quantity,
-                    country = request.country,
-                    cellarLocation = request.cellarLocation,
-                    originalWoodenCase = request.originalWoodenCase,
-                    bottleSize = request.bottleSize,
-                    notes = request.notes
-            )
-    ).run { ResponseEntity.created(URI("/wine/$this")).build() }
+    fun createWine(@RequestBody request: WineRequest): ResponseEntity<Unit> {
+        return wineWriter.save(
+                NewWine(
+                        type = request.type,
+                        producer = request.producer,
+                        year = request.year,
+                        quantity = request.quantity,
+                        country = request.country,
+                        cellarLocation = request.cellarLocation,
+                        originalWoodenCase = request.originalWoodenCase,
+                        bottleSize = request.bottleSize,
+                        notes = request.notes
+                )
+        ).run { ResponseEntity.created(URI("/wine/$this")).build() }
+    }
 
     @GetMapping("/wine")
     fun getWine() = WineResponse(wineReader.getAll())
+
+    @GetMapping("/wine/{id}")
+    fun getWineById(@PathVariable id: Int) = wineReader.getWineById(id)
 
     @PostMapping("/wine/remove-bottle-from-cellar")
     fun removeWineFromCellar(@RequestBody body: RemoveBottleFromCellarRequest) {
@@ -68,5 +73,6 @@ class WineController(
                     id = id
             )
     )
+
 
 }

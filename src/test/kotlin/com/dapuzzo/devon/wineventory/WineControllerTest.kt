@@ -2,10 +2,7 @@ package com.dapuzzo.devon.wineventory
 
 import com.dapuzzo.devon.wineventory.domain.*
 import com.dapuzzo.devon.wineventory.web.WineController
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockito_kotlin.*
 import org.assertj.core.api.Assertions.assertThat
 import org.hamcrest.Matchers.equalTo
 import org.junit.Test
@@ -47,6 +44,41 @@ class WineControllerTest {
                         year = 2009,
                         quantity = 10,
                         country = "Italy"
+                )
+        )
+    }
+
+    @Test
+    fun shouldCreateWineWithMinumInfoAsNulls() {
+        testClient.post()
+                .uri("/wine")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(just("""
+                    {
+
+                          "type": "2 buck chuck",
+                          "producer": "Charles Shaw",
+                          "year": 2019,
+                          "quantity": 15,
+                          "country": "California",
+                          "cellarLocation": "floor",
+                          "bottleSize": null,
+                          "originalWoodenCase": null,
+                          "notes": null
+
+                    }
+                """.trimIndent()))
+                .exchange()
+                .expectStatus().isCreated
+
+        verify(wineWriter).save(
+                NewWine(
+                        type = "2 buck chuck",
+                        producer = "Charles Shaw",
+                        year = 2019,
+                        quantity = 15,
+                        country = "California",
+                        cellarLocation = "floor"
                 )
         )
     }
@@ -152,6 +184,22 @@ class WineControllerTest {
                 .isOk
 
         verify(cellar).removeOneBottle(12)
+    }
+
+    @Test
+    fun shouldGetWineInfoById() {
+        val expectedWine = randomWine(id = 12)
+
+        whenever(wineReader.getWineById(12)).doReturn(expectedWine)
+
+        val wine: Wine = testClient.get()
+                .uri("/wine/12")
+                .exchange()
+                .returnResult(Wine::class.java)
+                .responseBody
+                .blockFirst()!!
+
+        assertThat(wine).isEqualTo(expectedWine)
     }
 
 }

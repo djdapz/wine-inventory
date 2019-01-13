@@ -58,6 +58,53 @@ class ApplicationTest {
     }
 
     @Test
+    fun shouldAddDefaultFieldsWhenProvidedFieldsAreEmptyStrings(){
+        val location = given().port(port.toInt())
+                //language=json
+                .body("""
+                        {
+                          "type": "2 buck chuck",
+                          "producer": "Charles Shaw",
+                          "year": 2019,
+                          "quantity": 15,
+                          "country": "United States",
+                          "cellarLocation": "floor",
+                          "bottleSize": null,
+                          "originalWoodenCase": null,
+                          "notes": null
+                        }
+                    """.trimIndent())
+                .contentType(APPLICATION_JSON.toString())
+                .`when`()
+                .post("/wine")
+                .then()
+                .statusCode(201)
+                .and().extract()
+                .header("Location")
+
+        val body = given().port(port.toInt())
+                .`when`()
+                .get(location)
+                .andReturn()
+                .body.print()
+
+        JSONAssert.assertEquals(
+                //language=json
+                """
+                         {
+                          "type": "2 buck chuck",
+                          "producer": "Charles Shaw",
+                          "year": 2019,
+                          "quantity": 15,
+                          "country": "United States",
+                          "cellarLocation": "floor",
+                          "bottleSize": 750,
+                          "originalWoodenCase": false
+                        }
+                """.trimIndent(), body, false)
+    }
+
+    @Test
     fun shouldServeListOfAllCountriesForDropdown() {
 
         val countries = given().port(port.toInt())
@@ -243,7 +290,6 @@ class ApplicationTest {
             .post("/wine")
             .then()
             .statusCode(201)
-
             .and().extract()
             .header("Location")
 }

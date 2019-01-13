@@ -14,7 +14,6 @@ const isWineDifferentAndReadyToSubmit = (wine: Wine) => (wineRequest: WineReques
     return readyToSubmit && different;
 }
 
-
 type ReduxStoreProps = { countries: Countries };
 type ReduxDispatchProps = { updateWine: (id: number) => (updatedWine: WineRequest) => void };
 type PassedProps = { wine: Wine };

@@ -50,11 +50,11 @@ const Country = styled.div`
 `
 
 const Year = styled.span`
-
+  text-decoration: underline;
+  margin-right: .5rem;
 `
 
 const WineType = styled.span`
-  margin-left: .5rem;
 `
 
 
