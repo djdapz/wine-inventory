@@ -6,14 +6,14 @@ enum EnvironmentName {
 }
 
 const environment: EnvironmentName = function () {
-    switch (window.location.origin) {
-        case("http://localhost:3000"):
+    switch (window.location.host) {
+        case("localhost:3000"):
             return EnvironmentName.DEV;
-        case("http://localhost:3210"):
+        case("localhost:3210"):
             return EnvironmentName.E2E;
-        case("https://wine-inventory-acceptance.cfapps.io"):
+        case("wine-inventory-acceptance.cfapps.io"):
             return EnvironmentName.DEVELOPMENT_PCF;
-        case("https://wine-inventory.cfapps.io"):
+        case("wine-inventory.cfapps.io"):
             return EnvironmentName.PROD;
         default:
             return EnvironmentName.E2E
