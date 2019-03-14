@@ -62,11 +62,13 @@ export const MultiDropDown = <T extends any>(props: {
     value?: string,
     children?: React.ReactNode
     elements: { label: string, list: T[] }[],
-    getValueFromElement: (el: T) => string
+    getValueFromElement: (el: T) => string,
+    label?: string
 }) => <FormControl variant="outlined"
                    className={`${props.formField}-input create-wine-form-input`}>
     <InputLabel htmlFor="country-dropdown">Country</InputLabel>
     <Select native
+            data-cy={props.label}
             value={props.value}
             onChange={(event) => props.onChange(event.target.value)}
             input={<OutlinedInput labelWidth={"country".length * 8}
@@ -88,10 +90,15 @@ export const MultiDropDown = <T extends any>(props: {
     </Select>
 </FormControl>;
 
+const FormControllFullWitdh = styled(FormControl)`
+ &&{
+  width: 100%
+ }
+`
 export const Dropdown = <T extends any>(
     props: {
         label: string,
-        formField: string,
+        identifier: string,
         onChange: (val: T) => void,
         value?: string,
         children?: React.ReactNode
@@ -101,15 +108,16 @@ export const Dropdown = <T extends any>(
         convertFromStringToType: (it: string) => T
     }
 ) =>
-    <FormControlWithNormalPadding variant="outlined"
-                                  className={`${props.formField}-input create-wine-form-input`}>
+    <FormControllFullWitdh variant="outlined"
+                 className={`${props.identifier}-input create-wine-form-input`}>
         <InputLabel htmlFor="country-dropdown">{props.label}</InputLabel>
         <Select native
                 value={props.value}
+                data-cy={props.label}
                 onChange={(event) => props.onChange(props.convertFromStringToType(event.target.value))}
                 input={<OutlinedInput labelWidth={props.label.length * 8}
-                                      name={`${props.formField}`}
-                                      id={`${props.formField}-dropdown`}/>}>
+                                      name={`${props.identifier}`}
+                                      id={`${props.identifier}-dropdown`}/>}>
             {props.default ?
                 <option value={props.default.toString()}
                         key={`${props.default}`}>
@@ -123,11 +131,5 @@ export const Dropdown = <T extends any>(
                     {props.optionToLabel(it)}
                 </option>)}
         </Select>
-    </FormControlWithNormalPadding>;
+    </FormControllFullWitdh>;
 
-const FormControlWithNormalPadding = styled(FormControl)`
-&&{
-  margin-top: 1rem;
-  margin-bottom: .5rem;
-  }
-`

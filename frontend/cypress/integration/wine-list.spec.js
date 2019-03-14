@@ -31,7 +31,7 @@ context('Wine List', () => {
     });
 
 
-    it.only('should display a list of wine', () => {
+    it('should display a list of wine', () => {
         cy.get("[data-cy=wine-card]").should(record => {
             expect(record.length).to.eq(2);
 
@@ -61,6 +61,36 @@ context('Wine List', () => {
         })
     });
 
+    it('should filter when the user types in the search box', function () {
+        cy.get("#search-bar").type("Monsanto");
+
+        cy.get("[data-cy=wine-card]").should(record => {
+            expect(record.length).to.eq(1);
+
+            expect(record[0].querySelector("[data-cy=producer]").innerText).to.eq("Monsanto");
+        })
+    });
+
+    it('should fetch all countries and the top 5 countries', function () {
+        cy.wait("@getAllCountries");
+        cy.wait("@getTop5Countries")
+    });
+
+    it('should sort wine records by year', function () {
+
+        cy.get("[data-cy=wine-card]").should(record => {
+            expect(record[0].querySelector("[data-cy=year]").innerText).to.eq('2009');
+            expect(record[1].querySelector("[data-cy=year]").innerText).to.eq('2012');
+        })
+
+        cy.get("#sort-by-dropdown").select("YEAR")
+
+        cy.get("[data-cy=wine-card]").should(record => {
+            expect(record[0].querySelector("[data-cy=year]").innerText).to.eq('2012');
+            expect(record[1].querySelector("[data-cy=year]").innerText).to.eq('2009');
+        })
+    });
+
     describe("deleting bottles from cellar", () => {
         beforeEach(function () {
             removeBottleOfWineFromFirstCard();
@@ -85,21 +115,6 @@ context('Wine List', () => {
             cy.wait("@removeBottleFromCellar");
             cy.get("[data-cy=wine-card]").should(record => expect(record.length).to.eq(1))
         });
-    });
-
-    it('should filter when the user types in the search box', function () {
-        cy.get("#search-bar").type("Monsanto");
-
-        cy.get("[data-cy=wine-card]").should(record => {
-            expect(record.length).to.eq(1);
-
-            expect(record[0].querySelector("[data-cy=producer]").innerText).to.eq("Monsanto");
-        })
-    });
-
-    it('should fetch all countries and the top 5 countries', function () {
-        cy.wait("@getAllCountries");
-        cy.wait("@getTop5Countries")
     });
 
     describe("Creating wine", () => {

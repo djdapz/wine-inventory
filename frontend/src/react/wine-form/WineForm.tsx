@@ -20,6 +20,10 @@ const CheckboxContainer = styled.div`
   padding: .5rem 0;
 `
 
+const Padding = styled.div`
+  margin-top: .5rem;
+`
+
 export class WineForm extends React.Component<WineFormProps, { request: WineRequest }> {
 
     state = {
@@ -79,18 +83,21 @@ export class WineForm extends React.Component<WineFormProps, { request: WineRequ
                 label="Quantity"
                 value={this.state.request.quantity}
                 onChange={this.updateQuantity}/>
-            <Dropdown label={"Bottle Size"}
-                      formField={"bottle-size"}
-                      onChange={this.updateBottleSize}
-                      options={[375, 750, 1500, 3000, 6000]}
-                      default={750}
-                      optionToLabel={(option: number) => {
-                          if (option > 1000) {
-                              return `${option / 1000}L`
-                          }
-                          return `${option} mL`
-                      }}
-                      convertFromStringToType={(option: string) => parseInt(option)}/>
+
+            <Padding>
+                <Dropdown label={"Bottle Size"}
+                          identifier={"bottle-size"}
+                          onChange={this.updateBottleSize}
+                          options={[375, 750, 1500, 3000, 6000]}
+                          default={750}
+                          optionToLabel={(option: number) => {
+                              if (option > 1000) {
+                                  return `${option / 1000}L`
+                              }
+                              return `${option} mL`
+                          }}
+                          convertFromStringToType={(option: string) => parseInt(option)}/>
+            </Padding>
             <TextInput
                 className={'create-wine-form-input cellar-location-input'}
                 label="Cellar Location"
@@ -102,18 +109,18 @@ export class WineForm extends React.Component<WineFormProps, { request: WineRequ
                 value={this.state.request.notes}
                 onChange={this.updateNotes}/>
             <CheckboxContainer>
-            <FormControlLabel
-                control={
-                    <Checkbox
-                        className={'create-wine-form-input original-wooden-case-input'}
-                        checked={this.state.request.originalWoodenCase}
-                        onChange={(it) => this.updateOriginalWoodenCase(it.target.checked)}
-                        value="checkedA"
-                        color={"primary"}
-                    />
-                }
-                label="Original Wooden Case"
-            />
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            className={'create-wine-form-input original-wooden-case-input'}
+                            checked={this.state.request.originalWoodenCase}
+                            onChange={(it) => this.updateOriginalWoodenCase(it.target.checked)}
+                            value="checkedA"
+                            color={"primary"}
+                        />
+                    }
+                    label="Original Wooden Case"
+                />
             </CheckboxContainer>
 
             <Button disabled={!this.props.canBeSubmitted(this.state.request)}

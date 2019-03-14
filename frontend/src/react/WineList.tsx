@@ -9,7 +9,7 @@ import {Wine} from "../domain/Wine.types";
 import {StoreType} from "../index";
 import {removeBottleFromCellar} from "../redux/Cellar.actions";
 import WineCard from "./WineCard";
-import {getVisibleWine} from "../redux/selectors/filteredWine";
+import {getSortedVisibleWine} from "../redux/selectors/filteredWine";
 
 interface WineListDispatchProps {
     getWines: () => void,
@@ -50,7 +50,7 @@ class WineList extends React.Component<WineListProps> {
 }
 
 const mapStateToProps = (state: StoreType) => ({
-    wines: getVisibleWine(state)
+    wines: getSortedVisibleWine(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

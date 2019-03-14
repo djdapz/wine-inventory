@@ -11,6 +11,7 @@ import {fetchCountriesReducer} from "./redux/Country.reducer";
 import {StateType} from "./redux/ReduxTypes";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {searchReducer} from "./redux/Filter.reducer";
+import {sortByReducer} from "./redux/SortBy.reducers";
 
 
 const rootReducer = combineReducers(
@@ -18,7 +19,8 @@ const rootReducer = combineReducers(
         wines: wineReducer,
         showCreateWineForm: showCreateWineFormReducer,
         countries: fetchCountriesReducer,
-        searchQuery: searchReducer
+        searchQuery: searchReducer,
+        sortBy: sortByReducer
     }
 );
 

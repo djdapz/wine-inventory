@@ -27,7 +27,7 @@ context('Wine Record Page', () => {
         });
 
         it('should render a loading screen', function () {
-            cy.get("[data-cy=not-found]").should(it => expect(it[0].innerText).to.eq("Record not found, return to the home page"));
+            cy.get("[data-cy=not-found]").should(it => expect(it[0].innerText).to.eq("Record not found, please return to the home page"));
         });
     })
 
@@ -54,17 +54,6 @@ context('Wine Record Page', () => {
             cy.location().should((loc) => {
                 expect(loc.pathname).to.eql(`/wine-record/${id}`)
             })
-        });
-
-        it('should render the id of the wine... to start', function () {
-            cy.get("[data-cy=type]").should(it => expect(it[0].innerText).to.eq("Barolo"));
-            cy.get("[data-cy=producer]").should(it => expect(it[0].innerText).to.eq("Lionello Marchesi"));
-            cy.get("[data-cy=year]").should(it => expect(it[0].innerText).to.eq('2009'));
-            cy.get("[data-cy=quantity]").should(it => expect(it[0].innerText).to.eq('2'));
-            cy.get("[data-cy=country]").should(it => expect(it[0].innerText).to.eq("Italy"));
-            cy.get("[data-cy=cellar-location]").should(it => expect(it[0].innerText).to.eq("Upper Left"));
-            cy.get("[data-cy=original-wooden-case-indicator]").should(it => expect(it[0].innerText).to.eq("true"));
-            cy.get("[data-cy=bottle-size]").should(it => expect(it[0].innerText).to.eq("750"));
         });
 
         it('should take the user back when the back button is clicked', function () {

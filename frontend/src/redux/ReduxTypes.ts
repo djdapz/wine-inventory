@@ -3,6 +3,7 @@ import {GetWineActionTypes} from "./Wine.actions";
 import {CreateWineActions} from "./CreateWine.actions";
 import {FetchCountriesType} from "./Country.actions";
 import {SearchForWineActionType} from "./Filter.Actions";
+import {SortByActionType} from "./SortBy.actions";
 
 export type SuccessfulAction<T, P> = ActionWithPayload<T, P>
 
@@ -19,6 +20,7 @@ export  type WineAppActionTypes = GetWineActionTypes
     | CreateWineActions
     | FetchCountriesType
     | SearchForWineActionType
+    | SortByActionType
 
 export type StateType<ReducerOrMap> = ReducerOrMap extends (
     ...args: any[]
