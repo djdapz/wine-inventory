@@ -55,6 +55,13 @@ context('Wine List', () => {
         })
     });
 
+    it('should display the number of bottles in the cellar', function () {
+        cy.get(".wine-bottle-count").should(record => {
+            expect(record.length).to.eq(1);
+            expect(record[0].innerText).to.eq("10 bottles in cellar");
+        });
+    });
+
     it('should not display a cellar location if one is not passed', function () {
         cy.get("[data-cy=wine-card]").should(record => {
             expect(record[1].querySelector(".cellar-location")).to.eql(null)

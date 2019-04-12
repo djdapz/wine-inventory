@@ -3,6 +3,7 @@ import AppBarRouter from "./AppBarRouter";
 import {AppBar, createMuiTheme} from "@material-ui/core";
 import styled from "styled-components";
 import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
+import WineBottleCount from "./WineBottleCount";
 
 const AppBarContainer = styled.div`
 display: flex;
@@ -45,7 +46,7 @@ export default () => <AppBar>
         <AppBarContainer>
             <AppBarRouter/>
             <Spacing/>
-            <h4>Peter DaPuzzo's Wine Cellar</h4>
+            <WineBottleCount/>
         </AppBarContainer>
     </MuiThemeProvider>
 </AppBar>
