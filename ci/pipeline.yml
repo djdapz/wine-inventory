@@ -155,7 +155,7 @@ jobs:
               cd repo/frontend
               ls -lsa node_modules
               npm i
-              npm run test:int:ci
+              npm run test:ci
 
 
 - name: build-and-upload-frontend
