@@ -17,3 +17,4 @@ services:
     command: "./repo/ci/tasks/run-backend-tests-exe.sh"
     volumes:
       - ../:/repo
+      - ../../gradle:/gradle
