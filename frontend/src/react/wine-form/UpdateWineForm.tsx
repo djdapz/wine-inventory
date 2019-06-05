@@ -6,7 +6,7 @@ import {Countries} from "../../redux/Country.reducer";
 import {Wine} from "../../domain/Wine.types";
 import {areEquivalent, isWineRequestReadyToSubmit, WineRequest} from "../../domain/CreateWine.types";
 import {Dispatch} from "redux";
-import {submitUpdateeWine} from "../../redux/UpdateWine.actions";
+import {submitUpdateWine} from "../../redux/UpdateWine.actions";
 
 const isWineDifferentAndReadyToSubmit = (wine: Wine) => (wineRequest: WineRequest) => {
     const readyToSubmit = isWineRequestReadyToSubmit(wineRequest)
@@ -30,8 +30,8 @@ const mapStateToProps = (state: StoreType) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    updateWine: submitUpdateeWine(dispatch)
+    updateWine: submitUpdateWine(dispatch)
 })
 
 
-export default connect<ReduxStoreProps, ReduxDispatchProps, PassedProps>(mapStateToProps, mapDispatchToProps)(UpdateWineForm)
+export default connect<ReduxStoreProps, ReduxDispatchProps, PassedProps, StoreType>(mapStateToProps, mapDispatchToProps)(UpdateWineForm)

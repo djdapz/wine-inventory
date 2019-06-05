@@ -36,7 +36,7 @@ export const TextInput = (props: {
 />;
 
 export const NumberInput = (props: {
-    onChange: (val: number) => void,
+    onChange: (val: number | undefined) => void,
     value?: number,
     label: string,
     className: string
@@ -77,7 +77,7 @@ export const MultiDropDown = <T extends any>(props: {
         <option value=""/>
         {props.elements
             .map(el =>
-                <optgroup label={el.label}> key={el.label}
+                <optgroup label={el.label} key={el.label}>
                     {el.list
                         .map(props.getValueFromElement)
                         .map(value =>
@@ -109,7 +109,7 @@ export const Dropdown = <T extends any>(
     }
 ) =>
     <FormControllFullWitdh variant="outlined"
-                 className={`${props.identifier}-input create-wine-form-input`}>
+                           className={`${props.identifier}-input create-wine-form-input`}>
         <InputLabel htmlFor="country-dropdown">{props.label}</InputLabel>
         <Select native
                 value={props.value}

@@ -7,11 +7,12 @@ import {Provider} from "react-redux";
 import {wineReducer} from "./redux/Wine.reducers";
 import {showCreateWineFormReducer} from "./redux/CreateWine.reducers";
 import {FetchCountriesMiddleware} from "./redux/Country.actions";
-import {fetchCountriesReducer} from "./redux/Country.reducer";
-import {StateType} from "./redux/ReduxTypes";
+import {Countries, fetchCountriesReducer} from "./redux/Country.reducer";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {searchReducer} from "./redux/Filter.reducer";
 import {sortByReducer} from "./redux/SortBy.reducers";
+import {SortableField} from "./redux/SortBy.actions";
+import {Wine} from "./domain/Wine.types";
 
 
 const rootReducer = combineReducers(
@@ -25,7 +26,15 @@ const rootReducer = combineReducers(
 );
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(FetchCountriesMiddleware)));
-export type StoreType = StateType<typeof rootReducer>
+// export type StoreType = StateType<typeof rootReducer>
+
+export interface StoreType  {
+    wines: Wine[] | null;
+    showCreateWineForm: boolean;
+    countries: Countries;
+    searchQuery: string;
+    sortBy: SortableField;
+}
 
 ReactDOM.render(
     <Provider store={store}>

@@ -2,7 +2,7 @@ package com.dapuzzo.devon.wineventory
 
 import com.dapuzzo.devon.wineventory.domain.*
 import com.dapuzzo.devon.wineventory.web.WineController
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockitokotlin2.*
 import org.assertj.core.api.Assertions.assertThat
 import org.hamcrest.Matchers.equalTo
 import org.junit.Test

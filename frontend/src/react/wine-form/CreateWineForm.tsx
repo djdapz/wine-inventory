@@ -26,13 +26,19 @@ const StyledForm = styled.div`
   }
 `;
 
-interface CreateWineActions {
-    openForm: () => void
-    closeForm: () => void,
+
+interface StoreProps {
+    countries: Countries,
     showCreateWineForm: boolean
 }
 
-type CreateWineFormProps = CreateWineActions & WineFormProps
+interface DispatchProps {
+    submit: (request: WineRequest) => void,
+    openForm: () => void,
+    closeForm: () => void
+}
+
+type CreateWineFormProps = WineFormProps & StoreProps & DispatchProps
 
 const CreateWineForm = (props: CreateWineFormProps) =>
     <Drawer
@@ -73,6 +79,5 @@ const mapActionsToProps = (dispatch: Dispatch) => ({
     closeForm: () => dispatch(closeCreateWineForm())
 });
 
-export default connect<{ countries: Countries, showCreateWineForm: boolean },
-    { submit: (request: WineRequest) => void, openForm: () => void, closeForm: () => void },
-    {}>(mapStateToProps, mapActionsToProps)(CreateWineForm)
+
+export default connect<StoreProps, DispatchProps, {}, StoreType>(mapStateToProps, mapActionsToProps)(CreateWineForm)

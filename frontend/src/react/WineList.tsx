@@ -58,4 +58,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     removeBottleFromCellar: (id: number) => removeBottleFromCellar(dispatch, id),
 });
 
-export default connect<WineListPassedProps, WineListDispatchProps, {}>(mapStateToProps, mapDispatchToProps)(WineList)
+export default connect<WineListPassedProps, WineListDispatchProps, {}, StoreType>(mapStateToProps, mapDispatchToProps)(WineList)

@@ -3,8 +3,8 @@ package com.dapuzzo.devon.wineventory
 import com.dapuzzo.devon.wineventory.domain.CountryReader
 import com.dapuzzo.devon.wineventory.web.Country
 import com.dapuzzo.devon.wineventory.web.CountryController
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.springframework.test.web.reactive.server.WebTestClient
@@ -15,8 +15,6 @@ class CountryControllerTest {
     private val countryReader = mock<CountryReader>()
     private val subject = CountryController(countryReader)
     private val testClient = WebTestClient.bindToController(subject).build()
-
-
 
     @Test
     fun shouldGetWine() {

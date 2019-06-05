@@ -15,15 +15,15 @@ interface StoreProps {
 
 
 const SearchBar = (props: DispatchProps & StoreProps) =>
-            <TextField
-                id={"search-bar"}
-                label={"Search..."}
-                variant={"outlined"}
-                value={props.searchQuery}
-                onChange={(event: any) => props.searchForWine(event.target.value)}
-            />
+    <TextField
+        id={"search-bar"}
+        label={"Search..."}
+        variant={"outlined"}
+        value={props.searchQuery}
+        onChange={(event: any) => props.searchForWine(event.target.value)}
+    />
 
-const mapStateToProps = (state: StoreType) => ({
+const mapStateToProps = (state: StoreType): StoreProps => ({
     searchQuery: state.searchQuery
 });
 
@@ -31,4 +31,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
     searchForWine
 }, dispatch);
 
-export default connect<StoreProps, DispatchProps, {}>(mapStateToProps, mapDispatchToProps)(SearchBar)
+export default connect<StoreProps, DispatchProps, {}, StoreType>(mapStateToProps, mapDispatchToProps)(SearchBar)

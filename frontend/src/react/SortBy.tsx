@@ -8,11 +8,11 @@ import styled from "styled-components";
 
 
 interface DispatchProps {
-    updateSortBy: (sortBy: string | undefined) => void
+    updateSortBy: (sortBy: SortableField) => void
 }
 
 interface PassedProps {
-    sortBy: string | undefined
+    sortBy: SortableField
 }
 
 const SortByWrapper = styled.div`
@@ -20,15 +20,17 @@ const SortByWrapper = styled.div`
   margin-left: .5rem;
 `
 
-const SortBy = (props: PassedProps & DispatchProps) => <SortByWrapper><Dropdown data-cy="sort-by"
-                                                                 label={"Sort By"}
-                                                                 onChange={props.updateSortBy}
-                                                                 options={[SortableField.YEAR]}
-                                                                 default={SortableField.NONE}
-                                                                 optionToLabel={(it: SortableField) => it.toString()}
-                                                                 convertFromStringToType={(it: string) => SortableField[it]}
-                                                                 identifier={"sort-by"}/>
-</SortByWrapper>
+const SortBy = (props: PassedProps & DispatchProps) =>
+    <SortByWrapper>
+        <Dropdown data-cy="sort-by"
+                  label={"Sort By"}
+                  onChange={props.updateSortBy}
+                  options={[SortableField.YEAR]}
+                  default={SortableField.NONE}
+                  optionToLabel={(it: SortableField) => it.toString()}
+                  convertFromStringToType={(it: string) => SortableField[it]}
+                  identifier={"sort-by"}/>
+    </SortByWrapper>
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({updateSortBy}, dispatch)
 

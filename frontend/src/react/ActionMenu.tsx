@@ -8,7 +8,7 @@ interface ActionButton {
     label: string,
     action?: () => void,
     className: string,
-    component?: React.ReactType<MenuItemProps>
+    component?: React.ElementType<MenuItemProps>
 }
 
 const StyledDotDot = styled.svg`
@@ -18,10 +18,6 @@ const StyledDotDot = styled.svg`
 `;
 
 export class ActionMenu extends React.Component<{ actions: ActionButton[] }, { anchorEl: HTMLElement | null }> {
-
-    constructor(props: { actions: ActionButton[] }) {
-        super(props);
-    }
 
     state = {
         anchorEl: null,
@@ -43,7 +39,7 @@ export class ActionMenu extends React.Component<{ actions: ActionButton[] }, { a
                       className={action.className}
                       component={action.component}
                       onClick={() => {
-                          action.action ? action.action() : "";
+                          if (action.action) action.action()
                           this.handleClose()
                       }}>
                 {action.label}
@@ -52,7 +48,7 @@ export class ActionMenu extends React.Component<{ actions: ActionButton[] }, { a
         return <div className={"dot-dot-dot-menu"}>
             <IconButton
                 aria-label="More"
-                aria-owns={open ? 'long-menu' : undefined}
+                aria-owns={'long-menu'}
                 aria-haspopup="true"
                 onClick={this.handleClick}
             >

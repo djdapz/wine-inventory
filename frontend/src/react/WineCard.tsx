@@ -37,10 +37,10 @@ const LeftPanel = styled.div`
 `;
 
 const Badge = styled.span`
-  background-color: gray;
-  border-radius: 10px;
+  background-color: #ff9800;
+  border-radius: 2px;
   flex-grow: 0;
-  padding: 2px 4px;
+  padding: 1px 4px 0px;
   color: white;
   margin-left: .5rem;
 `

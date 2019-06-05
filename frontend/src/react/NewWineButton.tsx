@@ -4,8 +4,8 @@ import AddIcon from '@material-ui/icons/Add';
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {openCreateWineForm} from "../redux/CreateWine.actions";
-import Button from "@material-ui/core/Button/Button";
 import styled from "styled-components";
+import {Fab} from "@material-ui/core";
 
 interface CreateWineFormProps {
     createWineFormRequest: WineRequest | null
@@ -23,10 +23,11 @@ export const BottomButton = styled.div`
 
 const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormRequest ?
     <div/> : <BottomButton>
-        <Button id="new-wine-button"
-                variant={'fab'}
-                color={"primary"}
-                onClick={() => props.openForm()}><AddIcon/></Button>
+        <Fab id="new-wine-button"
+             color={"primary"}
+             onClick={() => props.openForm()}>
+            <AddIcon/>
+        </Fab>
     </BottomButton>;
 
 const mapStateToProps = (state: any) => ({
