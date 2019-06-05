@@ -18,12 +18,21 @@ resources:
   source:
     repository: postgres
 
+- name: cypress-image
+  type: docker-image
+  source:
+    repository: cypress/browsers
+    tag: chrome67
+
+- name: dcind
+  type: docker-image
+  source:
+    repository: amidos/dcind
+
 - name: openjdk-node-cf
   type: docker-image
   source:
     repository: djdapz/openjdk-node-cf
-    username: ((dockerhub-username))
-    password: ((dockerhub-password))
 
 - name: acceptance
   type: cf
@@ -52,151 +61,197 @@ resources:
     file: version
     private_key: ((github-private-key))
 
+- name: frontend-s3
+  type: s3
+  source:
+    region_name: us-west-2
+    bucket: wine-inventory
+    regexp: app/frontend-(.*).zip
+    access_key_id: ((AWS_ACCESS_KEY_ID))
+    secret_access_key: ((AWS_SECRET_ACCESS_KEY))
+
+- name: backend-s3
+  type: s3
+  source:
+    region_name: us-west-2
+    bucket: wine-inventory
+    regexp: app/backend-(.*).jar
+    access_key_id: ((AWS_ACCESS_KEY_ID))
+    secret_access_key: ((AWS_SECRET_ACCESS_KEY))
+
 jobs:
 
 - name: run-tests-backend
   public: true
   plan:
-  - get: version
-  - get: repo
-    trigger: true
-  - get: openjdk
-    params: {save: true}
-  - get: postgres
-    params: {save: true}
-  - task: run-tests
-    privileged: true
-    config:
-      platform: linux
-      inputs:
-      - name: repo
-      - name: postgres
-      - name: openjdk
-      image_resource:
-        type: docker-image
-        source:
-          repository: amidos/dcind
-      run:
-        path: sh
-        args:
-        - -exc
-        - |
-          set -e
-          source /docker-lib.sh
+    - get: version
+    - get: repo
+      trigger: true
+    - get: openjdk
+      params: {save: true}
+    - get: postgres
+      params: {save: true}
+    - get: dcind
+      params: {save: true}
+    - task: run-tests
+      privileged: true
+      image: dcind
+      config:
+        platform: linux
+        inputs:
+          - name: repo
+          - name: postgres
+          - name: openjdk
+        run:
+          path: sh
+          args:
+          - -exc
+          - |
+            set -e
+            source /docker-lib.sh
 
-          start_docker
+            start_docker
 
-          docker load -i postgres/image
-          docker tag "$(cat postgres/image-id)" "$(cat postgres/repository):$(cat postgres/tag)"
+            docker load -i postgres/image
+            docker tag "$(cat postgres/image-id)" "$(cat postgres/repository):$(cat postgres/tag)"
 
-          docker load -i openjdk/image
-          docker tag "$(cat openjdk/image-id)" "$(cat openjdk/repository):$(cat openjdk/tag)"
+            docker load -i openjdk/image
+            docker tag "$(cat openjdk/image-id)" "$(cat openjdk/repository):$(cat openjdk/tag)"
 
 
-          docker images
+            docker images
 
-          docker-compose -f repo/ci/docker-compose.tests.yml run unit-integration-tests
+            docker-compose -f repo/ci/docker-compose.tests.yml run unit-integration-tests
 
-          docker-compose -f repo/ci/docker-compose.tests.yml down
-          docker volume rm $(docker volume ls -q)
-  - put: version
-    params: {bump: patch}
+            docker-compose -f repo/ci/docker-compose.tests.yml down
+            docker volume rm $(docker volume ls -q)
+    - put: version
+      params: {bump: patch}
+
+- name: run-tests-frontend
+  public: true
+  plan:
+    - get: version
+    - get: repo
+      trigger: true
+    - get: cypress-image
+      params: {save: true}
+    - task: run-tests
+      privileged: true
+      image: cypress-image
+      config:
+        platform: linux
+        inputs:
+          - name: repo
+        caches:
+          - path: repo/frontend/node_modules
+          - path: ../../../root/.cache
+        run:
+          path: sh
+          args:
+            - -exc
+            - |
+              set -e
+              cd repo/frontend
+              ls -lsa node_modules
+              npm i
+              npm run test:int:ci
+
 
 - name: build-and-upload-frontend
   public: true
   plan:
-  - get: version
-    trigger: true
-    passed: ["run-tests-backend"]
-  - get: repo
-    trigger: true
-    passed: ["run-tests-backend"]
-  - get: openjdk-node-cf
-    params: {save: true}
-  - task: build-and-upload
-    privileged: true
-    image: openjdk-node-cf
+    - get: version
+      trigger: true
+      passed: ["run-tests-backend", 'run-tests-frontend']
+    - get: repo
+      trigger: true
+      passed: ["run-tests-backend", 'run-tests-frontend']
+    - get: openjdk-node-cf
+      params: {save: true}
+    - task: build-and-upload
+      privileged: true
+      image: openjdk-node-cf
+      config:
+        platform: linux
+        inputs:
+          - name: repo
+          - name: version
+        outputs:
+          - name: frontend-s3
+        caches:
+          - path: repo/frontend/node_modules
+          - path: ../../../root/.cache
+        run:
+          path: sh
+          args:
+            - -exc
+            - |
+              #!/bin/bash
 
-    config:
-      platform: linux
-      inputs:
-      - name: repo
-      - name: version
-      caches:
-      - path: repo/frontend/node_modules
-      run:
-        path: sh
-        args:
-        - -exc
-        - |
-          #!/bin/bash
+              set -ex
 
-          set -ex
+              export BUILD_VERSION=`cat version/number`
 
-          export BUILD_VERSION=`cat version/number`
+              cd repo/frontend
+              npm install
+              npm run build
 
-          cd repo/frontend
-          npm install
-          npm run build
+              touch build/Staticfile
+              cd build
+              zip -r ../../../frontend-s3/frontend-${BUILD_VERSION}.zip *
 
-          echo " >>>> Zipping Frontend"
-          touch build/Staticfile
-          cd build
-          zip -r ../frontend.zip *
-          cd ..
-          echo " <<<< Frontend Zipped"
-
-          echo " >>>> Uploading frontend-server.zip to aws"
-          /root/bin/aws s3 cp "./frontend.zip" "s3://wine-inventory/app/frontend-${BUILD_VERSION}.zip"
-          echo " <<<< Uploaded frontend-server.zip to aws"
-
+              cp "./frontend.zip" "s3://wine-inventory/app/frontend-${BUILD_VERSION}.zip"
+    - put: frontend-s3
       params:
-        AWS_ACCESS_KEY_ID: ((AWS_ACCESS_KEY_ID))
-        AWS_SECRET_ACCESS_KEY: ((AWS_SECRET_ACCESS_KEY))
+        file: frontend-s3/frontend-*.zip
 
 
 - name: build-and-upload-backend
   public: true
   plan:
-  - get: version
-    trigger: true
-    passed: ["run-tests-backend"]
-  - get: repo
-    trigger: true
-    passed: ["run-tests-backend"]
-  - get: openjdk-node-cf
-    params: {save: true}
-  - task: build-and-upload
-    privileged: true
-    image: openjdk-node-cf
-    config:
-      platform: linux
-      inputs:
-      - name: repo
-      - name: version
-      run:
-        path: sh
-        args:
-        - -exc
-        - |
-          #!/bin/bash
+    - get: version
+      trigger: true
+      passed: ["run-tests-backend"]
+    - get: repo
+      trigger: true
+      passed: ["run-tests-backend"]
+    - get: openjdk-node-cf
+      params: {save: true}
+    - task: build-and-upload
+      privileged: true
+      image: openjdk-node-cf
+      config:
+        platform: linux
+        inputs:
+          - name: repo
+          - name: version
+        outputs:
+          - name: backend-s3
+        caches:
+          - path: gradle
+        run:
+          path: sh
+          args:
+          - -exc
+          - |
+            #!/bin/bash
 
-          set -ex
+            set -ex
 
-          export BUILD_VERSION=`cat version/number`
+            ./repo/ci/tasks/cache_gradle.sh
 
-          cd repo
-          ./gradlew clean assemble -Pversion=$BUILD_VERSION
+            export BUILD_VERSION=`cat version/number`
 
-          ls -lsa build/libs
+            cd repo
+            ./gradlew clean assemble -Pversion=$BUILD_VERSION
 
-          echo " >>>> Uploading jar to aws"
+            ls -lsa build/libs
 
-          /root/bin/aws s3 cp "build/libs/wine-inventory-${BUILD_VERSION}.jar" "s3://wine-inventory/app/wine-inventory-${BUILD_VERSION}.jar"
-          echo " <<<< Uploaded jar to aws"
+            cp "build/libs/wine-inventory-${BUILD_VERSION}.jar" "../backend-s3/wine-inventory-${BUILD_VERSION}.jar"
+    - put: backend-s3
       params:
-        AWS_ACCESS_KEY_ID: ((AWS_ACCESS_KEY_ID))
-        AWS_SECRET_ACCESS_KEY: ((AWS_SECRET_ACCESS_KEY))
+        file: backend-s3/backend-*.jar
 
 - name: deploy-acceptance
   plan:
