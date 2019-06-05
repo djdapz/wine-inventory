@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from "styled-components";
 import {createMuiTheme} from "@material-ui/core";
-import {MuiThemeProvider} from "@material-ui/core/es";
+import {MuiThemeProvider} from "@material-ui/core";
 import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from "redux";
 import {fetchCountries} from "../redux/Country.actions";

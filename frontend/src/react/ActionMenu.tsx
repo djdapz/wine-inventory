@@ -1,7 +1,7 @@
 import * as React from "react";
-import MenuItem, {MenuItemProps} from "@material-ui/core/MenuItem/MenuItem";
-import IconButton from "@material-ui/core/IconButton/IconButton";
-import Menu from "@material-ui/core/Menu/Menu";
+import MenuItem, {MenuItemProps} from "@material-ui/core/MenuItem";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
 import styled from "styled-components";
 
 interface ActionButton {

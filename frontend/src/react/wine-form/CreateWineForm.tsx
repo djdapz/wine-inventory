@@ -11,8 +11,8 @@ import styled from "styled-components";
 import {WineForm, WineFormProps} from "./WineForm";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/es/Button";
-import {Cancel} from "@material-ui/icons";
 import {Countries} from "../../redux/Country.reducer";
+import Cancel from "@material-ui/icons/Cancel";
 
 const StyledForm = styled.div`
   display: flex;

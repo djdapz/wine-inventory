@@ -21,14 +21,16 @@ export const BottomButton = styled.div`
   right:  0;
 `;
 
-const CreateWineForm = (props: CreateWineFormProps) => props.createWineFormRequest ?
-    <div/> : <BottomButton>
-        <Fab id="new-wine-button"
-             color={"primary"}
-             onClick={() => props.openForm()}>
-            <AddIcon/>
-        </Fab>
-    </BottomButton>;
+const CreateWineForm = (props: CreateWineFormProps) =>
+    props.createWineFormRequest
+        ? <div/>
+        : <BottomButton>
+            <Fab id="new-wine-button"
+                 color={"primary"}
+                 onClick={() => props.openForm()}>
+                <AddIcon/>
+            </Fab>
+        </BottomButton>;
 
 const mapStateToProps = (state: any) => ({
     createWineFormRequest: state.createWineForm

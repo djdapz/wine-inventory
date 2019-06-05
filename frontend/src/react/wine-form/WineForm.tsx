@@ -1,11 +1,10 @@
 import * as React from "react";
-import Button from "@material-ui/core/Button/Button";
+import Button from "@material-ui/core/Button";
 import {WineRequest} from "../../domain/CreateWine.types";
 import {Country} from "../../redux/Country.actions";
 import {Dropdown, MultiDropDown, NumberInput, TextInput} from "./FormComponents";
 import {Countries} from "../../redux/Country.reducer";
-import Checkbox from "@material-ui/core/es/Checkbox";
-import FormControlLabel from "@material-ui/core/es/FormControlLabel";
+import {Checkbox, FormControlLabel} from "@material-ui/core";
 import styled from "styled-components";
 
 export interface WineFormProps {

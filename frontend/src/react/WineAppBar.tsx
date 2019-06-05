@@ -1,8 +1,7 @@
 import * as React from "react";
 import AppBarRouter from "./AppBarRouter";
-import {AppBar, createMuiTheme} from "@material-ui/core";
+import {AppBar, createMuiTheme, MuiThemeProvider} from "@material-ui/core";
 import styled from "styled-components";
-import MuiThemeProvider from "@material-ui/core/es/styles/MuiThemeProvider";
 import WineBottleCount from "./WineBottleCount";
 
 const AppBarContainer = styled.div`

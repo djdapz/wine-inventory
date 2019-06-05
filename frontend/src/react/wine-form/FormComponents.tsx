@@ -1,7 +1,7 @@
-import TextField from "@material-ui/core/TextField/TextField";
+import TextField from "@material-ui/core/TextField";
 import * as React from "react";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
-import Select from "@material-ui/core/Select/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
 import {FormControl, OutlinedInput} from "@material-ui/core";
 import styled from "styled-components";
 

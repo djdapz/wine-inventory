@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Card from "@material-ui/core/Card/Card";
+import Card from "@material-ui/core/Card";
 import * as React from "react";
 import {Wine} from "../domain/Wine.types";
 import {ActionMenu} from "./ActionMenu";
@@ -108,7 +108,7 @@ const WineCard = (props: ReduxActions & Props) =>
                     {
                         label: "Edit Record",
                         className: "edit-record",
-                        component: (otherProps: any)=> <Link to={`/wine-record/${props.wine.id}`} {...otherProps}/>
+                        component: (otherProps: any) => <Link to={`/wine-record/${props.wine.id}`} {...otherProps}/>
                     }
                 ]
             }/>
