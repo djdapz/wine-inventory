@@ -3,3 +3,4 @@ applications:
 - name: wine-inventory-acceptance
   memory: 256M
   instances: 1
+  stack: cflinuxfs3

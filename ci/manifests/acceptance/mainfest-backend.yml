@@ -3,5 +3,6 @@ applications:
 - name: wine-inventory-backend-acceptance
   memory: 1G
   instances: 1
+  stack: cflinuxfs3
   services:
     - wine-dev

@@ -75,7 +75,7 @@ resources:
   source:
     region_name: us-west-2
     bucket: wine-inventory
-    regexp: app/backend-(.*).jar
+    regexp: app/wine-inventory-(.*).jar
     access_key_id: ((AWS_ACCESS_KEY_ID))
     secret_access_key: ((AWS_SECRET_ACCESS_KEY))
 
@@ -125,8 +125,6 @@ jobs:
 
             docker-compose -f repo/ci/docker-compose.tests.yml down
             docker volume rm $(docker volume ls -q)
-    - put: version
-      params: {bump: patch}
 
 - name: run-tests-frontend
   public: true
@@ -156,16 +154,26 @@ jobs:
               npm i
               npm run test:ci
 
+- name: bump-version
+  public: true
+  plan:
+    - get: repo
+      passed: ["run-tests-backend", "run-tests-frontend"]
+    - get: version
+      passed: ["run-tests-backend", "run-tests-frontend"]
+      trigger: true
+    - put: version
+      params: {bump: patch}
 
 - name: build-and-upload-frontend
   public: true
   plan:
     - get: version
       trigger: true
-      passed: ["run-tests-backend", 'run-tests-frontend']
+      passed: ["bump-version"]
     - get: repo
       trigger: true
-      passed: ["run-tests-backend", 'run-tests-frontend']
+      passed: ["bump-version"]
     - get: openjdk-node-cf
       params: {save: true}
     - task: build-and-upload
@@ -199,8 +207,6 @@ jobs:
               touch build/Staticfile
               cd build
               zip -r ../../../frontend-s3/frontend-${BUILD_VERSION}.zip *
-
-              cp "./frontend.zip" "s3://wine-inventory/app/frontend-${BUILD_VERSION}.zip"
     - put: frontend-s3
       params:
         file: frontend-s3/frontend-*.zip
@@ -211,10 +217,10 @@ jobs:
   plan:
     - get: version
       trigger: true
-      passed: ["run-tests-backend"]
+      passed: ["bump-version"]
     - get: repo
       trigger: true
-      passed: ["run-tests-backend"]
+      passed: ["bump-version"]
     - get: openjdk-node-cf
       params: {save: true}
     - task: build-and-upload
@@ -245,31 +251,34 @@ jobs:
             cd repo
             ./gradlew clean assemble -Pversion=$BUILD_VERSION
 
-            ls -lsa build/libs
-
             cp "build/libs/wine-inventory-${BUILD_VERSION}.jar" "../backend-s3/wine-inventory-${BUILD_VERSION}.jar"
     - put: backend-s3
       params:
-        file: backend-s3/backend-*.jar
+        file: backend-s3/wine-inventory-*.jar
 
 - name: deploy-acceptance
   plan:
-  - get: version
-    trigger: true
-    passed: ["build-and-upload-backend", "build-and-upload-frontend"]
-  - get: repo
-    trigger: true
-    passed: ["build-and-upload-backend", "build-and-upload-frontend"]
   - get: openjdk-node-cf
     params: {save: true}
-  - task: download-jar
+  - in_parallel:
+    - get: backend-s3
+      trigger: true
+      passed: ['build-and-upload-backend']
+    - get: frontend-s3
+      trigger: true
+      passed: ['build-and-upload-frontend']
+    - get: repo
+      trigger: true
+      passed: ['build-and-upload-backend', 'build-and-upload-frontend']
+  - task: send-to-cf
     privileged: true
     image: openjdk-node-cf
     config:
       platform: linux
       inputs:
       - name: repo
-      - name: version
+      - name: frontend-s3
+      - name: backend-s3
       outputs:
       - name: deploy
       run:
@@ -278,80 +287,75 @@ jobs:
         - -exc
         - |
           #!/bin/bash
-
-          export BUILD_VERSION=`cat version/number`
 
           set -ex
 
-          /root/bin/aws s3 cp  "s3://wine-inventory/app/wine-inventory-${BUILD_VERSION}.jar"  ./deploy/backend.jar
+          cp  backend-s3/wine-inventory-*.jar  ./deploy/backend.jar
           cp ./repo/ci/manifests/acceptance/mainfest-backend.yml ./deploy/manifest-backend.yml
 
-          /root/bin/aws s3 cp  "s3://wine-inventory/app/frontend-${BUILD_VERSION}.zip"  ./deploy/frontend.zip
+          cp  frontend-s3/frontend-*.zip  ./deploy/frontend.zip
           cp ./repo/ci/manifests/acceptance/mainfest-frontend.yml ./deploy/manifest-frontend.yml
-          export BUILD_VERSION=`cat version/number`
 
+  - in_parallel:
+    - put: acceptance
       params:
-        AWS_ACCESS_KEY_ID: ((AWS_ACCESS_KEY_ID))
-        AWS_SECRET_ACCESS_KEY: ((AWS_SECRET_ACCESS_KEY))
-  - put: acceptance
-    params:
-      inputs:
-      - name: deploy
-      path: deploy/backend.jar
-      manifest: deploy/manifest-backend.yml
-  - put: acceptance
-    params:
-      inputs:
-      - name: deploy
-      path: deploy/frontend.zip
-      manifest: deploy/manifest-frontend.yml
+        inputs:
+        - name: deploy
+        path: deploy/backend.jar
+        manifest: deploy/manifest-backend.yml
+    - put: acceptance
+      params:
+        inputs:
+        - name: deploy
+        path: deploy/frontend.zip
+        manifest: deploy/manifest-frontend.yml
 
-- name: deploy-backend-production
+- name: deploy-production
   plan:
-  - get: version
-    trigger: false
-    passed: ["deploy-acceptance"]
-  - get: repo
-    trigger: false
-    passed: ["deploy-acceptance"]
-  - get: openjdk-node-cf
-    params: {save: true}
-  - task: download-jar
-    privileged: true
-    image: openjdk-node-cf
-    config:
-      platform: linux
-      inputs:
-      - name: repo
-      - name: version
-      outputs:
-      - name: deploy
-      run:
-        path: sh
-        args:
-        - -exc
-        - |
-          #!/bin/bash
+    - get: openjdk-node-cf
+      params: {save: true}
+    - in_parallel:
+        - get: backend-s3
+          passed: ['deploy-acceptance']
+        - get: frontend-s3
+          passed: ['deploy-acceptance']
+        - get: repo
+          passed: ['deploy-acceptance']
+    - task: send-to-cf
+      privileged: true
+      image: openjdk-node-cf
+      config:
+        platform: linux
+        inputs:
+          - name: repo
+          - name: frontend-s3
+          - name: backend-s3
+        outputs:
+          - name: deploy
+        run:
+          path: sh
+          args:
+            - -exc
+            - |
+              #!/bin/bash
 
-           export BUILD_VERSION=`cat version/number`
+              set -ex
 
-           /root/bin/aws s3 cp  "s3://wine-inventory/app/wine-inventory-${BUILD_VERSION}.jar"  ./deploy/backend.jar
-           cp ./repo/ci/manifests/production/mainfest-backend.yml ./deploy/manifest-backend.yml
+              cp  backend-s3/wine-inventory-*.jar  ./deploy/backend.jar
+              cp ./repo/ci/manifests/production/mainfest-backend.yml ./deploy/manifest-backend.yml
 
-           /root/bin/aws s3 cp  "s3://wine-inventory/app/frontend-${BUILD_VERSION}.zip"  ./deploy/frontend.zip
-           cp ./repo/ci/manifests/production/mainfest-frontend.yml ./deploy/manifest-frontend.yml
-      params:
-        AWS_ACCESS_KEY_ID: ((AWS_ACCESS_KEY_ID))
-        AWS_SECRET_ACCESS_KEY: ((AWS_SECRET_ACCESS_KEY))
-  - put: production
-    params:
-      inputs:
-      - name: deploy
-      path: deploy/frontend.zip
-      manifest: deploy/manifest-frontend.yml
-  - put: production
-    params:
-      inputs:
-      - name: deploy
-      path: deploy/backend.jar
-      manifest: deploy/manifest-backend.yml
+              cp  frontend-s3/frontend-*.zip  ./deploy/frontend.zip
+              cp ./repo/ci/manifests/production/mainfest-frontend.yml ./deploy/manifest-frontend.yml
+    - in_parallel:
+      - put: production
+        params:
+          inputs:
+            - name: deploy
+          path: deploy/backend.jar
+          manifest: deploy/manifest-backend.yml
+      - put: production
+        params:
+          inputs:
+            - name: deploy
+          path: deploy/frontend.zip
+          manifest: deploy/manifest-frontend.yml
