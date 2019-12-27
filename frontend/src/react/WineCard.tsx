@@ -6,7 +6,6 @@ import {ActionMenu} from "./ActionMenu";
 import {Dispatch} from "redux";
 import {removeBottleFromCellar} from "../redux/Cellar.actions";
 import {connect} from "react-redux";
-import {Link} from "react-router-dom";
 import {BottleSize} from "../domain/BottleSize";
 
 const StyledWineCard = styled(Card)`
@@ -98,20 +97,8 @@ const WineCard = (props: ReduxActions & Props) =>
                 {props.wine.cellarLocation ?
                     <div data-cy={'cellar-location'}>Cellar Location: {props.wine.cellarLocation}</div> : ""}
             </CardSection>
-            <ActionMenu actions={
-                [
-                    {
-                        label: props.wine.quantity === 1 ? "Remove Last Bottle From Cellar" : "Remove One Bottle From Cellar",
-                        action: () => props.removeBottleFromCellar(props.wine.id),
-                        className: 'remove-bottle-from-cellar'
-                    },
-                    {
-                        label: "Edit Record",
-                        className: "edit-record",
-                        component: (otherProps: any) => <Link to={`/wine-record/${props.wine.id}`} {...otherProps}/>
-                    }
-                ]
-            }/>
+            <ActionMenu id={props.wine.id}
+                        removeLabel={props.wine.quantity === 1 ? "Remove Last Bottle From Cellar" : "Remove One Bottle From Cellar"}/>
         </LeftPanel>
     </StyledWineCard>
 ;

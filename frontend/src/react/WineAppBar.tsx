@@ -16,9 +16,6 @@ padding: .5rem 1rem;
 `
 
 export const whiteInputs = createMuiTheme({
-    typography: {
-        useNextVariants: true,
-    },
     palette: {
         primary: {
             light: "#fff",

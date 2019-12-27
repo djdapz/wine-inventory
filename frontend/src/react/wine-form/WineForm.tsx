@@ -84,7 +84,9 @@ export class WineForm extends React.Component<WineFormProps, { request: WineRequ
                 onChange={this.updateQuantity}/>
 
             <Padding>
-                <Dropdown label={"Bottle Size"}
+                <Dropdown
+                        cy={'bottle-size'}
+                        label={"Bottle Size"}
                           identifier={"bottle-size"}
                           onChange={this.updateBottleSize}
                           options={[375, 750, 1500, 3000, 6000]}

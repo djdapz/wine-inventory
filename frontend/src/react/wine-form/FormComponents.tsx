@@ -70,7 +70,7 @@ export const MultiDropDown = <T extends any>(props: {
     <Select native
             data-cy={props.label}
             value={props.value}
-            onChange={(event) => props.onChange(event.target.value)}
+            onChange={(event) => props.onChange(event.target.value as string)}
             input={<OutlinedInput labelWidth={"country".length * 8}
                                   name="country"
                                   id="country-dropdown"/>}>
@@ -97,6 +97,7 @@ const FormControllFullWitdh = styled(FormControl)`
 `
 export const Dropdown = <T extends any>(
     props: {
+        cy: string,
         label: string,
         identifier: string,
         onChange: (val: T) => void,
@@ -113,8 +114,8 @@ export const Dropdown = <T extends any>(
         <InputLabel htmlFor="country-dropdown">{props.label}</InputLabel>
         <Select native
                 value={props.value}
-                data-cy={props.label}
-                onChange={(event) => props.onChange(props.convertFromStringToType(event.target.value))}
+                data-cy={props.cy}
+                onChange={(event) => props.onChange(props.convertFromStringToType(event.target.value as string))}
                 input={<OutlinedInput labelWidth={props.label.length * 8}
                                       name={`${props.identifier}`}
                                       id={`${props.identifier}-dropdown`}/>}>

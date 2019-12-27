@@ -5,9 +5,10 @@ import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from "redux";
 import {fetchCountries} from "../redux/Country.actions";
 import WineAppBar from "./WineAppBar";
-import {BrowserRouter as Router} from "react-router-dom";
 import RouteDeclarations from "./RouteDeclarations"
 import LoginDetection from "../user/LoginDetection";
+import {ConnectedRouter} from 'connected-react-router'
+import {history} from "../index";
 
 const StyledApp = styled.div`
   display: flex;
@@ -22,9 +23,6 @@ const FullPage = styled.div`
   width: 100%;
 `
 const theme = createMuiTheme({
-    typography: {
-        useNextVariants: true,
-    },
     palette: {
         primary: {
             main: "#8e2dfa"
@@ -52,13 +50,13 @@ class App extends React.Component<DispatchProps> {
         return (
             <MuiThemeProvider theme={theme}>
                 <StyledApp className="App">
-                    <Router>
+                    <ConnectedRouter history = {history}>
                         <FullPage>
                             <WineAppBar/>
                             <RouteDeclarations/>
                             <LoginDetection/>
                         </FullPage>
-                    </Router>
+                    </ConnectedRouter>
                 </StyledApp>
             </MuiThemeProvider>
         );

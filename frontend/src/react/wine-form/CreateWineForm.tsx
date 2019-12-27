@@ -2,14 +2,13 @@ import {StoreType} from "../../index";
 import {connect} from "react-redux";
 import {closeCreateWineForm, openCreateWineForm, submitCreateWine} from "../../redux/CreateWine.actions";
 import {isWineRequestReadyToSubmit, WineRequest} from "../../domain/CreateWine.types";
-import {MuiThemeProvider} from "@material-ui/core";
+import {Fab, MuiThemeProvider} from "@material-ui/core";
 import {whiteInputs} from "../WineAppBar";
 import {BottomButton} from "../NewWineButton";
 import * as React from "react";
 import styled from "styled-components";
 import {WineForm, WineFormProps} from "./WineForm";
 import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/es/Button";
 import {Countries} from "../../redux/Country.reducer";
 import Cancel from "@material-ui/icons/Cancel";
 import {ThunkDispatch} from "redux-thunk";
@@ -55,13 +54,12 @@ const CreateWineForm = (props: CreateWineFormProps) =>
                           canBeSubmitted={isWineRequestReadyToSubmit}>
                 </WineForm>
                 <BottomButton>
-                    <Button
+                    <Fab
                         id={"cancel-new-wine"}
-                        variant={'fab'}
                         color={"primary"}
                         onClick={props.closeForm}>
                         <Cancel/>
-                    </Button>
+                    </Fab>
                 </BottomButton>
             </StyledForm>
         </MuiThemeProvider>

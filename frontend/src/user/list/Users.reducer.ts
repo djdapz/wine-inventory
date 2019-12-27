@@ -6,5 +6,5 @@ export const usersReducer = (state: User[] | null = null, action: WineAppActionT
     if (action.type === UsersActionTypes.GET_ALL_USERS_SUCCESS) {
         return action.payload
     }
-    return null;
+    return state;
 }

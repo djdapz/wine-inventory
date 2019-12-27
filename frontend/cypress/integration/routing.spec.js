@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-import { baselineServerSetup } from "./util"
+import { baselineServerSetup } from './util'
 
 context("Routing", () => {
   beforeEach(function () {
@@ -11,9 +11,9 @@ context("Routing", () => {
     beforeEach(function () {
       cy.visit("/whirly-dirly")
     })
-    it("should redirect to home", function () {
+    it("should redirect to login", function () {
       cy.location().should((loc) => {
-        expect(loc.pathname).to.eq("/")
+        expect(loc.pathname).to.eq("/login")
       })
     })
   })

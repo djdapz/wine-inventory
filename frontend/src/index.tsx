@@ -17,10 +17,14 @@ import {usersReducer} from "./user/list/Users.reducer";
 import {User} from "./user/types";
 import thunk from "redux-thunk";
 import {userReducer} from "./user/loggedIn/User.reducer";
+import {ConnectedRouter, connectRouter, routerMiddleware} from 'connected-react-router'
+import {createBrowserHistory} from 'history'
 
+export const history = createBrowserHistory()
 
 const rootReducer = combineReducers(
     {
+        router: connectRouter(history),
         wines: wineReducer,
         showCreateWineForm: showCreateWineFormReducer,
         countries: fetchCountriesReducer,
@@ -31,7 +35,16 @@ const rootReducer = combineReducers(
     }
 );
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, FetchCountriesMiddleware)));
+const store = createStore(
+    rootReducer,
+    composeWithDevTools(
+        applyMiddleware(
+            routerMiddleware(history),
+            thunk,
+            FetchCountriesMiddleware
+        )
+    )
+);
 export type WineStore = typeof store;
 
 
@@ -47,7 +60,9 @@ export interface StoreType {
 
 ReactDOM.render(
     <Provider store={store}>
-        <App/>
+        <ConnectedRouter history={history}>
+            <App/>
+        </ConnectedRouter>
     </Provider>,
     document.getElementById('root') as HTMLElement
 );

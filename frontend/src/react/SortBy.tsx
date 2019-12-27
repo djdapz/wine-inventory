@@ -22,7 +22,7 @@ const SortByWrapper = styled.div`
 
 const SortBy = (props: PassedProps & DispatchProps) =>
     <SortByWrapper>
-        <Dropdown data-cy="sort-by"
+        <Dropdown cy="sort-by"
                   label={"Sort By"}
                   onChange={props.updateSortBy}
                   options={[SortableField.YEAR]}

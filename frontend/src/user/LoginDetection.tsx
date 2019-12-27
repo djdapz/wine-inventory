@@ -1,38 +1,36 @@
-import React from "react";
-import {getAllUsers} from "./list/Users.actions";
-import {Dispatch} from "redux";
-import {connect} from "react-redux";
+import React, {useEffect} from "react";
+import {connect, useDispatch} from "react-redux";
 import {User} from "./types";
-import {Redirect} from "react-router-dom";
+import {goBack, push} from "connected-react-router";
 
 
 interface LoginDetectionProps {
-    getUsers: () => void,
     user: User | null,
 }
 
 const LoginDetection = (props: LoginDetectionProps) => {
-    console.log("props", props)
 
-    if (window.location.pathname === "/login" && props.user) {
-        return <Redirect to={"/"}/>
-    }
+    const dispatch = useDispatch()
 
-    if (window.location.pathname !== "/login" && !props.user) {
-        return <Redirect to={"/login"}/>
-    }
+    useEffect(() => {
+        if (window.location.pathname === "/login" && props.user) {
+            dispatch(goBack())
+        }
 
+        if (window.location.pathname !== "/login" && !props.user) {
+            console.log("Login")
+
+            dispatch(push("/login"))
+        }
+
+    }, [window.location.pathname, props.user])
 
     return <></>
 }
 
 
-const mapActionsToProps = (dispatch: Dispatch) => ({
-    getUsers: () => getAllUsers(dispatch)
-});
-
 const mapStateToProps = (state: any) => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, mapActionsToProps)(LoginDetection)
+export default connect(mapStateToProps)(LoginDetection)

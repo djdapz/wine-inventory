@@ -7,7 +7,7 @@ function removeBottleOfWineFromFirstCard () {
   cy.get('.remove-bottle-from-cellar').first().click()
 }
 
-context('Wine List', () => {
+describe('Wine List', () => {
   beforeEach(() => {
     baselineServerSetup()
 
@@ -34,7 +34,7 @@ context('Wine List', () => {
     })
   })
 
-  context('When i hit the login page', () => {
+  describe('When i hit the login page', () => {
 
     it('should ask which user i want to be', function () {
       cy.contains('Who are you?')
@@ -42,11 +42,10 @@ context('Wine List', () => {
       cy.contains('Billy Bob')
     })
 
-    context('When i login', () => {
+    describe('When i login', () => {
 
       beforeEach(function () {
         cy.contains('Billy Bob').click()
-
       })
 
       it('should be on the wine list page', function () {
@@ -61,7 +60,7 @@ context('Wine List', () => {
         })
       })
 
-      context('When I\'m on the wine page', () => {
+      describe('When I\'m on the wine page', () => {
 
         beforeEach(function () {
           cy.wait("@getWines")
@@ -126,7 +125,7 @@ context('Wine List', () => {
             expect(record[1].querySelector('[data-cy=year]').innerText).to.eq('2012')
           })
 
-          cy.get('#sort-by-dropdown').select('YEAR')
+          cy.get('[data-cy=sort-by] select').select('YEAR')
 
           cy.get('[data-cy=wine-card]').should(record => {
             expect(record[0].querySelector('[data-cy=year]').innerText).to.eq('2012')
@@ -176,7 +175,7 @@ context('Wine List', () => {
               cy.get('#create-wine-form .year-input input').type('2014')
             })
 
-            it.only('should allow user to fill out form', () => {
+            it('should allow user to fill out form', () => {
               cy.get('#create-wine-form .submit-button').click()
 
               cy.wait('@postWines').should((xhr) => {

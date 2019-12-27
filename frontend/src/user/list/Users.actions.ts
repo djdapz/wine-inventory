@@ -25,11 +25,10 @@ interface UsersResponse {
     users: User[]
 }
 
-export const getAllUsers = (dispatch: Dispatch) => {
-        return axios.get(`${backendUri}/users`)
-            .then(response => response.data)
-            .then((data: UsersResponse) => data.users)
-            .then(users => dispatch(getUsersSuccess(users)))
-            .catch(() => dispatch(getUsersFailure()));
-    }
+export const getAllUsers = () => (dispatch: Dispatch) =>
+    axios.get(`${backendUri}/users`)
+        .then(response => response.data)
+        .then((data: UsersResponse) => data.users)
+        .then(users => dispatch(getUsersSuccess(users)))
+        .catch(() => dispatch(getUsersFailure()))
 ;

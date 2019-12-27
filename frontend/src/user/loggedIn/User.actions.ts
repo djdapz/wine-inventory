@@ -7,10 +7,8 @@ export enum LoginActionTypesEnum {
 
 export type LoginActionTypes = ActionWithPayload<LoginActionTypesEnum.LOGIN, User>
 
-export const login = (user: User): LoginActionTypes => {
-    console.log("login action")
-    return ({
+export const login = (user: User): LoginActionTypes =>
+    ({
         type: LoginActionTypesEnum.LOGIN,
         payload: user
     });
-};

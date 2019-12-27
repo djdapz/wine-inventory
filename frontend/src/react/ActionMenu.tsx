@@ -1,15 +1,11 @@
 import * as React from "react";
-import MenuItem, {MenuItemProps} from "@material-ui/core/MenuItem";
+import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import styled from "styled-components";
-
-interface ActionButton {
-    label: string,
-    action?: () => void,
-    className: string,
-    component?: React.ElementType<MenuItemProps>
-}
+import {useDispatch} from "react-redux";
+import {removeBottleFromCellar} from "../redux/Cellar.actions";
+import {push} from 'connected-react-router'
 
 const StyledDotDot = styled.svg`
   width: 1.5rem;
@@ -17,58 +13,52 @@ const StyledDotDot = styled.svg`
   fill: grey
 `;
 
-export class ActionMenu extends React.Component<{ actions: ActionButton[] }, { anchorEl: HTMLElement | null }> {
+interface ActionMenuProps{ id: number, removeLabel: string}
 
-    state = {
-        anchorEl: null,
-    };
+export const ActionMenu = ({id, removeLabel} : ActionMenuProps) => {
+    const [anchorEl, setAnchorEl] = React.useState<HTMLElement|null>(null)
 
-    handleClick = (event: any) => {
-        this.setState({anchorEl: event.currentTarget});
-    };
+    const handleClick = (event: any) => setAnchorEl(event.currentTarget);
+    const handleClose = () => setAnchorEl(null);
 
-    handleClose = () => {
-        this.setState({anchorEl: null});
-    };
+    const dispatch = useDispatch()
 
-    render() {
-        const {anchorEl} = this.state;
-
-        let actions = this.props.actions.map(action =>
-            <MenuItem key={action.label}
-                      className={action.className}
-                      component={action.component}
+    return  <div className={"dot-dot-dot-menu"}>
+        <IconButton
+            aria-label="More"
+            aria-owns={'long-menu'}
+            aria-haspopup="true"
+            onClick={handleClick}
+        >
+            <StyledDotDot
+                focusable="false"
+                viewBox="0 0 24 24"
+                role="presentation">
+                <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+            </StyledDotDot>
+        </IconButton>
+        <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+        >
+            <MenuItem key={`remove-${id}`}
+                      className={"remove-bottle-from-cellar"}
                       onClick={() => {
-                          if (action.action) action.action()
-                          this.handleClose()
+                          removeBottleFromCellar(dispatch, id)
+                          handleClose()
                       }}>
-                {action.label}
-            </MenuItem>);
-
-        return <div className={"dot-dot-dot-menu"}>
-            <IconButton
-                aria-label="More"
-                aria-owns={'long-menu'}
-                aria-haspopup="true"
-                onClick={this.handleClick}
-            >
-                <StyledDotDot
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                    role="presentation">
-                    <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-                </StyledDotDot>
-            </IconButton>
-            <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={this.handleClose}
-            >
-                {actions}
-            </Menu>
-        </div>
-    }
-
-
+                {removeLabel}
+            </MenuItem>
+            <MenuItem key={`EDIT-${id}`}
+                      className={'edit-record'}
+                      onClick={() => {
+                          dispatch(push(`/wine-record/${id}`))
+                          handleClose()
+                      }}>
+                Edit Record
+            </MenuItem>
+        </Menu>
+    </div>
 }
