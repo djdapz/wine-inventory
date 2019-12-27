@@ -17,7 +17,7 @@ import {usersReducer} from "./user/list/Users.reducer";
 import {User} from "./user/types";
 import thunk from "redux-thunk";
 import {userReducer} from "./user/loggedIn/User.reducer";
-import {ConnectedRouter, connectRouter, routerMiddleware} from 'connected-react-router'
+import {ConnectedRouter, connectRouter, routerMiddleware, RouterState} from 'connected-react-router'
 import {createBrowserHistory} from 'history'
 
 export const history = createBrowserHistory()
@@ -49,6 +49,7 @@ export type WineStore = typeof store;
 
 
 export interface StoreType {
+    router: RouterState;
     wines: Wine[] | null;
     showCreateWineForm: boolean;
     countries: Countries;

@@ -1,8 +1,8 @@
 import * as React from 'react';
+import {useEffect} from 'react';
+import {useDispatch} from "react-redux";
 import styled from "styled-components";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
-import {connect} from "react-redux";
-import {bindActionCreators, Dispatch} from "redux";
 import {fetchCountries} from "../redux/Country.actions";
 import WineAppBar from "./WineAppBar";
 import RouteDeclarations from "./RouteDeclarations"
@@ -40,32 +40,25 @@ export interface DispatchProps {
     fetchCountries: () => void
 }
 
-class App extends React.Component<DispatchProps> {
-    constructor(props: DispatchProps,) {
-        super(props);
-        props.fetchCountries()
-    }
+export default () => {
+    const dispatch = useDispatch()
 
-    public render() {
-        return (
-            <MuiThemeProvider theme={theme}>
-                <StyledApp className="App">
-                    <ConnectedRouter history = {history}>
-                        <FullPage>
-                            <WineAppBar/>
-                            <RouteDeclarations/>
-                            <LoginDetection/>
-                        </FullPage>
-                    </ConnectedRouter>
-                </StyledApp>
-            </MuiThemeProvider>
-        );
-    }
+    useEffect(() => {
+        dispatch(fetchCountries())
+    }, [])
+
+    return (
+        <MuiThemeProvider theme={theme}>
+            <StyledApp className="App">
+                <ConnectedRouter history = {history}>
+                    <FullPage>
+                        <WineAppBar/>
+                        <RouteDeclarations/>
+                        <LoginDetection/>
+                    </FullPage>
+                </ConnectedRouter>
+            </StyledApp>
+        </MuiThemeProvider>
+    );
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
-    fetchCountries: fetchCountries
-}, dispatch);
-
-
-export default connect<{}, DispatchProps, {}>(null, mapDispatchToProps)(App);

@@ -1,13 +1,13 @@
 import * as React from 'react';
+import {useEffect} from 'react';
 import styled from "styled-components";
-import {RouteComponentProps} from "react-router";
 import {StoreType} from "../index";
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Wine} from "../domain/Wine.types";
 import UpdateWineForm from "./wine-form/UpdateWineForm";
 import {getAllWine} from "../redux/Wine.actions";
-import {ThunkDispatch} from "redux-thunk";
 import {User} from 'user/types';
+import {RouteComponentProps} from "react-router";
 
 const WinePage = styled.div`
   padding-top: 5.5rem;
@@ -25,55 +25,32 @@ const FormContainer = styled.div`
   flex-direction: column;
 `
 
-interface WineParamPrpos {
-    id: string
-}
+export default (props : RouteComponentProps<{id: string}>) => {
+    const wines = useSelector<StoreType, Wine[] | null>( state => state.wines)
+    const user = useSelector<StoreType, User | null>( state => state.user)
+    const dispatch = useDispatch()
 
-interface WinePageProps {
-    wines: Wine[] | null,
-    user: User | null,
-    getWines: () => void
-}
+    useEffect(() => {
+        if (wines == null ){
+            dispatch(getAllWine())
+        }
+    }, [wines])
 
-const WinePageContent = (props: WineParamPrpos & WinePageProps) => {
-
-    if(!props.user){
-        return <div>Waiting to login</div>
+    if(!user){
+        return <WinePage>Waiting to login</WinePage>
     }
 
-    if (props.wines === null) {
-        props.getWines()
-        return <div data-cy="record-loading">Loading Record...</div>
+    if (wines === null) {
+        return <WinePage data-cy="record-loading">Loading Record...</WinePage>
     }
-    const wine = props.wines.find(it => it.id.toString() === props.id)
+
+    const wine = wines.find(it => it.id.toString() === props.match.params.id)
 
     if (wine === null || wine === undefined) {
-        return <div data-cy="not-found">Record not found, please return to the home page</div>
+        return <WinePage data-cy="not-found">Record not found, please return to the home page</WinePage>
     }
 
     return <FormContainer>
         <UpdateWineForm wine={wine}/>
     </FormContainer>
-
-}
-
-const WinePageUnconnected = (props: RouteComponentProps<WineParamPrpos> & WinePageProps) =>
-    <WinePage data-cy={"wine-page"}>
-        <WinePageContent
-            id={props.match.params.id}
-            wines={props.wines}
-            user={props.user}
-            getWines={props.getWines}/>
-    </WinePage>;
-
-
-const mapStateToProps = (state: StoreType) => ({
-    wines: state.wines,
-    user: state.user
-})
-
-const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, any>) => ({
-    getWines: () => dispatch(getAllWine())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(WinePageUnconnected)
+};

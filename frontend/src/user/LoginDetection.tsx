@@ -1,36 +1,25 @@
 import React, {useEffect} from "react";
-import {connect, useDispatch} from "react-redux";
-import {User} from "./types";
+import {useDispatch, useSelector} from "react-redux";
 import {goBack, push} from "connected-react-router";
+import {StoreType} from "../index";
 
 
-interface LoginDetectionProps {
-    user: User | null,
-}
-
-const LoginDetection = (props: LoginDetectionProps) => {
+export default () => {
 
     const dispatch = useDispatch()
+    const pathName = useSelector((state: StoreType) => state.router.location.pathname)
+    const user = useSelector((state: StoreType) => state.user)
 
     useEffect(() => {
-        if (window.location.pathname === "/login" && props.user) {
+        if (pathName === "/login" && user) {
             dispatch(goBack())
         }
 
-        if (window.location.pathname !== "/login" && !props.user) {
-            console.log("Login")
-
+        if (pathName !== "/login" && !user) {
             dispatch(push("/login"))
         }
 
-    }, [window.location.pathname, props.user])
+    }, [pathName, user])
 
     return <></>
 }
-
-
-const mapStateToProps = (state: any) => ({
-    user: state.user
-});
-
-export default connect(mapStateToProps)(LoginDetection)

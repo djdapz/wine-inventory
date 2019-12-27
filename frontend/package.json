@@ -35,7 +35,6 @@
     "@types/react-dom": "^16.9.4",
     "chai": "^4.2.0",
     "cypress": "^3.8.1",
-    "cypress-skip-and-only-ui": "1.2.6",
     "kill-port": "^1.6.0",
     "redux-devtools-extension": "^2.13.8",
     "typescript": "^3.7.4",
