@@ -1,1 +1,4 @@
 TRUNCATE TABLE wines;
+DELETE
+FROM users
+WHERE NOT id = 1;

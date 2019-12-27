@@ -51,4 +51,16 @@ export const baselineServerSetup = () => {
             ]
         }
     }).as('getTop5Countries');
+
+  cy.route({
+    method: 'GET',
+    url: '/users',
+    status: 200,
+    response: {
+      users: [
+        { id: '112233', name: 'JIMMY_JOHN' },
+        { id: '445566', name: 'Billy Bob' }
+      ]
+    }
+  }).as('getUsers')
 }

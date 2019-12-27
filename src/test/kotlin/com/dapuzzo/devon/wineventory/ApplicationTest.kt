@@ -1,5 +1,8 @@
 import com.dapuzzo.devon.wineventory.WinenventoryApplication
+import com.dapuzzo.devon.wineventory.domain.User
 import com.dapuzzo.devon.wineventory.web.CountryController
+import com.dapuzzo.devon.wineventory.web.UsersController
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.restassured.RestAssured.given
@@ -7,9 +10,11 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.skyscreamer.jsonassert.JSONAssert
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.MediaType.APPLICATION_JSON
+import org.springframework.jdbc.core.JdbcOperations
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.jdbc.Sql
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
@@ -25,11 +30,41 @@ class ApplicationTest {
     @LocalServerPort
     lateinit var port: BigInteger
 
+    @Autowired
+    lateinit var objectMapper: ObjectMapper
+
+    @Autowired
+    lateinit var db: JdbcOperations
+
+
     @Test
-    fun shouldFetchWineFromDatabase() {
-        createWine()
+    fun `should give me all users`() {
+        val response: UsersController.UsersResponse = given().port(port.toInt())
+                .`when`()
+                .get("/users")
+                .andReturn()
+                .body
+                .asString()
+                .run(objectMapper::readValue)
+
+        assertThat(response.users).isEqualTo(listOf(User(
+                1,
+                "DEEDEE"
+        )))
+    }
+
+
+    @Test
+    fun shouldFetchWineFromDatabaseForAGivenUser() {
+        db.update("INSERT INTO users values (1234, 'jimm')")
+        db.update("INSERT INTO users values (5432, 'bobb')")
+
+        createWine(userId = "1234")
+        createWine(userId = "5432")
+        createWine(userId = "5432")
 
         val body = given().port(port.toInt())
+                .header("userId", "5432")
                 .`when`()
                 .get("/wine")
                 .andReturn()
@@ -50,6 +85,17 @@ class ApplicationTest {
                           "notes": "Super special wine",
                           "originalWoodenCase": true,
                           "bottleSize": 750
+                        },
+                         {
+                          "type": "Barolo",
+                          "producer": "Lionello Marchesi",
+                          "year": 2009,
+                          "quantity": 10,
+                          "country": "Italy",
+                          "cellarLocation": "floor",
+                          "notes": "Super special wine",
+                          "originalWoodenCase": true,
+                          "bottleSize": 750
                         }
                       ]
                     }
@@ -58,7 +104,7 @@ class ApplicationTest {
     }
 
     @Test
-    fun shouldAddDefaultFieldsWhenProvidedFieldsAreEmptyStrings(){
+    fun shouldAddDefaultFieldsWhenProvidedFieldsAreEmptyStrings() {
         val location = given().port(port.toInt())
                 //language=json
                 .body("""
@@ -74,6 +120,7 @@ class ApplicationTest {
                           "notes": null
                         }
                     """.trimIndent())
+                .header("userId", "1")
                 .contentType(APPLICATION_JSON.toString())
                 .`when`()
                 .post("/wine")
@@ -156,6 +203,7 @@ class ApplicationTest {
                 """.trimIndent())
                 .contentType(APPLICATION_JSON.toString())
                 .`when`()
+                .header("userId", "1")
                 .post("/wine")
                 .then()
                 .statusCode(201)
@@ -173,6 +221,7 @@ class ApplicationTest {
 
         val remainingWine = given().port(port.toInt())
                 .`when`()
+                .header("userId", "1")
                 .get("/wine")
                 .then()
                 .statusCode(200)
@@ -190,6 +239,7 @@ class ApplicationTest {
 
         val body = given().port(port.toInt())
                 .`when`()
+                .header("userId", "1")
                 .get("/wine")
                 .andReturn()
                 .body.print()
@@ -242,6 +292,7 @@ class ApplicationTest {
 
         val updatedBody = given().port(port.toInt())
                 .`when`()
+                .header("userId", "1")
                 .get("/wine")
                 .andReturn()
                 .body.print()
@@ -270,7 +321,7 @@ class ApplicationTest {
                 """.trimIndent(), updatedBody, true)
     }
 
-    private fun createWine(country: String = "Italy") = given().port(port.toInt())
+    private fun createWine(country: String = "Italy", userId: String = "1") = given().port(port.toInt())
             //language=json
             .body("""
                         {
@@ -286,6 +337,7 @@ class ApplicationTest {
                         }
                     """.trimIndent())
             .contentType(APPLICATION_JSON.toString())
+            .header("userId", userId)
             .`when`()
             .post("/wine")
             .then()

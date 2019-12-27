@@ -1,5 +1,4 @@
 import {StoreType} from "../../index";
-import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import {closeCreateWineForm, openCreateWineForm, submitCreateWine} from "../../redux/CreateWine.actions";
 import {isWineRequestReadyToSubmit, WineRequest} from "../../domain/CreateWine.types";
@@ -13,6 +12,7 @@ import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/es/Button";
 import {Countries} from "../../redux/Country.reducer";
 import Cancel from "@material-ui/icons/Cancel";
+import {ThunkDispatch} from "redux-thunk";
 
 const StyledForm = styled.div`
   display: flex;
@@ -73,8 +73,8 @@ const mapStateToProps = (state: StoreType) => ({
     countries: state.countries
 });
 
-const mapActionsToProps = (dispatch: Dispatch) => ({
-    submit: (createWineRequest: WineRequest) => submitCreateWine(dispatch, createWineRequest),
+const mapActionsToProps = (dispatch: ThunkDispatch<any, any ,any>) => ({
+    submit: (createWineRequest: WineRequest) => dispatch(submitCreateWine(createWineRequest)),
     openForm: () => dispatch(openCreateWineForm()),
     closeForm: () => dispatch(closeCreateWineForm())
 });

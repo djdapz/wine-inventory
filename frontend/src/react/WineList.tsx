@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import {connect} from 'react-redux'
-import {Dispatch} from "redux";
 import {getAllWine} from "../redux/Wine.actions";
 
 import styled from "styled-components";
@@ -10,6 +9,7 @@ import {StoreType} from "../index";
 import {removeBottleFromCellar} from "../redux/Cellar.actions";
 import WineCard from "./WineCard";
 import {getSortedVisibleWine} from "../redux/selectors/filteredWine";
+import {ThunkDispatch} from "redux-thunk";
 
 interface WineListDispatchProps {
     getWines: () => void,
@@ -53,8 +53,8 @@ const mapStateToProps = (state: StoreType) => ({
     wines: getSortedVisibleWine(state)
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    getWines: () => getAllWine(dispatch),
+const mapDispatchToProps = (dispatch: ThunkDispatch<any ,any ,any>) => ({
+    getWines: () => dispatch(getAllWine()),
     removeBottleFromCellar: (id: number) => removeBottleFromCellar(dispatch, id),
 });
 

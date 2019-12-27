@@ -2,7 +2,7 @@ version: '3'
 
 services:
   luke-db:
-    image: postgres
+    image: postgres:10
     environment:
       POSTGRES_DB: wine-test
       POSTGRES_PASSWORD: winepwd

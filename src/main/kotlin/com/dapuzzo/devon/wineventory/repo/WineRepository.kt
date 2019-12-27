@@ -92,15 +92,18 @@ class WineRepository(jdbcTemplate: JdbcTemplate) : WineWriter, WineReader {
                 ))
     }
 
-    override fun getAll(): List<Wine> =
+    override fun getAll(userId: Int): List<Wine> =
             db.query(
                     //language=sql
                     """
                 SELECT * FROM wines
                 LEFT JOIN country on wines.country_code = country.country_code
-            """.trimIndent(), ::mapSqlRowToWine)
+                WHERE user_id = :userId
+            """.trimIndent(), MapSqlParameterSource(mapOf(
+                    "userId" to userId
+            )), ::mapSqlRowToWine)
 
-    override fun save(newWine: NewWine): Int =
+    override fun save(userId: Int, newWine: NewWine): Int =
             GeneratedKeyHolder().run {
                 db.update(
 //                        language=sql
@@ -113,7 +116,9 @@ INSERT INTO wines(type,
                   original_wooden_case,
                   bottle_size,
                   notes,
-                  country_code)
+                   user_id,
+                  country_code
+                 )
 VALUES (:type,
         :producer,
         :year,
@@ -122,6 +127,7 @@ VALUES (:type,
         :original_wooden_case,
         :bottle_size,
         :notes,
+        :user_id,
         (SELECT country_code from country WHERE country_name LIKE :country))
             """.trimIndent(),
                         MapSqlParameterSource(
@@ -134,6 +140,7 @@ VALUES (:type,
                                         "cellar_location" to newWine.cellarLocation,
                                         "original_wooden_case" to newWine.originalWoodenCase,
                                         "bottle_size" to newWine.bottleSize,
+                                        "user_id" to userId,
                                         "notes" to newWine.notes
                                 )
                         ), this)

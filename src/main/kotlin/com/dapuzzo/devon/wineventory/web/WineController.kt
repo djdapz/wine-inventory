@@ -31,8 +31,12 @@ class WineController(
 
     @PostMapping("/wine")
     @ResponseStatus(HttpStatus.CREATED)
-    fun createWine(@RequestBody request: WineRequest): ResponseEntity<Unit> {
-        return wineWriter.save(
+    fun createWine(
+            @RequestBody request: WineRequest,
+            @RequestHeader("userId") userId: Int
+    ): ResponseEntity<Unit> {
+        val id: Int = wineWriter.save(
+                userId,
                 NewWine(
                         type = request.type,
                         producer = request.producer,
@@ -44,11 +48,13 @@ class WineController(
                         bottleSize = request.bottleSize,
                         notes = request.notes
                 )
-        ).run { ResponseEntity.created(URI("/wine/$this")).build() }
+        )
+
+        return ResponseEntity.created(URI("/wine/$id")).build()
     }
 
     @GetMapping("/wine")
-    fun getWine() = WineResponse(wineReader.getAll())
+    fun getWine(@RequestHeader("userId") userId: Int) = WineResponse(wineReader.getAll(userId))
 
     @GetMapping("/wine/{id}")
     fun getWineById(@PathVariable id: Int) = wineReader.getWineById(id)

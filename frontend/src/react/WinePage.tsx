@@ -6,7 +6,8 @@ import {connect} from "react-redux";
 import {Wine} from "../domain/Wine.types";
 import UpdateWineForm from "./wine-form/UpdateWineForm";
 import {getAllWine} from "../redux/Wine.actions";
-import {Dispatch} from "redux";
+import {ThunkDispatch} from "redux-thunk";
+import {User} from 'user/types';
 
 const WinePage = styled.div`
   padding-top: 5.5rem;
@@ -30,10 +31,15 @@ interface WineParamPrpos {
 
 interface WinePageProps {
     wines: Wine[] | null,
+    user: User | null,
     getWines: () => void
 }
 
 const WinePageContent = (props: WineParamPrpos & WinePageProps) => {
+
+    if(!props.user){
+        return <div>Waiting to login</div>
+    }
 
     if (props.wines === null) {
         props.getWines()
@@ -56,16 +62,18 @@ const WinePageUnconnected = (props: RouteComponentProps<WineParamPrpos> & WinePa
         <WinePageContent
             id={props.match.params.id}
             wines={props.wines}
+            user={props.user}
             getWines={props.getWines}/>
     </WinePage>;
 
 
 const mapStateToProps = (state: StoreType) => ({
-    wines: state.wines
+    wines: state.wines,
+    user: state.user
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    getWines: () => getAllWine(dispatch)
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, any>) => ({
+    getWines: () => dispatch(getAllWine())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WinePageUnconnected)

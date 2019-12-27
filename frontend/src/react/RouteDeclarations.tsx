@@ -2,13 +2,16 @@ import WinePage from "./WinePage";
 import * as React from 'react';
 import WineListPage from "./WineListPage";
 import {Redirect, Route, Switch} from "react-router";
+import LoginPage from "../user/LoginPage";
 
 export default () =>
     <Switch>
         <Route exact
                path="/"
                component={WineListPage}/>
+        <Route path={"/login"}
+               component={LoginPage}/>
         <Route path="/wine-record/:id"
                component={WinePage}/>
-        <Redirect to="/" />
+        <Redirect to="/"/>
     </Switch>

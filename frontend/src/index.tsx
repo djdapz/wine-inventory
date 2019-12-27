@@ -13,6 +13,10 @@ import {searchReducer} from "./redux/Filter.reducer";
 import {sortByReducer} from "./redux/SortBy.reducers";
 import {SortableField} from "./redux/SortBy.actions";
 import {Wine} from "./domain/Wine.types";
+import {usersReducer} from "./user/list/Users.reducer";
+import {User} from "./user/types";
+import thunk from "redux-thunk";
+import {userReducer} from "./user/loggedIn/User.reducer";
 
 
 const rootReducer = combineReducers(
@@ -21,19 +25,24 @@ const rootReducer = combineReducers(
         showCreateWineForm: showCreateWineFormReducer,
         countries: fetchCountriesReducer,
         searchQuery: searchReducer,
-        sortBy: sortByReducer
+        sortBy: sortByReducer,
+        users: usersReducer,
+        user: userReducer,
     }
 );
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(FetchCountriesMiddleware)));
-// export type StoreType = StateType<typeof rootReducer>
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, FetchCountriesMiddleware)));
+export type WineStore = typeof store;
 
-export interface StoreType  {
+
+export interface StoreType {
     wines: Wine[] | null;
     showCreateWineForm: boolean;
     countries: Countries;
     searchQuery: string;
     sortBy: SortableField;
+    users: User[] | null;
+    user: User | null;
 }
 
 ReactDOM.render(

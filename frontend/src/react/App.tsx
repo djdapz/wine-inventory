@@ -1,13 +1,13 @@
 import * as React from 'react';
 import styled from "styled-components";
-import {createMuiTheme} from "@material-ui/core";
-import {MuiThemeProvider} from "@material-ui/core";
+import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
 import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from "redux";
 import {fetchCountries} from "../redux/Country.actions";
 import WineAppBar from "./WineAppBar";
 import {BrowserRouter as Router} from "react-router-dom";
 import RouteDeclarations from "./RouteDeclarations"
+import LoginDetection from "../user/LoginDetection";
 
 const StyledApp = styled.div`
   display: flex;
@@ -56,6 +56,7 @@ class App extends React.Component<DispatchProps> {
                         <FullPage>
                             <WineAppBar/>
                             <RouteDeclarations/>
+                            <LoginDetection/>
                         </FullPage>
                     </Router>
                 </StyledApp>
