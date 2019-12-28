@@ -12,17 +12,19 @@ export interface WineRequest {
     bottleSize?: number
 }
 
-export const isWineRequestReadyToSubmit = (request: WineRequest) =>
-    request.type !== ""
-    && request.type !== undefined
-    && request.producer !== ""
-    && request.producer !== undefined
-    && request.country !== ""
-    && request.country !== undefined
-    && request.quantity !== undefined
-    && request.quantity > 0
-    && request.year !== undefined
-    && request.year > 0;
+export const isWineRequestReadyToSubmit = (request: WineRequest) => {
+    debugger
+    return request.type !== ""
+        && request.type !== undefined
+        && request.producer !== ""
+        && request.producer !== undefined
+        && request.country !== ""
+        && request.country !== undefined
+        && request.quantity !== undefined
+        && request.quantity > 0
+        && request.year !== undefined
+        && request.year > 0;
+};
 
 export const areEquivalent = (wine: Wine, wineRequest: WineRequest) =>
     Object.keys(wineRequest)

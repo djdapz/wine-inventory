@@ -30,7 +30,7 @@ export default () => {
     const submit = (createWineRequest: WineRequest) => dispatch(submitCreateWine(createWineRequest))
     const closeForm = () => dispatch(closeCreateWineForm())
     const showCreateWineForm = useSelector<StoreType, boolean>(state => state.showCreateWineForm)
-    const countries = useSelector<StoreType,Countries>(state => state.countries)
+    const countries = useSelector<StoreType, Countries>(state => state.countries)
 
     return <Drawer
         anchor="right"
@@ -38,12 +38,10 @@ export default () => {
         onClose={() => null}>
         <MuiThemeProvider theme={whiteInputs}>
             <StyledForm id={"create-wine-form"}>
-
                 <WineForm countries={countries}
                           submit={submit}
                           buttonText={"CREATE"}
-                          canBeSubmitted={isWineRequestReadyToSubmit}>
-                </WineForm>
+                          canBeSubmitted={isWineRequestReadyToSubmit}/>
                 <BottomButton>
                     <Fab
                         id={"cancel-new-wine"}

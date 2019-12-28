@@ -12,17 +12,11 @@ import {history} from "../index";
 import "../styles.scss"
 
 const StyledApp = styled.div`
-  display: flex;
   font-family: 'Raleway', sans-serif;
-  background-color: #fafafa;
-  justify-content: center;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 `;
 
-const FullPage = styled.div`
-  width: 100%;
-`
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -37,10 +31,6 @@ const theme = createMuiTheme({
     },
 });
 
-export interface DispatchProps {
-    fetchCountries: () => void
-}
-
 export default () => {
     const dispatch = useDispatch()
 
@@ -52,11 +42,9 @@ export default () => {
         <MuiThemeProvider theme={theme}>
             <StyledApp className="App">
                 <ConnectedRouter history={history}>
-                    <FullPage>
-                        <WineAppBar/>
-                        <RouteDeclarations/>
-                        <LoginDetection/>
-                    </FullPage>
+                    <WineAppBar/>
+                    <RouteDeclarations/>
+                    <LoginDetection/>
                 </ConnectedRouter>
             </StyledApp>
         </MuiThemeProvider>

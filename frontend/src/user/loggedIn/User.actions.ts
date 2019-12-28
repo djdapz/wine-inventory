@@ -7,8 +7,11 @@ export enum LoginActionTypesEnum {
 
 export type LoginActionTypes = ActionWithPayload<LoginActionTypesEnum.LOGIN, User>
 
-export const login = (user: User): LoginActionTypes =>
-    ({
+export const login = (user: User): LoginActionTypes => {
+    window.localStorage.setItem("userName", user.name)
+    window.localStorage.setItem("userId", user.id)
+    return ({
         type: LoginActionTypesEnum.LOGIN,
         payload: user
     });
+};

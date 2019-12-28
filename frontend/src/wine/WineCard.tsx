@@ -3,9 +3,6 @@ import Card from "@material-ui/core/Card";
 import * as React from "react";
 import {Wine} from "./Wine.types";
 import {ActionMenu} from "../list/ActionMenu";
-import {Dispatch} from "redux";
-import {removeBottleFromCellar} from "../list/Cellar.actions";
-import {connect} from "react-redux";
 import {BottleSize} from "./BottleSize";
 
 const StyledWineCard = styled(Card)`
@@ -57,54 +54,42 @@ const WineType = styled.span`
 `
 
 
-interface ReduxActions {
-    removeBottleFromCellar: (id: number) => void
-}
-
-interface Props {
-    wine: Wine
-}
-
 const OriginalWoodenCase = (props: { owc: boolean }) => props.owc ?
     <Badge data-cy="original-wooden-case-indicator">OWC</Badge> : <span/>
 
-const WineCard = (props: ReduxActions & Props) =>
-    <StyledWineCard key={props.wine.year + props.wine.producer + props.wine.type}
+export default ({wine: {bottleSize, cellarLocation, country, id, notes, originalWoodenCase, producer, quantity, type, year}}: {
+    wine: Wine
+}) =>
+    <StyledWineCard key={year + producer + type}
                     data-cy={'wine-card'}>
         <CardSection>
             <div>
                 <ProducerHeading data-cy={'producer'}>
-                    {props.wine.producer}
+                    {producer}
                 </ProducerHeading>
             </div>
             <div>
-                <Year data-cy={'year'}>{props.wine.year}</Year>
-                <WineType data-cy={'type'}>{props.wine.type}</WineType>
+                <Year data-cy={'year'}>{year}</Year>
+                <WineType data-cy={'type'}>{type}</WineType>
             </div>
             <Country data-cy={'country'}>
-                {props.wine.country}
+                {country}
             </Country>
 
             <div>
-                <span data-cy="bottle-size">{new BottleSize(props.wine.bottleSize).display}</span>
-                <OriginalWoodenCase owc={props.wine.originalWoodenCase}/>
+                <span data-cy="bottle-size">{new BottleSize(bottleSize).display}</span>
+                <OriginalWoodenCase owc={originalWoodenCase}/>
             </div>
-            <div data-cy="notes">{props.wine.notes}</div>
+            <div data-cy="notes">{notes}</div>
         </CardSection>
         <LeftPanel>
             <CardSection>
-                <div data-cy={'quantity'}><b>{props.wine.quantity}</b> left</div>
-                {props.wine.cellarLocation ?
-                    <div data-cy={'cellar-location'}>Cellar Location: {props.wine.cellarLocation}</div> : ""}
+                <div data-cy={'quantity'}><b>{quantity}</b> left</div>
+                {cellarLocation ?
+                    <div data-cy={'cellar-location'}>Cellar Location: {cellarLocation}</div> : ""}
             </CardSection>
-            <ActionMenu id={props.wine.id}
-                        removeLabel={props.wine.quantity === 1 ? "Remove Last Bottle From Cellar" : "Remove One Bottle From Cellar"}/>
+            <ActionMenu id={id}
+                        removeLabel={quantity === 1 ? "Remove Last Bottle From Cellar" : "Remove One Bottle From Cellar"}/>
         </LeftPanel>
     </StyledWineCard>
 ;
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    removeBottleFromCellar: (id: number) => removeBottleFromCellar(dispatch, id),
-});
-
-export default connect<{}, ReduxActions, Props>(null, mapDispatchToProps)(WineCard)

@@ -25,18 +25,18 @@ const FormContainer = styled.div`
   flex-direction: column;
 `
 
-export default (props : RouteComponentProps<{id: string}>) => {
-    const wines = useSelector<StoreType, Wine[] | null>( state => state.wines)
-    const user = useSelector<StoreType, User | null>( state => state.user)
+export default (props: RouteComponentProps<{ id: string }>) => {
+    const wines = useSelector<StoreType, Wine[] | null>(state => state.wines)
+    const user = useSelector<StoreType, User | null>(state => state.user)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (wines == null ){
+        if (wines == null && user) {
             dispatch(getAllWine())
         }
-    }, [wines, dispatch])
+    }, [wines, dispatch, user])
 
-    if(!user){
+    if (!user) {
         return <WinePage>Waiting to login</WinePage>
     }
 
@@ -46,7 +46,7 @@ export default (props : RouteComponentProps<{id: string}>) => {
 
     const wine = wines.find(it => it.id.toString() === props.match.params.id)
 
-    if (wine === null || wine === undefined) {
+    if (!wine) {
         return <WinePage data-cy="not-found">Record not found, please return to the home page</WinePage>
     }
 

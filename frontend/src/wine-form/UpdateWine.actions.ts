@@ -9,7 +9,7 @@ export enum UpdateWineRequestActions {
     updateWineFailed = "updateWineFailed",
 }
 
-export const submitUpdateWine = (dispatch: ThunkDispatch<any, any, any>) => (id: number) => (updateWineRequest: WineRequest) => {
+export const submitUpdateWine = (id: number) => (updateWineRequest: WineRequest) => (dispatch: ThunkDispatch<any, any, any>) => {
     axios.put(`${backendUri}/wine/${id}`, updateWineRequest)
         .then(() => dispatch(updateWineSucceded()), () => dispatch(updateWineFailed()))
         .then(() => dispatch(getAllWine()))

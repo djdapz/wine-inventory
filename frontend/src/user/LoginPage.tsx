@@ -28,7 +28,8 @@ export default (props: LoginPageProps) => {
                 <li className={"user-selection"}
                     key={it.id}
                 >
-                    <button onClick={() => dispatch(login(it))}>{it.name}</button>
+                    <button className={'primary'}
+                            onClick={() => dispatch(login(it))}>{it.name}</button>
                 </li>)}
         </ul>}
     </div>

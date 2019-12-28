@@ -23,7 +23,7 @@ export const whiteInputs = createMuiTheme({
 
 export default () =>
     <MuiThemeProvider theme={whiteInputs}>
-        <header id={"app-bar"}>
+        <header id={"app-bar"} className={'drop-shadow'}>
             <div className={"content"}>
                 <AppBarRouter/>
             </div>
