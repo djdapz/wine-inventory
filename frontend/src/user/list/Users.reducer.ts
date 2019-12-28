@@ -1,5 +1,5 @@
 import {User} from "../types";
-import {WineAppActionTypes} from "../../redux/ReduxTypes";
+import {WineAppActionTypes} from "../../main/ReduxTypes";
 import {UsersActionTypes} from "./Users.actions";
 
 export const usersReducer = (state: User[] | null = null, action: WineAppActionTypes): User[] | null => {

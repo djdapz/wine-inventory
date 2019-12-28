@@ -1,0 +1,31 @@
+.content {
+  max-width: 60rem;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+ul {
+  list-style-type: none;
+  margin: unset;
+  padding: unset;
+}
+
+button {
+  padding: .5rem 1rem;
+  background: transparent;
+  border-radius: .25rem;
+  border: 2px solid #8e2dfa;
+  color: #8e2dfa;
+  font-size: 1.5rem;
+  cursor: pointer;
+  outline: unset;
+
+  &:hover{
+    background: white;
+  }
+
+  &:active{
+    box-shadow: 3px 2px 7px #0000003b;
+  }
+}

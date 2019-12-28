@@ -19,7 +19,7 @@ export default () => {
             dispatch(push("/login"))
         }
 
-    }, [pathName, user])
+    }, [pathName, user, dispatch])
 
     return <></>
 }

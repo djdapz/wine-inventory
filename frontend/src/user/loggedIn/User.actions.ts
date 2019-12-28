@@ -1,4 +1,4 @@
-import {ActionWithPayload} from "../../redux/ReduxTypes";
+import {ActionWithPayload} from "../../main/ReduxTypes";
 import {User} from "../types";
 
 export enum LoginActionTypesEnum {

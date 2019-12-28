@@ -2,7 +2,7 @@
 
 import { baselineServerSetup } from './util'
 
-context.only('Wine Record Page', () => {
+context('Wine Record Page', () => {
   beforeEach(function () {
     baselineServerSetup()
   })
@@ -67,7 +67,7 @@ context.only('Wine Record Page', () => {
 
     describe('save button behavior', () => {
 
-      it.only('should have the button disabled if the input has not changed from the original', function () {
+      it('should have the button disabled if the input has not changed from the original', function () {
         cy.get('.submit-button').should('be.disabled')
       })
 

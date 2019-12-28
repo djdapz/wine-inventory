@@ -1,0 +1,17 @@
+#app-bar {
+  padding: 1rem 0 .5rem;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  background-color: #8e2dfa;
+  color: white;
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #wine-list-controls {
+    display: flex;
+  }
+}

@@ -384,7 +384,9 @@ While you can still use `require()` and `module.exports`, we encourage you to us
 
 For example:
 
-### `Button.js`
+### `
+
+Button.js`
 
 ```js
 import React, { Component } from 'react';

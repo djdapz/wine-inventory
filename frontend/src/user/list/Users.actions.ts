@@ -2,7 +2,7 @@ import {Dispatch} from "redux";
 
 import axios from 'axios';
 import {backendUri} from "../../config";
-import {ApiAction} from "../../redux/ReduxTypes";
+import {ApiAction} from "../../main/ReduxTypes";
 import {User} from "../types";
 
 export enum UsersActionTypes {
