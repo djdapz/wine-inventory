@@ -11,13 +11,13 @@ describe("Country Reducer", () => {
 
     it("should add top  5 to the top 5 block", () => {
         const actual = fetchCountriesReducer(empty, top5CountriesFetched(countries));
-        expect(actual.all).to.eql([]);
-        expect(actual.top5).to.eql(countries)
+        expect(actual.all).toEqual([]);
+        expect(actual.top5).toEqual(countries)
     });
 
     it("should add list of all to the all block", () => {
         const actual = fetchCountriesReducer(empty, allCountriesFetched(countries));
-        expect(actual.top5).to.eql([]);
-        expect(actual.all).to.eql(countries)
+        expect(actual.top5).toEqual([]);
+        expect(actual.all).toEqual(countries)
     })
 });
