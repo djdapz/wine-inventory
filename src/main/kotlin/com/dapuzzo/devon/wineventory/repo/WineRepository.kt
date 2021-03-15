@@ -92,7 +92,7 @@ class WineRepository(jdbcTemplate: JdbcTemplate) : WineWriter, WineReader {
                 ))
     }
 
-    override fun getAll(userId: Int): List<Wine> =
+    override fun getAll(userId: String): List<Wine> =
             db.query(
                     //language=sql
                     """
@@ -103,7 +103,7 @@ class WineRepository(jdbcTemplate: JdbcTemplate) : WineWriter, WineReader {
                     "userId" to userId
             )), ::mapSqlRowToWine)
 
-    override fun save(userId: Int, newWine: NewWine): Int =
+    override fun save(userId: String, newWine: NewWine): Int =
             GeneratedKeyHolder().run {
                 db.update(
 //                        language=sql

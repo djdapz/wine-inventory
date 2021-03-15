@@ -33,7 +33,7 @@ class WineController(
     @ResponseStatus(HttpStatus.CREATED)
     fun createWine(
             @RequestBody request: WineRequest,
-            @RequestHeader("userId") userId: Int
+            @RequestHeader("userId") userId: String
     ): ResponseEntity<Unit> {
         val id: Int = wineWriter.save(
                 userId,
@@ -54,7 +54,7 @@ class WineController(
     }
 
     @GetMapping("/wine")
-    fun getWine(@RequestHeader("userId") userId: Int) = WineResponse(wineReader.getAll(userId))
+    fun getWine(@RequestHeader("userId") userId: String) = WineResponse(wineReader.getAll(userId))
 
     @GetMapping("/wine/{id}")
     fun getWineById(@PathVariable id: Int) = wineReader.getWineById(id)

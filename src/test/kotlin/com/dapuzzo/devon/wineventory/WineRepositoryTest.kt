@@ -5,7 +5,6 @@ import com.dapuzzo.devon.wineventory.domain.Wine
 import com.dapuzzo.devon.wineventory.repo.WineRepository
 import com.github.javafaker.Faker
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,27 +21,28 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = ["classpath:cleanup.sql"])
 class WineRepositoryTest {
     val faker = Faker()
-    val userId = 11234
+    val userId = "35fa3664-821f-44d5-8afd-857f4af055f0"
+    val userId2 = "76ac5176-e8d0-4fa2-a58b-7d4c2e53e545"
 
     @Autowired
     lateinit var jdbcTemplate: JdbcTemplate
 
     @Before
     fun setUp() {
-        jdbcTemplate.update("INSERT INTO users(id, name) values(11234, 'Joe Joe')")
-        jdbcTemplate.update("INSERT INTO users(id, name) values(23123, 'Nowhere Man')")
+        jdbcTemplate.update("INSERT INTO users(id, name) values('35fa3664-821f-44d5-8afd-857f4af055f0', 'Joe Joe')")
+        jdbcTemplate.update("INSERT INTO users(id, name) values('76ac5176-e8d0-4fa2-a58b-7d4c2e53e545','Nowhere Man')")
     }
 
 
     @Test
     fun `should only get wine for a given user`() {
         val subject = WineRepository(jdbcTemplate)
-        subject.save(11234, randomNewWine())
-        subject.save(11234, randomNewWine())
-        subject.save(11234, randomNewWine())
-        subject.save(23123, randomNewWine())
+        subject.save(userId, randomNewWine())
+        subject.save(userId, randomNewWine())
+        subject.save(userId, randomNewWine())
+        subject.save(userId2, randomNewWine())
 
-        val wines = subject.getAll(23123)
+        val wines = subject.getAll(userId2)
 
         assertThat(wines).hasSize(1)
     }
@@ -60,7 +60,8 @@ class WineRepositoryTest {
         val cellarLocation = "floor"
         val notes = "this is a good wine"
 
-        val expected = subject.save(userId, NewWine(
+        val expected = subject.save(
+            userId, NewWine(
                 type = type,
                 producer = producer,
                 year = year,
@@ -68,18 +69,19 @@ class WineRepositoryTest {
                 country = country,
                 cellarLocation = cellarLocation,
                 notes = notes
-        )).run {
+            )
+        ).run {
             Wine(
-                    type = type,
-                    producer = producer,
-                    year = year,
-                    quantity = quantity,
-                    country = country,
-                    id = this,
-                    cellarLocation = cellarLocation,
-                    originalWoodenCase = false,
-                    bottleSize = 750,
-                    notes = notes
+                type = type,
+                producer = producer,
+                year = year,
+                quantity = quantity,
+                country = country,
+                id = this,
+                cellarLocation = cellarLocation,
+                originalWoodenCase = false,
+                bottleSize = 750,
+                notes = notes
             )
         }
 
@@ -98,16 +100,16 @@ class WineRepositoryTest {
 
         val expected = subject.save(userId, NewWine(type, producer, year, quantity, country)).run {
             Wine(
-                    type = type,
-                    producer = producer,
-                    year = year,
-                    quantity = quantity,
-                    country = country,
-                    id = this,
-                    cellarLocation = null,
-                    notes = null,
-                    originalWoodenCase = false,
-                    bottleSize = 750
+                type = type,
+                producer = producer,
+                year = year,
+                quantity = quantity,
+                country = country,
+                id = this,
+                cellarLocation = null,
+                notes = null,
+                originalWoodenCase = false,
+                bottleSize = 750
             )
         }
 
@@ -119,14 +121,16 @@ class WineRepositoryTest {
         val subject = WineRepository(jdbcTemplate)
         val firstWine = randomWine()
 
-        val id = subject.save(userId, NewWine(
+        val id = subject.save(
+            userId, NewWine(
                 type = firstWine.type,
                 producer = firstWine.producer,
                 year = firstWine.year,
                 quantity = firstWine.quantity,
                 country = firstWine.country,
                 cellarLocation = firstWine.cellarLocation
-        ))
+            )
+        )
 
         val updatedWine = randomWine(id)
 
@@ -142,14 +146,16 @@ class WineRepositoryTest {
         val subject = WineRepository(jdbcTemplate)
         val firstWine = randomWine()
 
-        val id = subject.save(userId, NewWine(
+        val id = subject.save(
+            userId, NewWine(
                 type = firstWine.type,
                 producer = firstWine.producer,
                 year = firstWine.year,
                 quantity = firstWine.quantity,
                 country = firstWine.country,
                 cellarLocation = firstWine.cellarLocation
-        ))
+            )
+        )
 
         val sizeBeforeDelete = subject.getAll(userId).size
 
@@ -166,14 +172,16 @@ class WineRepositoryTest {
         val subject = WineRepository(jdbcTemplate)
         val firstWine = randomWine()
 
-        val id = subject.save(userId, NewWine(
+        val id = subject.save(
+            userId, NewWine(
                 type = firstWine.type,
                 producer = firstWine.producer,
                 year = firstWine.year,
                 quantity = firstWine.quantity,
                 country = firstWine.country,
                 cellarLocation = firstWine.cellarLocation
-        ))
+            )
+        )
 
         subject.changeQuantityOfBottlesInCellar(id, firstWine.quantity - 1)
         val quantityAfter = subject.getWineById(id).quantity

@@ -39,7 +39,7 @@ class WineControllerTest {
                 .expectStatus().isCreated
 
         verify(wineWriter).save(
-                1123,
+                "1123",
                 NewWine(
                         type = "Barolo",
                         producer = "Lionello Marchesi",
@@ -75,7 +75,7 @@ class WineControllerTest {
                 .expectStatus().isCreated
 
         verify(wineWriter).save(
-                1123,
+                "1123",
                 NewWine(
                         type = "2 buck chuck",
                         producer = "Charles Shaw",
@@ -112,7 +112,7 @@ class WineControllerTest {
                 .expectStatus().isCreated
 
         verify(wineWriter).save(
-                1123,
+                "1123",
                 NewWine(
                         type = "Barolo",
                         producer = "Lionello Marchesi",
@@ -142,7 +142,7 @@ class WineControllerTest {
                 notes = "this wine is cool"
 
         )
-        whenever(wineReader.getAll(2342)).thenReturn(listOf(expectedWine))
+        whenever(wineReader.getAll("2342")).thenReturn(listOf(expectedWine))
 
         val wines: WineController.WineResponse = testClient.get()
                 .uri("/wine")

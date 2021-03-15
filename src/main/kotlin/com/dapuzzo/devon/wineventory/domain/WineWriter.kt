@@ -35,7 +35,7 @@ data class NewWine(
 }
 
 interface WineWriter {
-    fun save(userId: Int, newWine: NewWine): Int
+    fun save(userId: String, newWine: NewWine): Int
     fun changeQuantityOfBottlesInCellar(id: Int, newQuantity: Int)
     fun deleteWine(id: Int)
     fun updateWine(wine: Wine)

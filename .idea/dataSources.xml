@@ -14,19 +14,5 @@
       <jdbc-url>jdbc:postgresql://pellefant.db.elephantsql.com:5432/dtlayhul</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="mtotrulm@raja.db.elephantsql.com" uuid="88f1aaf0-76bb-4be2-882a-631361bd92b6">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://raja.db.elephantsql.com:5432/mtotrulm</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="noanbdqo@babar.elephantsql.com" uuid="f0761a8b-f4ff-4f09-ae1b-c73d18d7a22b">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://babar.elephantsql.com:5432/noanbdqo</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
   </component>
 </project>

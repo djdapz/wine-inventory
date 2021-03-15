@@ -40,17 +40,49 @@ class ApplicationTest {
     @Test
     fun `should give me all users`() {
         val response: UsersController.UsersResponse = given().port(port.toInt())
-                .`when`()
-                .get("/users")
-                .andReturn()
-                .body
-                .asString()
-                .run(objectMapper::readValue)
+            .`when`()
+            .get("/users")
+            .andReturn()
+            .body
+            .asString()
+            .run(objectMapper::readValue)
 
-        assertThat(response.users).isEqualTo(listOf(User(
-                1,
+        assertThat(response.users.map { it.name }).isEqualTo(
+            listOf(
                 "DEEDEE"
-        )))
+            )
+        )
+
+
+        given()
+            .body(
+                """
+                {
+                    "name": "DAD"
+                }
+            """.trimIndent()
+            )
+            .port(port.toInt())
+            .post("/users")
+            .then()
+            .statusCode(201)
+
+        val updated: UsersController.UsersResponse = given().port(port.toInt())
+            .`when`()
+            .get("/users")
+            .andReturn()
+            .body
+            .asString()
+            .run(objectMapper::readValue)
+
+        assertThat(updated.users.map { it.name }).isEqualTo(
+            listOf(
+                "DEEDEE",
+                "DAD"
+            )
+        )
+
+
     }
 
 
@@ -64,15 +96,15 @@ class ApplicationTest {
         createWine(userId = "5432")
 
         val body = given().port(port.toInt())
-                .header("userId", "5432")
-                .`when`()
-                .get("/wine")
-                .andReturn()
-                .body.print()
+            .header("userId", "5432")
+            .`when`()
+            .get("/wine")
+            .andReturn()
+            .body.print()
 
         JSONAssert.assertEquals(
-                //language=json
-                """
+            //language=json
+            """
                     {
                       "wine": [
                          {
@@ -100,14 +132,16 @@ class ApplicationTest {
                       ]
                     }
 
-                """.trimIndent(), body, false)
+                """.trimIndent(), body, false
+        )
     }
 
     @Test
     fun shouldAddDefaultFieldsWhenProvidedFieldsAreEmptyStrings() {
         val location = given().port(port.toInt())
-                //language=json
-                .body("""
+            //language=json
+            .body(
+                """
                         {
                           "type": "2 buck chuck",
                           "producer": "Charles Shaw",
@@ -119,25 +153,26 @@ class ApplicationTest {
                           "originalWoodenCase": null,
                           "notes": null
                         }
-                    """.trimIndent())
-                .header("userId", "1")
-                .contentType(APPLICATION_JSON.toString())
-                .`when`()
-                .post("/wine")
-                .then()
-                .statusCode(201)
-                .and().extract()
-                .header("Location")
+                    """.trimIndent()
+            )
+            .header("userId", "1")
+            .contentType(APPLICATION_JSON.toString())
+            .`when`()
+            .post("/wine")
+            .then()
+            .statusCode(201)
+            .and().extract()
+            .header("Location")
 
         val body = given().port(port.toInt())
-                .`when`()
-                .get(location)
-                .andReturn()
-                .body.print()
+            .`when`()
+            .get(location)
+            .andReturn()
+            .body.print()
 
         JSONAssert.assertEquals(
-                //language=json
-                """
+            //language=json
+            """
                          {
                           "type": "2 buck chuck",
                           "producer": "Charles Shaw",
@@ -148,16 +183,17 @@ class ApplicationTest {
                           "bottleSize": 750,
                           "originalWoodenCase": false
                         }
-                """.trimIndent(), body, false)
+                """.trimIndent(), body, false
+        )
     }
 
     @Test
     fun shouldServeListOfAllCountriesForDropdown() {
 
         val countries = given().port(port.toInt())
-                .get("/country/all")
-                .andReturn()
-                .body.print()
+            .get("/country/all")
+            .andReturn()
+            .body.print()
 
         val list: CountryController.CountryListResponse = jacksonObjectMapper().readValue(countries)
 
@@ -179,9 +215,9 @@ class ApplicationTest {
         createWine("China")
 
         val countries = given().port(port.toInt())
-                .get("/country/top-5")
-                .andReturn()
-                .body.print()
+            .get("/country/top-5")
+            .andReturn()
+            .body.print()
 
         val list: CountryController.CountryListResponse = jacksonObjectMapper().readValue(countries)
 
@@ -191,8 +227,9 @@ class ApplicationTest {
     @Test
     fun `should remove to quantity of wines`() {
         val id = given().port(port.toInt())
-                //language=json
-                .body("""
+            //language=json
+            .body(
+                """
                     {
                       "type": "Barolo",
                       "producer": "Lionello Marchesi",
@@ -200,34 +237,35 @@ class ApplicationTest {
                       "quantity": 10,
                       "country": "Italy"
                     }
-                """.trimIndent())
-                .contentType(APPLICATION_JSON.toString())
-                .`when`()
-                .header("userId", "1")
-                .post("/wine")
-                .then()
-                .statusCode(201)
-                .and().extract()
-                .header("Location")!!.substringAfter("/wine/")
+                """.trimIndent()
+            )
+            .contentType(APPLICATION_JSON.toString())
+            .`when`()
+            .header("userId", "1")
+            .post("/wine")
+            .then()
+            .statusCode(201)
+            .and().extract()
+            .header("Location")!!.substringAfter("/wine/")
 
         given().port(port.toInt())
-                .`when`()
-                .body("""{"id": $id}""")
-                .contentType(APPLICATION_JSON.toString())
-                .post("/wine/remove-bottle-from-cellar")
-                .then()
-                .log().body()
-                .statusCode(200)
+            .`when`()
+            .body("""{"id": $id}""")
+            .contentType(APPLICATION_JSON.toString())
+            .post("/wine/remove-bottle-from-cellar")
+            .then()
+            .log().body()
+            .statusCode(200)
 
         val remainingWine = given().port(port.toInt())
-                .`when`()
-                .header("userId", "1")
-                .get("/wine")
-                .then()
-                .statusCode(200)
-                .extract()
-                .jsonPath()
-                .getInt("wine[0].quantity")
+            .`when`()
+            .header("userId", "1")
+            .get("/wine")
+            .then()
+            .statusCode(200)
+            .extract()
+            .jsonPath()
+            .getInt("wine[0].quantity")
 
         assertThat(remainingWine).isEqualTo(9)
     }
@@ -238,16 +276,16 @@ class ApplicationTest {
         val id = location.removePrefix("/wine/")
 
         val body = given().port(port.toInt())
-                .`when`()
-                .header("userId", "1")
-                .get("/wine")
-                .andReturn()
-                .body.print()
+            .`when`()
+            .header("userId", "1")
+            .get("/wine")
+            .andReturn()
+            .body.print()
 
 
         JSONAssert.assertEquals(
-                //language=json
-                """
+            //language=json
+            """
                     {
                       "wine": [
                          {
@@ -265,12 +303,13 @@ class ApplicationTest {
                       ]
                     }
 
-                """.trimIndent(), body, true)
+                """.trimIndent(), body, true
+        )
 
         given().port(port.toInt())
-                .body(
-                        //language=json
-                        """
+            .body(
+                //language=json
+                """
                         {
                           "type": "A different wine",
                           "producer": "A different producer",
@@ -282,25 +321,26 @@ class ApplicationTest {
                           "originalWoodenCase": false,
                           "notes": "Super ok wine"
                         }
-                    """.trimIndent())
-                .contentType(APPLICATION_JSON.toString())
-                .`when`()
-                .put(location)
-                .then()
-                .statusCode(200)
+                    """.trimIndent()
+            )
+            .contentType(APPLICATION_JSON.toString())
+            .`when`()
+            .put(location)
+            .then()
+            .statusCode(200)
 
 
         val updatedBody = given().port(port.toInt())
-                .`when`()
-                .header("userId", "1")
-                .get("/wine")
-                .andReturn()
-                .body.print()
+            .`when`()
+            .header("userId", "1")
+            .get("/wine")
+            .andReturn()
+            .body.print()
 
 
         JSONAssert.assertEquals(
-                //language=json
-                """
+            //language=json
+            """
                     {
                       "wine": [
                          {
@@ -318,12 +358,14 @@ class ApplicationTest {
                       ]
                     }
 
-                """.trimIndent(), updatedBody, true)
+                """.trimIndent(), updatedBody, true
+        )
     }
 
     private fun createWine(country: String = "Italy", userId: String = "1") = given().port(port.toInt())
-            //language=json
-            .body("""
+        //language=json
+        .body(
+            """
                         {
                           "type": "Barolo",
                           "producer": "Lionello Marchesi",
@@ -335,13 +377,14 @@ class ApplicationTest {
                           "originalWoodenCase": true,
                           "notes": "Super special wine"
                         }
-                    """.trimIndent())
-            .contentType(APPLICATION_JSON.toString())
-            .header("userId", userId)
-            .`when`()
-            .post("/wine")
-            .then()
-            .statusCode(201)
-            .and().extract()
-            .header("Location")
+                    """.trimIndent()
+        )
+        .contentType(APPLICATION_JSON.toString())
+        .header("userId", userId)
+        .`when`()
+        .post("/wine")
+        .then()
+        .statusCode(201)
+        .and().extract()
+        .header("Location")
 }

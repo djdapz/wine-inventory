@@ -11,14 +11,14 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 internal class UsersControllerTest{
     private val getUsers: GetUsers = mock()
-    private val subject = UsersController(getUsers)
+    private val subject = UsersController(getUsers, mock())
     private val testClient = WebTestClient.bindToController(subject).build()
 
     @Before
     fun setUp() {
         whenever(getUsers.get()).thenReturn(listOf(
-                User(12, "jimm"),
-                User(23, "bobb")
+                User("12", "jimm"),
+                User("23", "bobb")
         ))
     }
 
@@ -28,11 +28,11 @@ internal class UsersControllerTest{
             {
                 "users": [
                     {
-                        "id": 12,
+                        "id": "12",
                         "name": "jimm"
                     },
                     {
-                        "id": 23,
+                        "id": "23",
                         "name": "bobb"
                     }
                 ]   
