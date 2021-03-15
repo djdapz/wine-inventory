@@ -5,6 +5,8 @@ build
 frontend-react/cypress/screenshots
 /ci/credentials.yml
 
+src/main/resources/public
+
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml

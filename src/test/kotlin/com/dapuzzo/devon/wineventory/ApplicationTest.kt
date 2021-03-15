@@ -1,4 +1,4 @@
-import com.dapuzzo.devon.wineventory.WinenventoryApplication
+import com.dapuzzo.devon.wineventory.App
 import com.dapuzzo.devon.wineventory.domain.User
 import com.dapuzzo.devon.wineventory.web.CountryController
 import com.dapuzzo.devon.wineventory.web.UsersController
@@ -21,7 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import java.math.BigInteger
 
 
-@SpringBootTest(classes = [WinenventoryApplication::class], webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = [App::class], webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner::class)
 @ActiveProfiles("test")
 @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = ["classpath:cleanup.sql"])

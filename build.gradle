@@ -1,25 +1,29 @@
 buildscript {
 
-    ext.kotlin_version = '1.3.31'
-    ext.spring_boot_version = '2.1.0.RELEASE'
+    ext.kotlin_version = "1.4.21"
+    ext.spring_boot_version = '2.4.3'
 
     repositories {
         mavenCentral()
     }
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
     }
 }
 
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.4.21'
+    id 'org.springframework.boot' version '2.4.1'
+    id "org.jetbrains.kotlin.plugin.allopen" version "1.4.21"
+    id "org.jetbrains.kotlin.plugin.spring" version "1.4.21"
+}
 
 
-apply plugin: 'kotlin'
-apply plugin: 'java'
-apply plugin: "kotlin-spring"
-apply plugin: 'org.springframework.boot'
+//apply plugin: 'kotlin'
+//apply plugin: 'java'
+//apply plugin: "kotlin-spring"
+//apply plugin: 'org.springframework.boot'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -86,3 +90,24 @@ test {
         info.events = ["failed", "skipped"]
     }
 }
+
+task buildFrontend(type: Exec) {
+    workingDir './frontend'
+    commandLine 'npm', 'run', 'build'
+}
+
+task cleanFrontend(type: Exec) {
+    workingDir './src/main/resources'
+    commandLine 'rm', '-rf', 'public'
+}
+
+task copyFrontend(type: Copy) {
+    from "$buildDir/../frontend/build"
+    into "./src/main/resources/public"
+}
+
+copyFrontend.dependsOn buildFrontend
+copyFrontend.dependsOn cleanFrontend
+jar.dependsOn copyFrontend
+
+processResources.shouldRunAfter copyFrontend
