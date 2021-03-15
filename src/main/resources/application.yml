@@ -6,4 +6,4 @@ spring:
   flyway:
     locations: classpath:db/migrations
 server:
-  port: ${PORT}
+  port: 8081
