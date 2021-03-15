@@ -5,6 +5,7 @@ import com.dapuzzo.devon.wineventory.domain.GetUsers
 import com.dapuzzo.devon.wineventory.domain.User
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -18,7 +19,9 @@ class UsersController(
     fun getUsers() = UsersResponse(users = getUsersUsecase.get())
 
     @PostMapping("/users")
-    fun createUser(newUserRequest: NewUserRequest) = createUserUsecase.create(newUserRequest.name)
+    fun createUser(@RequestBody newUserRequest: NewUserRequest) {
+        createUserUsecase.create(newUserRequest.name)
+    }
 
     data class NewUserRequest (val name: String)
 

@@ -1,12 +1,15 @@
 import com.dapuzzo.devon.wineventory.App
 import com.dapuzzo.devon.wineventory.domain.User
+import com.dapuzzo.devon.wineventory.repo.UsersRepository
 import com.dapuzzo.devon.wineventory.web.CountryController
 import com.dapuzzo.devon.wineventory.web.UsersController
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.restassured.RestAssured.given
+import io.restassured.http.ContentType
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.skyscreamer.jsonassert.JSONAssert
@@ -36,6 +39,15 @@ class ApplicationTest {
     @Autowired
     lateinit var db: JdbcOperations
 
+    @Autowired
+    lateinit var users: UsersRepository
+
+    lateinit var userId: String
+
+    @Before
+    fun setUp() {
+        userId = users.get().first().id
+    }
 
     @Test
     fun `should give me all users`() {
@@ -62,10 +74,11 @@ class ApplicationTest {
                 }
             """.trimIndent()
             )
+            .contentType(ContentType.JSON)
             .port(port.toInt())
             .post("/users")
             .then()
-            .statusCode(201)
+            .statusCode(200)
 
         val updated: UsersController.UsersResponse = given().port(port.toInt())
             .`when`()
@@ -88,8 +101,8 @@ class ApplicationTest {
 
     @Test
     fun shouldFetchWineFromDatabaseForAGivenUser() {
-        db.update("INSERT INTO users values (1234, 'jimm')")
-        db.update("INSERT INTO users values (5432, 'bobb')")
+        db.update("INSERT INTO users (id, name) values ('1234', 'jimm')")
+        db.update("INSERT INTO users (id, name) values ('5432', 'bobb')")
 
         createWine(userId = "1234")
         createWine(userId = "5432")
@@ -155,7 +168,7 @@ class ApplicationTest {
                         }
                     """.trimIndent()
             )
-            .header("userId", "1")
+            .header("userId", userId)
             .contentType(APPLICATION_JSON.toString())
             .`when`()
             .post("/wine")
@@ -202,17 +215,17 @@ class ApplicationTest {
 
     @Test
     fun shouldServeListOfTop5CountriesForDropdown() {
-        createWine("Italy")
-        createWine("Italy")
-        createWine("Italy")
-        createWine("France")
-        createWine("France")
-        createWine("United States")
-        createWine("United States")
-        createWine("Spain")
-        createWine("Spain")
-        createWine("China")
-        createWine("China")
+        createWine("Italy", userId)
+        createWine("Italy", userId)
+        createWine("Italy", userId)
+        createWine("France", userId)
+        createWine("France", userId)
+        createWine("United States", userId)
+        createWine("United States", userId)
+        createWine("Spain", userId)
+        createWine("Spain", userId)
+        createWine("China", userId)
+        createWine("China", userId)
 
         val countries = given().port(port.toInt())
             .get("/country/top-5")
@@ -241,7 +254,7 @@ class ApplicationTest {
             )
             .contentType(APPLICATION_JSON.toString())
             .`when`()
-            .header("userId", "1")
+            .header("userId", userId)
             .post("/wine")
             .then()
             .statusCode(201)
@@ -259,7 +272,7 @@ class ApplicationTest {
 
         val remainingWine = given().port(port.toInt())
             .`when`()
-            .header("userId", "1")
+            .header("userId", userId)
             .get("/wine")
             .then()
             .statusCode(200)
@@ -272,12 +285,12 @@ class ApplicationTest {
 
     @Test
     fun shouldCreateAndUpdateWineRecords() {
-        val location = createWine()
+        val location = createWine(userId = userId)
         val id = location.removePrefix("/wine/")
 
         val body = given().port(port.toInt())
             .`when`()
-            .header("userId", "1")
+            .header("userId", userId)
             .get("/wine")
             .andReturn()
             .body.print()
@@ -332,7 +345,7 @@ class ApplicationTest {
 
         val updatedBody = given().port(port.toInt())
             .`when`()
-            .header("userId", "1")
+            .header("userId", userId)
             .get("/wine")
             .andReturn()
             .body.print()
@@ -362,7 +375,7 @@ class ApplicationTest {
         )
     }
 
-    private fun createWine(country: String = "Italy", userId: String = "1") = given().port(port.toInt())
+    private fun createWine(country: String = "Italy", userId: String) = given().port(port.toInt())
         //language=json
         .body(
             """
