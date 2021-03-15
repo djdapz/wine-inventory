@@ -29,3 +29,5 @@ src/main/resources/public
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
+
+frontend/cypress/screenshots
