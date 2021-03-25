@@ -18,11 +18,9 @@ import {User} from "./user/types";
 import thunk from "redux-thunk";
 import {userReducer} from "./user/loggedIn/User.reducer";
 import {ConnectedRouter, connectRouter, routerMiddleware, RouterState} from 'connected-react-router'
-import {createHashHistory} from 'history'
+import {createBrowserHistory} from 'history'
 
-export const history = createHashHistory({
-    hashType: 'slash'
-});
+export const history = createBrowserHistory({});
 
 const rootReducer = combineReducers(
     {
