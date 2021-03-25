@@ -1,0 +1,10 @@
+POST {{url}}/users
+Content-Type: application/json
+
+{
+  "name": "Devon"
+}
+
+###
+
+GET {{url}}/users

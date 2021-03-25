@@ -25,9 +25,15 @@ src/main/resources/public
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+.idea/**/httpRequests
+.idea/modules.xml
+
+
 
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
+
+*private.env.json
 
 frontend/cypress/screenshots

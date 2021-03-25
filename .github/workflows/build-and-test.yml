@@ -54,7 +54,7 @@ jobs:
 #          PORT: 3210
 
       - name: Test and Build
-        run: cd frontend && npm i && npm run test
+        run: cd frontend && CYPRESS_INSTALL_BINARY=0 npm i && npm run test
 
   build-and-deploy:
     needs:
@@ -76,7 +76,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: npm i
+      - name: CYPRESS_INSTALL_BINARY=0 npm i
         run: cd frontend && npm i
 
       - name: Assemble
