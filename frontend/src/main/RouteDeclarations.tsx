@@ -7,11 +7,11 @@ import LoginPage from "../user/LoginPage";
 export default () =>
     <Switch>
         <Route exact
-               path="/list"
+               path="/"
                component={WineListPage}/>
         <Route path={"/login"}
                component={LoginPage}/>
         <Route path="/wine-record/:id"
                component={WinePage}/>
-        <Redirect to="/list"/>
+        <Redirect to="/"/>
     </Switch>
